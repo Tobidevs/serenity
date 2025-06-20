@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Navbar } from "../components/navbar";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -14,15 +14,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <ClerkProvider>
       <SidebarProvider>
-        <body className="flex w-screen h-screen bg-white">
-          <Navbar />
-          <main className="flex border justify-center items-center w-full h-full">
-            {children}
-          </main>
-        </body>
+        <html lang="en">
+          <body className="flex w-screen h-screen bg-[#F0F0FA]">
+            <main className="flex border justify-center items-center w-full h-full">
+              {children}
+            </main>
+          </body>
+        </html>
       </SidebarProvider>
-    </html>
+    </ClerkProvider>
   );
 }

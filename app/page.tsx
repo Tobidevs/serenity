@@ -1,20 +1,16 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { SidebarTrigger } from "../components/ui/sidebar";
+import { SignInButton, SignUpButton } from "@clerk/nextjs";
 
 export default function Home() {
   return (
-    <div className="flex justify-center relative items-center w-full h-full border">
-      <SidebarTrigger className="absolute top-0 left-0 " />
-
+    <div className="flex flex-col gap-3 justify-center relative items-center w-full h-full border">
+      <section className="w-40 h-10 border justify-center absolute top-0 right-0 flex gap-4">
+        <SignInButton/>
+        <SignUpButton />
+      </section>
       <div className="text-4xl w-fit h-fit">Landing Page</div>
-
-      {/* <div className="flex flex-col space-y-3">
-        <Skeleton className="h-[125px] w-[250px] rounded-xl" />
-        <div className="space-y-2">
-          <Skeleton className="h-4 w-[250px]" />
-          <Skeleton className="h-4 w-[200px]" />
-        </div>
-      </div> */}
+      <p className="text-[#505673]">Under Construction</p>
     </div>
   );
 }
