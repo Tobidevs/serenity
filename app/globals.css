@@ -19,8 +19,8 @@ body {
 
 * {
   box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+  /* padding: 0;
+  margin: 0; */
 }
 
 a {
@@ -35,9 +35,9 @@ a {
 }
 
 @theme {
-  --color-grey-400: #505673;
-  --color-grey-600: #414142;
-
+  --color-grey-secondary: #505673;
+  --color-grey-primary: #414142;
+  --background-color-grey-main: #F0F0FA;
 }
 
 @theme inline {

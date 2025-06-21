@@ -17,7 +17,7 @@ export default function RootLayout({
     <ClerkProvider>
       <SidebarProvider>
         <html lang="en">
-          <body className="flex w-screen h-screen bg-[#F0F0FA]">
+          <body className="flex w-screen h-screen bg-grey-main">
             <main className="flex border justify-center items-center w-full h-full">
               {children}
             </main>
