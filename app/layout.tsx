@@ -18,7 +18,7 @@ export default function RootLayout({
       <SidebarProvider>
         <html lang="en">
           <body className="flex w-screen h-screen bg-grey-main">
-            <main className="flex border justify-center items-center w-full h-full">
+            <main className="flex w-full h-full">
               {children}
             </main>
           </body>
