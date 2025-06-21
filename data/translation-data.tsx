@@ -13,7 +13,7 @@ export const translationsData = [
   },
   {
     name: "ESV (English Standard Version)",
-    bg_primary_color: "bg-[#eab308]",
+    bg_primary_color: "bg-[#f7c223]",
     bg_color: "bg-[#fef1a4]",
     text_color: "text-[#534917]",
   },

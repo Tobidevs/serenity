@@ -6,18 +6,21 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "../../components/ui/card";
 import { Button } from "../../components/ui/button";
 import { translationsData } from "../../data/translation-data";
 import { useEffect, useState } from "react";
+import { Progress } from "@/components/ui/progress";
 
 export default function OnboardingPage() {
   // Used for changing question
   const [questionNumber, setQuestionNumber] = useState(1);
   const [selectedTranslation, setSelectedTranslation] = useState("");
   const [isFading, setIsFading] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   const handleUiChange = (option: string) => {
     /// Start fade out
@@ -32,15 +35,23 @@ export default function OnboardingPage() {
       }
       // Start fade in after content loads
       setTimeout(() => {
-        setIsFading(false); 
+        setIsFading(false);
       }, 20);
     }, 500);
   };
 
+  useEffect(() => {
+    const timer = setTimeout(
+      () => setProgress((questionNumber / 3) * 100),
+      500
+    );
+    return () => clearTimeout(timer);
+  }, [questionNumber]);
+
   return (
     <Card className="w-3/6 h-5/8 mx-auto container flex gap-17 flex-col bg-transparent border-none shadow-none">
       <CardHeader>
-        <CardTitle className="text-4xl font-bold text-grey-primary">
+        <CardTitle className="text-4xl font-bold text-grey-primary ">
           Welcome To Serenity!
         </CardTitle>
         <CardDescription className="text-grey-secondary text-lg ">
@@ -57,9 +68,11 @@ export default function OnboardingPage() {
                 isFading ? "opacity-0" : "opacity-100"
               }`}
             >
+              {/* Question */}
               <h2 className="text-xl text-grey-primary font-extrabold">
                 What is your main Bible Translation?
               </h2>
+              {/* Question Content */}
               <div className="flex justify-center gap-3 flex-wrap w-9/10">
                 {translationsData.map((translation, key) => (
                   <button
@@ -76,10 +89,16 @@ export default function OnboardingPage() {
                   </button>
                 ))}
               </div>
+              {/* Navigation */}
               <div className="flex justify-between items-center w-9/10">
-                <p className="text-grey-secondary ">
-                  More translations coming soon...
-                </p>
+                <button
+                  className="pointer-events-none btn rounded-xl opacity-30 flex justify-center items-center p-3 bg-grey-main"
+                  onClick={() => handleUiChange("previous")}
+                >
+                  <ChevronRightIcon className="rotate-180" />
+                  <p className="text-md">Previous</p>
+                </button>
+                <Progress value={progress} className="w-[60%] [&>div]:bg-[#414142]" />
                 <button
                   className="btn rounded-xl flex justify-center items-center p-3 bg-grey-main w-20"
                   onClick={() => handleUiChange("next")}
@@ -99,10 +118,16 @@ export default function OnboardingPage() {
                 isFading ? "opacity-0" : "opacity-100"
               }`}
             >
+              {/* Question */}
               <h2 className="text-xl text-grey-primary font-extrabold">
                 What topic are you most interested in?
               </h2>
-              <div className="flex justify-between w-9/10">
+              {/* Question Content */}
+              <div className="flex justify-center gap-3 flex-wrap w-9/10">
+              
+              </div>
+              {/* Navigation */}
+              <div className="flex justify-between items-center w-9/10">
                 <button
                   className="btn rounded-xl flex justify-center items-center p-3 bg-grey-main"
                   onClick={() => handleUiChange("previous")}
@@ -110,6 +135,7 @@ export default function OnboardingPage() {
                   <ChevronRightIcon className="rotate-180" />
                   <p className="text-md">Previous</p>
                 </button>
+                <Progress value={progress} className="w-[60%] [&>div]:bg-[#414142]" />
                 <button
                   className="btn rounded-xl flex justify-center items-center p-3 bg-grey-main"
                   onClick={() => handleUiChange("next")}
