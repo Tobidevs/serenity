@@ -1,5 +1,11 @@
 "use client";
-import { ChevronRightIcon, Divide } from "lucide-react";
+import {
+  Check,
+  ChevronRightIcon,
+  ChevronsUpDown,
+  Divide,
+  SearchCheck,
+} from "lucide-react";
 import {
   Card,
   CardContent,
@@ -11,7 +17,22 @@ import { Button } from "../../components/ui/button";
 import { translationsData } from "../../data/translation-data";
 import { useEffect, useState } from "react";
 import { Progress } from "@/components/ui/progress";
-import { bibleTopics } from "../../data/bible-data";
+import { bibleBooks, bibleTopics } from "../../data/bible-data";
+import { Input } from "../../components/ui/input";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "../../components/ui/popover";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+} from "../../components/ui/command";
 
 export default function OnboardingPage() {
   // Used for changing question
@@ -20,8 +41,13 @@ export default function OnboardingPage() {
 
   const [selectedTranslation, setSelectedTranslation] = useState("");
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
+  const [studyPlanName, setStudyPlanName] = useState("");
+  const [selectedBooks, setSelectedBooks] = useState<string[]>([]);
+
   const [isFading, setIsFading] = useState(false);
   const [progress, setProgress] = useState(0);
+
+  const [searchModal, setSearchModal] = useState(false);
 
   // Fading effect
   const handleUiChange = (option: string) => {
@@ -38,7 +64,7 @@ export default function OnboardingPage() {
       // Start fade in after content loads
       setTimeout(() => {
         setIsFading(false);
-      }, 20);
+      }, 100);
     }, 500);
   };
 
@@ -51,10 +77,16 @@ export default function OnboardingPage() {
     );
   };
 
+  const handleSelectedBook = (book: string) => {
+    setSelectedBooks((prev) =>
+      prev.includes(book) ? prev.filter((t) => t !== book) : [...prev, book]
+    );
+  };
+
   // Progress Bar UI
   useEffect(() => {
     const timer = setTimeout(
-      () => setProgress((questionNumber / 3) * 100),
+      () => setProgress((questionNumber / 4) * 100),
       500
     );
     return () => clearTimeout(timer);
@@ -72,9 +104,9 @@ export default function OnboardingPage() {
     <>
       {!loading ? (
         <div className="flex w-full h-full justify-center md:items-center ">
-          <Card className="sm:w-full lg:w-3/6 md:justify-center h-fit md:h-5/8 relative flex sm:gap-12 lg:gap-17 flex-col bg-transparent border-none shadow-none">
+          <Card className="w-full lg:w-3/6 md:justify-center h-fit md:h-5/8 relative flex sm:gap-12 lg:gap-17 flex-col bg-transparent border-none shadow-none">
             <CardHeader className="w-full md:absolute md:top-5">
-              <CardTitle className="text-4xl font-bold text-grey-primary ">
+              <CardTitle className="text-4xl font-bold text-grey-primary">
                 Welcome To Serenity!
               </CardTitle>
               <CardDescription className="text-grey-secondary text-lg ">
@@ -183,6 +215,123 @@ export default function OnboardingPage() {
                         className="w-[60%] hidden sm:inline [&>div]:bg-[#414142]"
                       />
                       <button
+                        className={`${
+                          selectedTopics.length === 0 &&
+                          "pointer-events-none opacity-30"
+                        } btn rounded-xl flex justify-center items-center p-3 bg-grey-main w-fit`}
+                        onClick={() => handleUiChange("next")}
+                      >
+                        <p className="text-md">Next</p>
+                        <ChevronRightIcon />
+                      </button>
+                    </div>
+                  </div>
+                )
+              }
+              {
+                // Onboarding Question #3
+                questionNumber === 3 && (
+                  <div
+                    className={`transition-opacity duration-500 flex flex-col gap-4 container${
+                      isFading ? "opacity-0" : "opacity-100"
+                    }`}
+                  >
+                    {/* Question */}
+                    <h2 className="text-xl text-grey-primary font-extrabold">
+                      Create Your Study plan
+                    </h2>
+                    {/* Question Content */}
+                    <div className="flex justify-center gap-6 flex-col ">
+                      <div>
+                        <h3>Name your study plan</h3>
+                        <Input
+                          type="text"
+                          placeholder="Name"
+                          onChange={(e) => setStudyPlanName(e.target.value)}
+                          className="md:w-2/5"
+                        />
+                      </div>
+
+                      <h3>Select books to add to study plan</h3>
+
+                      <button onClick={() => setSearchModal((prev) => !prev)}>
+                        weewe
+                      </button>
+                      {searchModal && (
+                        <div className="fixed inset-0 bg-black/45 flex justify-center pt-10 z-50">
+                          <Command className="h-3/8 w-7/8 md:h-3/8 md:w-5/8 relative bg-grey-main ">
+                            <button
+                              className="btn btn-sm btn-circle btn-ghost absolute right-1 top-1"
+                              onClick={() => setSearchModal((prev) => !prev)}
+                            >
+                              ✕
+                            </button>
+                            <CommandList>
+                              <CommandGroup className="">
+                                <div className="flex flex-wrap w-full overflow-x-auto">
+                                  <div className="w-full text-center font-bold p-3">
+                                    Old Testament
+                                  </div>
+                                  {bibleBooks.slice(0, 39).map((book, key) => (
+                                   
+                                    <button
+                                      className={`${
+                                        selectedBooks.includes(book)
+                                          ? "bg-grey-primary text-white"
+                                          : "bg-grey-main"
+                                      } btn flex justify-center items-center whitespace-nowrap w-29 h-10 p-1 `}
+                                      key={key}
+                                      onClick={() => handleSelectedBook(book)}
+                                    >
+                                      {book}
+                                    </button>
+                                   
+                                  ))}
+                                  <div className="w-full text-center font-bold p-3">
+                                    New Testament
+                                  </div>
+                                  {bibleBooks.slice(39, 66).map((book, key) => (
+                                    <button
+                                      className={`${
+                                        selectedBooks.includes(book)
+                                          ? "bg-grey-primary text-white"
+                                          : "bg-grey-main"
+                                      } btn flex justify-center items-center  whitespace-nowrap w-29 h-10 `}
+                                      key={key}
+                                      onClick={() => handleSelectedBook(book)}
+                                    >
+                                      {book}
+                                    </button>
+                                  ))}
+                                </div>
+                              </CommandGroup>
+                            </CommandList>
+                          </Command>
+                        </div>
+                      )}
+
+                      {studyPlanName && (
+                        <fieldset className="fieldset bg-grey-main border-gray-400 rounded-box w-xs border p-4">
+                          <legend className="fieldset-legend text-lg">
+                            {studyPlanName}
+                          </legend>
+                        </fieldset>
+                      )}
+                    </div>
+                    {/* Navigation */}
+                    <div className="flex justify-between items-center w-9/10">
+                      <button
+                        className="btn rounded-xl flex justify-center items-center p-3 bg-grey-main"
+                        onClick={() => handleUiChange("previous")}
+                      >
+                        <ChevronRightIcon className="rotate-180" />
+                        <p className="text-md">Previous</p>
+                      </button>
+                      <Progress
+                        value={progress}
+                        className="w-[60%] hidden sm:inline [&>div]:bg-[#414142]"
+                      />
+                      <button
                         className="btn rounded-xl flex justify-center items-center p-3 bg-grey-main"
                         onClick={() => handleUiChange("next")}
                       >
@@ -196,9 +345,10 @@ export default function OnboardingPage() {
             </CardContent>
           </Card>
         </div>
-      ) : ( // Page Loading UI
+      ) : (
+        // Page Loading UI
         <div className="flex justify-center items-center h-full w-full">
-          <span className="loading loading-infinity w-2/10 md:w-20" ></span>
+          <span className="loading loading-infinity w-2/10 md:w-20"></span>
         </div>
       )}
     </>
