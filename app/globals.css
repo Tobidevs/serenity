@@ -38,6 +38,8 @@ a {
   --color-grey-secondary: #505673;
   --color-grey-primary: #414142;
   --background-color-grey-main: #F0F0FA;
+  --color-grey-alt: #cfd2e0;
+  --color-grey-alt-dark: #9fa4c2;
 }
 
 @theme inline {
