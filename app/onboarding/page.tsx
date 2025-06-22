@@ -1,11 +1,5 @@
 "use client";
-import {
-  Check,
-  ChevronRightIcon,
-  ChevronsUpDown,
-  Divide,
-  SearchCheck,
-} from "lucide-react";
+import { ChevronRightIcon } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -13,51 +7,30 @@ import {
   CardHeader,
   CardTitle,
 } from "../../components/ui/card";
-import { Button } from "../../components/ui/button";
 import { translationsData } from "../../data/translation-data";
 import { useEffect, useState } from "react";
 import { Progress } from "@/components/ui/progress";
 import { bibleBooks, bibleTopics } from "../../data/bible-data";
 import { Input } from "../../components/ui/input";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "../../components/ui/popover";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-} from "../../components/ui/command";
-import {
   Drawer,
-  DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
 } from "../../components/ui/drawer";
 
 export default function OnboardingPage() {
   // Used for changing question
   const [questionNumber, setQuestionNumber] = useState(1);
+  // Loading UI
   const [loading, setLoading] = useState(true);
-
+  // User Data
   const [selectedTranslation, setSelectedTranslation] = useState("");
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
   const [studyPlanName, setStudyPlanName] = useState("");
   const [selectedBooks, setSelectedBooks] = useState<string[]>([]);
-
+  // UI Effects
   const [isFading, setIsFading] = useState(false);
   const [progress, setProgress] = useState(0);
-
-  const [searchModal, setSearchModal] = useState(false);
 
   // Fading effect
   const handleUiChange = (option: string) => {
@@ -87,6 +60,7 @@ export default function OnboardingPage() {
     );
   };
 
+  // Handle Selected Book
   const handleSelectedBook = (book: string) => {
     setSelectedBooks((prev) =>
       prev.includes(book) ? prev.filter((t) => t !== book) : [...prev, book]
@@ -242,7 +216,7 @@ export default function OnboardingPage() {
                 // Onboarding Question #3
                 questionNumber === 3 && (
                   <div
-                    className={`transition-opacity duration-500 flex flex-col gap-4 container${
+                    className={`transition-opacity duration-500 flex flex-col gap-4 container ${
                       isFading ? "opacity-0" : "opacity-100"
                     }`}
                   >
@@ -251,6 +225,7 @@ export default function OnboardingPage() {
                       Create Your Study plan
                     </h2>
                     {/* Question Content */}
+
                     <div className="flex justify-center gap-6 flex-col ">
                       <div>
                         <h3>Name your study plan</h3>
@@ -319,7 +294,9 @@ export default function OnboardingPage() {
                               {studyPlanName}
                             </legend>
                             <div className="w-full flex">
-                                <h2 className="text-xl font-bold">0/{selectedBooks.length} books</h2>
+                              <h2 className="text-xl font-bold">
+                                0/{selectedBooks.length} books
+                              </h2>
                             </div>
                           </fieldset>
                         </div>
@@ -328,7 +305,7 @@ export default function OnboardingPage() {
                     {/* Navigation */}
                     <div className="flex justify-between items-center w-9/10">
                       <button
-                        className="btn rounded-xl flex justify-center items-center p-3 bg-grey-main"
+                        className="btn rounded-xl flex justify-center items-center p-3 bg-grey-main "
                         onClick={() => handleUiChange("previous")}
                       >
                         <ChevronRightIcon className="rotate-180" />
@@ -339,7 +316,7 @@ export default function OnboardingPage() {
                         className="w-[60%] hidden sm:inline [&>div]:bg-[#414142]"
                       />
                       <button
-                        className="btn rounded-xl flex justify-center items-center p-3 bg-grey-main"
+                        className={`btn rounded-xl flex justify-center items-center p-3 bg-grey-main w-fit`}
                         onClick={() => handleUiChange("next")}
                       >
                         <p className="text-md">Next</p>
