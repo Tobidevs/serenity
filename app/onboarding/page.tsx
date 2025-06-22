@@ -141,7 +141,7 @@ export default function OnboardingPage() {
                       </button>
                       <Progress
                         value={progress}
-                        className="w-[60%] hidden sm:inline [&>div]:bg-[#414142]"
+                        className="w-27 [&>div]:bg-[#414142]"
                       />
                       <button
                         className={`${
@@ -196,7 +196,7 @@ export default function OnboardingPage() {
                       </button>
                       <Progress
                         value={progress}
-                        className="w-[60%] hidden sm:inline [&>div]:bg-[#414142]"
+                        className="w-27 [&>div]:bg-[#414142]"
                       />
                       <button
                         className={`${
@@ -216,7 +216,7 @@ export default function OnboardingPage() {
                 // Onboarding Question #3
                 questionNumber === 3 && (
                   <div
-                    className={`transition-opacity duration-500 flex flex-col gap-4 container ${
+                    className={`transition-opacity duration-500 flex flex-col gap-3 container ${
                       isFading ? "opacity-0" : "opacity-100"
                     }`}
                   >
@@ -227,7 +227,7 @@ export default function OnboardingPage() {
                     {/* Question Content */}
 
                     <div className="flex justify-center gap-6 flex-col ">
-                      <div>
+                      <div className="flex flex-col gap-2">
                         <h3>Name your study plan</h3>
                         <Input
                           type="text"
@@ -239,11 +239,15 @@ export default function OnboardingPage() {
                       <div className="flex justify-center gap-2 flex-col ">
                         <h3>Select books to add to study plan</h3>
                         <Drawer>
-                          <DrawerTrigger asChild>
-                            <button className="btn bg-grey-alt w-full md:w-4/5 rounded-xl md:self-center-safe border-grey-alt">
-                              Select Books
-                            </button>
-                          </DrawerTrigger>
+                          
+                            
+                            <DrawerTrigger asChild>
+                              <button className="btn bg-grey-alt w-full md:w-3/5 rounded-xl md:self-center-safe border-grey-alt">
+                                Select Books
+                              </button>
+                            </DrawerTrigger>
+                            
+                          
                           <DrawerContent className="bg-grey-main">
                             <div className="flex flex-wrap w-full overflow-x-auto pb-6">
                               <div className="w-full text-xl text-center font-bold p-5 ">
@@ -288,17 +292,28 @@ export default function OnboardingPage() {
                       </div>
 
                       {studyPlanName && (
-                        <div className="flex justify-center">
-                          <fieldset className="fieldset bg-grey-main border-gray-400 rounded-box w-xs border p-4">
-                            <legend className="fieldset-legend text-lg">
-                              {studyPlanName}
-                            </legend>
-                            <div className="w-full flex">
-                              <h2 className="text-xl font-bold">
-                                0/{selectedBooks.length} books
-                              </h2>
+                        <div className="flex flex-col items-center justify-center">
+                          <div className="stats shadow w-3/4 md:w-2/5">
+                            <div className="stat">
+                              <div className="stat-title text-lg font-bold w-20 whitespace-nowrap">
+                                {studyPlanName}
+                              </div>
+                              <div className="stat-value text-grey-primary">
+                                0 / {selectedBooks.length}
+                              </div>
+                              <div className="stat-desc font-bold">
+                                Completed
+                              </div>
+                              <div
+                                className="radial-progress stat-figure bg-[#e3e5ee] text-primary"
+                                style={{ "--value": 0 } as React.CSSProperties}
+                                aria-valuenow={0}
+                                role="progressbar"
+                              >
+                                0%
+                              </div>
                             </div>
-                          </fieldset>
+                          </div>
                         </div>
                       )}
                     </div>
@@ -313,19 +328,20 @@ export default function OnboardingPage() {
                       </button>
                       <Progress
                         value={progress}
-                        className="w-[60%] hidden sm:inline [&>div]:bg-[#414142]"
+                        className="w-27 [&>div]:bg-[#414142]"
                       />
                       <button
                         className={`btn rounded-xl flex justify-center items-center p-3 bg-grey-main w-fit`}
                         onClick={() => handleUiChange("next")}
                       >
-                        <p className="text-md">Next</p>
+                        <p className="text-md">{studyPlanName && selectedBooks.length > 0 ? "Next" : "Skip"}</p>
                         <ChevronRightIcon />
                       </button>
                     </div>
                   </div>
                 )
               }
+              
             </CardContent>
           </Card>
         </div>

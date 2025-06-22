@@ -40,6 +40,7 @@ a {
   --background-color-grey-main: #F0F0FA;
   --color-grey-alt: #cfd2e0;
   --color-grey-alt-dark: #9fa4c2;
+  --color-grey-light: #e2e6f5;
 }
 
 @theme inline {
