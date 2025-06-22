@@ -33,6 +33,16 @@ import {
   CommandList,
   CommandSeparator,
 } from "../../components/ui/command";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "../../components/ui/drawer";
 
 export default function OnboardingPage() {
   // Used for changing question
@@ -106,7 +116,7 @@ export default function OnboardingPage() {
         <div className="flex w-full h-full justify-center md:items-center ">
           <Card className="w-full lg:w-3/6 md:justify-center h-fit md:h-5/8 relative flex sm:gap-12 lg:gap-17 flex-col bg-transparent border-none shadow-none">
             <CardHeader className="w-full md:absolute md:top-5">
-              <CardTitle className="text-4xl font-bold text-grey-primary">
+              <CardTitle className="text-4xl font-bold text-grey-primary ">
                 Welcome To Serenity!
               </CardTitle>
               <CardDescription className="text-grey-secondary text-lg ">
@@ -204,7 +214,7 @@ export default function OnboardingPage() {
                     {/* Navigation */}
                     <div className="flex justify-between items-center w-9/10">
                       <button
-                        className="btn rounded-xl flex justify-center items-center p-3 bg-grey-main"
+                        className="btn rounded-xl flex justify-center items-center p-3 bg-grey-main "
                         onClick={() => handleUiChange("previous")}
                       >
                         <ChevronRightIcon className="rotate-180" />
@@ -251,71 +261,68 @@ export default function OnboardingPage() {
                           className="md:w-2/5"
                         />
                       </div>
-
-                      <h3>Select books to add to study plan</h3>
-
-                      <button onClick={() => setSearchModal((prev) => !prev)}>
-                        weewe
-                      </button>
-                      {searchModal && (
-                        <div className="fixed inset-0 bg-black/45 flex justify-center pt-10 z-50">
-                          <Command className="h-3/8 w-7/8 md:h-3/8 md:w-5/8 relative bg-grey-main ">
-                            <button
-                              className="btn btn-sm btn-circle btn-ghost absolute right-1 top-1"
-                              onClick={() => setSearchModal((prev) => !prev)}
-                            >
-                              ✕
+                      <div className="flex justify-center gap-2 flex-col ">
+                        <h3>Select books to add to study plan</h3>
+                        <Drawer>
+                          <DrawerTrigger asChild>
+                            <button className="btn bg-grey-alt w-full md:w-4/5 rounded-xl md:self-center-safe border-grey-alt">
+                              Select Books
                             </button>
-                            <CommandList>
-                              <CommandGroup className="">
-                                <div className="flex flex-wrap w-full overflow-x-auto">
-                                  <div className="w-full text-center font-bold p-3">
-                                    Old Testament
-                                  </div>
-                                  {bibleBooks.slice(0, 39).map((book, key) => (
-                                   
-                                    <button
-                                      className={`${
-                                        selectedBooks.includes(book)
-                                          ? "bg-grey-primary text-white"
-                                          : "bg-grey-main"
-                                      } btn flex justify-center items-center whitespace-nowrap w-29 h-10 p-1 `}
-                                      key={key}
-                                      onClick={() => handleSelectedBook(book)}
-                                    >
-                                      {book}
-                                    </button>
-                                   
-                                  ))}
-                                  <div className="w-full text-center font-bold p-3">
-                                    New Testament
-                                  </div>
-                                  {bibleBooks.slice(39, 66).map((book, key) => (
-                                    <button
-                                      className={`${
-                                        selectedBooks.includes(book)
-                                          ? "bg-grey-primary text-white"
-                                          : "bg-grey-main"
-                                      } btn flex justify-center items-center  whitespace-nowrap w-29 h-10 `}
-                                      key={key}
-                                      onClick={() => handleSelectedBook(book)}
-                                    >
-                                      {book}
-                                    </button>
-                                  ))}
-                                </div>
-                              </CommandGroup>
-                            </CommandList>
-                          </Command>
-                        </div>
-                      )}
+                          </DrawerTrigger>
+                          <DrawerContent className="bg-grey-main">
+                            <div className="flex flex-wrap w-full overflow-x-auto pb-6">
+                              <div className="w-full text-xl text-center font-bold p-5 ">
+                                Old Testament
+                              </div>
+                              <section className="flex flex-wrap gap-2 justify-center">
+                                {bibleBooks.slice(0, 39).map((book, key) => (
+                                  <button
+                                    className={`${
+                                      selectedBooks.includes(book)
+                                        ? "bg-grey-primary text-white "
+                                        : "bg-grey-main border-none"
+                                    } btn flex justify-center items-center rounded-xl whitespace-nowrap w-31 h-10 p-1 `}
+                                    key={key}
+                                    onClick={() => handleSelectedBook(book)}
+                                  >
+                                    {book}
+                                  </button>
+                                ))}
+                              </section>
+                              <div className="w-full text-xl text-center font-bold p-5">
+                                New Testament
+                              </div>
+                              <section className="flex flex-wrap gap-2 justify-center">
+                                {bibleBooks.slice(39, 66).map((book, key) => (
+                                  <button
+                                    className={`${
+                                      selectedBooks.includes(book)
+                                        ? "bg-grey-primary text-white"
+                                        : "bg-grey-main border-none"
+                                    } btn flex justify-center items-center rounded-xl whitespace-nowrap w-29 h-10 `}
+                                    key={key}
+                                    onClick={() => handleSelectedBook(book)}
+                                  >
+                                    {book}
+                                  </button>
+                                ))}
+                              </section>
+                            </div>
+                          </DrawerContent>
+                        </Drawer>
+                      </div>
 
                       {studyPlanName && (
-                        <fieldset className="fieldset bg-grey-main border-gray-400 rounded-box w-xs border p-4">
-                          <legend className="fieldset-legend text-lg">
-                            {studyPlanName}
-                          </legend>
-                        </fieldset>
+                        <div className="flex justify-center">
+                          <fieldset className="fieldset bg-grey-main border-gray-400 rounded-box w-xs border p-4">
+                            <legend className="fieldset-legend text-lg">
+                              {studyPlanName}
+                            </legend>
+                            <div className="w-full flex">
+                                <h2 className="text-xl font-bold">0/{selectedBooks.length} books</h2>
+                            </div>
+                          </fieldset>
+                        </div>
                       )}
                     </div>
                     {/* Navigation */}
