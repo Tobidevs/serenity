@@ -24,7 +24,7 @@ export default function OnboardingPage() {
   // Used for changing question
   const [questionNumber, setQuestionNumber] = useState(1);
   // Loading UI
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   // User Data
   const [selectedTranslation, setSelectedTranslation] = useState("");
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
@@ -80,6 +80,7 @@ export default function OnboardingPage() {
 
   // Page Load UI
   useEffect(() => {
+    setLoading(true)
     const timer = setTimeout(() => {
       setLoading(false);
     }, 1000);
@@ -341,7 +342,7 @@ export default function OnboardingPage() {
                       >
                         <p className="text-md">
                           {studyPlanName && selectedBooks.length > 0
-                            ? "Next"
+                            ? "Finish"
                             : "Skip"}
                         </p>
                         <ChevronRightIcon />
