@@ -17,8 +17,10 @@ import {
   DrawerContent,
   DrawerTrigger,
 } from "../../components/ui/drawer";
+import { useRouter } from "next/navigation";
 
 export default function OnboardingPage() {
+  const router = useRouter();
   // Used for changing question
   const [questionNumber, setQuestionNumber] = useState(1);
   // Loading UI
@@ -47,7 +49,7 @@ export default function OnboardingPage() {
       // Start fade in after content loads
       setTimeout(() => {
         setIsFading(false);
-      }, 100);
+      }, 50);
     }, 500);
   };
 
@@ -83,6 +85,12 @@ export default function OnboardingPage() {
     }, 1000);
     return () => clearTimeout(timer);
   }, []);
+
+  // Submit Onboarding
+  const handleSubmit = async () => {
+    // Redirect after short delay
+    router.push("/dashboard");
+  };
 
   return (
     <>
@@ -170,7 +178,7 @@ export default function OnboardingPage() {
                       What topic are you most interested in?
                     </h2>
                     {/* Question Content */}
-                    <div className="flex justify-center gap-3 flex-wrap mx-auto md:mx-0 w-9/10">
+                    <div className="flex justify-center gap-3 flex-wrap mx-auto md:mx-0 w-full">
                       {bibleTopics.map((topic, key) => (
                         <button
                           className={`btn rounded-xl btn-lg text-grey-secondary ${
@@ -239,15 +247,12 @@ export default function OnboardingPage() {
                       <div className="flex justify-center gap-2 flex-col ">
                         <h3>Select books to add to study plan</h3>
                         <Drawer>
-                          
-                            
-                            <DrawerTrigger asChild>
-                              <button className="btn bg-grey-alt w-full md:w-3/5 rounded-xl md:self-center-safe border-grey-alt">
-                                Select Books
-                              </button>
-                            </DrawerTrigger>
-                            
-                          
+                          <DrawerTrigger asChild>
+                            <button className="btn bg-grey-alt w-full md:w-3/5 rounded-xl md:self-center-safe border-grey-alt">
+                              Select Books
+                            </button>
+                          </DrawerTrigger>
+
                           <DrawerContent className="bg-grey-main">
                             <div className="flex flex-wrap w-full overflow-x-auto pb-6">
                               <div className="w-full text-xl text-center font-bold p-5 ">
@@ -334,21 +339,42 @@ export default function OnboardingPage() {
                         className={`btn rounded-xl flex justify-center items-center p-3 bg-grey-main w-fit`}
                         onClick={() => handleUiChange("next")}
                       >
-                        <p className="text-md">{studyPlanName && selectedBooks.length > 0 ? "Next" : "Skip"}</p>
+                        <p className="text-md">
+                          {studyPlanName && selectedBooks.length > 0
+                            ? "Next"
+                            : "Skip"}
+                        </p>
                         <ChevronRightIcon />
                       </button>
                     </div>
                   </div>
                 )
               }
-              
+              {questionNumber === 4 && (
+                <div
+                  className={`transition-opacity duration-500 flex flex-col h-50 justify-center items-center gap-3 container ${
+                    isFading ? "opacity-0" : "opacity-100"
+                  }`}
+                >
+                  <Progress
+                    value={progress}
+                    className="w-27 [&>div]:bg-[#414142]"
+                  />
+                  <h2 className="flex justify-center text-2xl font-bold text-grey-primary">
+                    Your All Set!
+                  </h2>
+                  <button onClick={handleSubmit} className="btn bg-grey-main">
+                    Go To Dashboard
+                  </button>
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>
       ) : (
         // Page Loading UI
         <div className="flex justify-center items-center h-full w-full">
-          <span className="loading loading-infinity w-2/10 md:w-20"></span>
+          <span className="loading loading-infinity w-2/10 md:w-20 text-grey-primary"></span>
         </div>
       )}
     </>
