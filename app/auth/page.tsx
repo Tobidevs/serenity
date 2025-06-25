@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "../../components/ui/input";
 import { signInToSupabase, signUpToSupabase } from "../../db/supabase-client";
 import { useRouter } from "next/navigation";
@@ -8,22 +8,36 @@ export default function AuthPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSignIn, setIsSignIn] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (isSignIn) {
-      signInToSupabase(email, password);
+      // Sign In
+      const error = await signInToSupabase(email, password);
+      if (error) {
+        console.log("SignIn Failed:", error)
+        setError("Error Signing In")
+      } else {
       router.push("/dashboard");
+      }
+
     } else {
-      signUpToSupabase(email, password);
-      router.push("/onboarding");
+      // Sign UP
+      const error = await signUpToSupabase(email, password);
+      if (error) {
+        console.log("Signup failed:", error);
+        setError("Error Signing Up")
+      } else {
+        router.push("/dashboard");
+      }
     }
   };
 
   return (
     <div className="w-full h-full flex justify-center">
       {isSignIn ? (
-        <div className="flex w-9/10 h-3/4 mt-20 items-center flex-col gap-5">
+        <div className="flex w-9/10 h-3/4 mt-20 md:mt-40 items-center flex-col gap-5">
           <div className="flex flex-col items-center gap-2">
             <h1 className="text-2xl font-bold text-grey-primary">
               Login to Serenity
@@ -32,8 +46,8 @@ export default function AuthPage() {
               Sign in to continue your study and stay connected with the Word.
             </p>
           </div>
-          <div className="w-full flex flex-col items-center gap-5">
-            <div className="w-8/10 flex flex-col">
+          <div className="w-full md:w-2/5 flex flex-col items-center gap-5 ">
+            <div className="w-8/10 flex flex-col md:items-center">
               {/* Email Input */}
               <label className="input validator bg-grey-main border-none">
                 <svg
@@ -58,7 +72,7 @@ export default function AuthPage() {
                 Enter valid email address
               </div>
             </div>
-            <div className="w-8/10 flex flex-col">
+            <div className="w-8/10 flex flex-col md:items-center">
               {/* Password Input */}
               <label className="input validator bg-grey-main">
                 <svg
@@ -99,6 +113,7 @@ export default function AuthPage() {
                 At least one uppercase letter
               </p>
             </div>
+            {/* Actions */}
             <div className="w-full flex flex-col items-center">
               <button
                 className="btn bg-grey-primary text-white rounded-xl w-6/8 hover:border"
@@ -107,15 +122,21 @@ export default function AuthPage() {
                 Continue
               </button>
               <button
-                className="btn bg-grey-main border-none text-sm w-6/8"
+                className="btn bg-grey-main border-none text-sm "
                 onClick={() => setIsSignIn(!isSignIn)}
               >
                 Create an Account
               </button>
             </div>
+            {error && (
+              <div className="text-red-600 text-sm bg-red-100 rounded p-2">
+                {error}
+              </div>
+            )}
 
             <div className="divider">OR</div>
-            <button className="btn bg-grey-main text-grey-primary border-[#e5e5e5]">
+            {/* OAuth */}
+            <button className="btn bg-grey-main text-grey-primary w-full md:w-3/5">
               <svg
                 aria-label="Google logo"
                 width="16"
@@ -148,7 +169,7 @@ export default function AuthPage() {
           </div>
         </div>
       ) : (
-        <div className="flex w-9/10 h-3/4 mt-20 items-center flex-col gap-5">
+        <div className="flex w-9/10 h-3/4 mt-20 md:mt-40 items-center flex-col gap-5">
           <div className="flex flex-col items-center gap-2">
             <h1 className="text-2xl font-bold text-grey-primary">
               Sign Up to Serenity
@@ -158,9 +179,8 @@ export default function AuthPage() {
               the Word.
             </p>
           </div>
-          <div className="w-full flex flex-col items-center gap-5">
-            <div className="w-8/10 flex flex-col">
-              {" "}
+          <div className="w-full md:w-2/5 flex flex-col items-center gap-5">
+            <div className="w-8/10 flex flex-col md:items-center">
               {/* Email Input */}
               <label className="input validator bg-grey-main border-none">
                 <svg
@@ -185,7 +205,7 @@ export default function AuthPage() {
                 Enter valid email address
               </div>
             </div>
-            <div className="w-8/10 flex flex-col">
+            <div className="w-8/10 flex flex-col md:items-center">
               {/* Password Input */}
               <label className="input validator bg-grey-main">
                 <svg
@@ -241,9 +261,15 @@ export default function AuthPage() {
                 Sign In
               </button>
             </div>
+            {error && (
+              <div className="text-red-600 text-sm bg-red-100 rounded p-2">
+                {error}
+              </div>
+            )}
 
             <div className="divider">OR</div>
-            <button className="btn bg-grey-main text-grey-primary border-[#e5e5e5]">
+            {/* OAuth */}
+            <button className="btn bg-grey-main text-grey-primary w-full md:w-3/5">
               <svg
                 aria-label="Google logo"
                 width="16"
