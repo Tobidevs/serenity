@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Input } from "../../components/ui/input";
-import { signInToSupabase, signUpToSupabase } from "../../db/supabase-client";
+import { signInToSupabase, signUpToSupabase, supabase } from "../../db/supabase-client";
 import { useRouter } from "next/navigation";
 
 export default function AuthPage() {
@@ -9,25 +9,33 @@ export default function AuthPage() {
   const [password, setPassword] = useState("");
   const [isSignIn, setIsSignIn] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [session, setSession] = useState<any>(null);
   const router = useRouter();
 
+    const fetchSession = async () => {
+        const currentSession = await supabase.auth.getSession()
+        console.log(currentSession)
+        setSession(currentSession.data.session)
+    }
+  useEffect(() => {
+    fetchSession()
+  }, [])
   const handleSubmit = async () => {
     if (isSignIn) {
       // Sign In
       const error = await signInToSupabase(email, password);
       if (error) {
-        console.log("SignIn Failed:", error)
-        setError("Error Signing In")
+        console.log("SignIn Failed:", error);
+        setError("Error Signing In");
       } else {
-      router.push("/dashboard");
+        router.push("/dashboard");
       }
-
     } else {
       // Sign UP
       const error = await signUpToSupabase(email, password);
       if (error) {
         console.log("Signup failed:", error);
-        setError("Error Signing Up")
+        setError("Error Signing Up");
       } else {
         router.push("/dashboard");
       }
@@ -66,7 +74,12 @@ export default function AuthPage() {
                     <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
                   </g>
                 </svg>
-                <input type="email" placeholder="mail@site.com" required />
+                <input
+                  type="email"
+                  placeholder="mail@site.com"
+                  required
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </label>
               <div className="validator-hint hidden bg-grey-main border-none">
                 Enter valid email address
@@ -103,6 +116,7 @@ export default function AuthPage() {
                   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                   title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
                   className="bg-grey-main"
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </label>
               <p className="validator-hint hidden">
@@ -199,7 +213,12 @@ export default function AuthPage() {
                     <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
                   </g>
                 </svg>
-                <input type="email" placeholder="mail@site.com" required />
+                <input
+                  type="email"
+                  placeholder="mail@site.com"
+                  required
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </label>
               <div className="validator-hint hidden bg-grey-main border-none">
                 Enter valid email address
@@ -236,6 +255,7 @@ export default function AuthPage() {
                   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                   title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
                   className="bg-grey-main"
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </label>
               <p className="validator-hint hidden">
