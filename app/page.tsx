@@ -1,7 +1,4 @@
 "use client";
-import { Skeleton } from "@/components/ui/skeleton";
-import { SidebarTrigger } from "../components/ui/sidebar";
-import { SignInButton, SignUpButton } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
