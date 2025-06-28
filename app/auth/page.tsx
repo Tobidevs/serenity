@@ -15,7 +15,7 @@ export default function AuthPage() {
     const fetchSession = async () => {
         const currentSession = await supabase.auth.getSession()
         console.log(currentSession)
-        setSession(currentSession.data.session)
+        setSession(currentSession.data.session) // todo verify email and password exists
     }
   useEffect(() => {
     fetchSession()
@@ -25,8 +25,8 @@ export default function AuthPage() {
       // Sign In
       const error = await signInToSupabase(email, password);
       if (error) {
-        console.log("SignIn Failed:", error);
-        setError("Error Signing In");
+        console.log("Login Failed:", error);
+        setError(`${error}`);
       } else {
         router.push("/dashboard");
       }
@@ -35,9 +35,9 @@ export default function AuthPage() {
       const error = await signUpToSupabase(email, password);
       if (error) {
         console.log("Signup failed:", error);
-        setError("Error Signing Up");
+        setError(`${error}`);
       } else {
-        router.push("/dashboard");
+        router.push("/onboarding");
       }
     }
   };

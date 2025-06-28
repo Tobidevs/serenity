@@ -15,7 +15,7 @@ export const signUpToSupabase = async (email: string, password: string) => {
     const {error: signUpError } = await supabase.auth.signUp({email, password})
     if (signUpError) {
         console.error("Error signing up:", signUpError.message)
-        return signUpError
+        return signUpError.message
     }
     return null
 }
