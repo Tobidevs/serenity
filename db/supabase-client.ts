@@ -5,8 +5,8 @@ export const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, proc
 export const signInToSupabase = async (email: string, password: string) => {
     const {error: signInError } = await supabase.auth.signInWithPassword({email, password})
     if (signInError) {
-        console.error("Error signing in", signInError.message)
-        return signInError
+        console.error("Error signing in:", signInError.message)
+        return signInError.message
     }
     return null
 }

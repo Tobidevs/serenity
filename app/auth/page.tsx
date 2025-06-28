@@ -1,8 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Input } from "../../components/ui/input";
-import { signInToSupabase, signUpToSupabase, supabase } from "../../db/supabase-client";
+import {
+  signInToSupabase,
+  signUpToSupabase,
+  supabase,
+} from "../../db/supabase-client";
 import { useRouter } from "next/navigation";
+import { VerifyEmail } from "../../components/verify-email";
 
 export default function AuthPage() {
   const [email, setEmail] = useState("");
@@ -10,16 +15,18 @@ export default function AuthPage() {
   const [isSignIn, setIsSignIn] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [session, setSession] = useState<any>(null);
+  const [verifyEmailModal, setVerifyEmailModal] = useState(false);
   const router = useRouter();
 
-    const fetchSession = async () => {
-        const currentSession = await supabase.auth.getSession()
-        console.log(currentSession)
-        setSession(currentSession.data.session) // todo verify email and password exists
-    }
+  const fetchSession = async () => {
+    const currentSession = await supabase.auth.getSession();
+    console.log(currentSession);
+    setSession(currentSession.data.session); // todo verify email and password exists
+  };
   useEffect(() => {
-    fetchSession()
-  }, [])
+    fetchSession();
+  }, []);
+
   const handleSubmit = async () => {
     if (isSignIn) {
       // Sign In
@@ -31,19 +38,20 @@ export default function AuthPage() {
         router.push("/dashboard");
       }
     } else {
-      // Sign UP
-      const error = await signUpToSupabase(email, password);
-      if (error) {
-        console.log("Signup failed:", error);
-        setError(`${error}`);
+      // Sign Up and send verification code
+      const signUpError = await signUpToSupabase(email, password);
+      if (signUpError) {
+        console.log("Signup failed:", signUpError);
+        setError(`${signUpError}`);
       } else {
-        router.push("/onboarding");
+        setVerifyEmailModal(true);
       }
     }
   };
 
   return (
     <div className="w-full h-full flex justify-center">
+      {verifyEmailModal && <VerifyEmail email={email} password={password} />}
       {isSignIn ? (
         <div className="flex w-9/10 h-3/4 mt-20 md:mt-40 items-center flex-col gap-5">
           <div className="flex flex-col items-center gap-2">

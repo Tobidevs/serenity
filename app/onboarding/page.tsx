@@ -80,7 +80,7 @@ export default function OnboardingPage() {
 
   // Page Load UI
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     const timer = setTimeout(() => {
       setLoading(false);
     }, 1000);
