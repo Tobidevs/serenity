@@ -9,13 +9,7 @@ import {
 } from "./ui/input-otp";
 import { useRouter } from "next/navigation";
 
-export const VerifyEmail = ({
-  email,
-  password,
-}: {
-  email: string;
-  password: string;
-}) => {
+export const VerifyEmail = ({ email }: { email: string }) => {
   const [error, setError] = useState<string | null>(null);
   const [code, setCode] = useState("");
   const router = useRouter();
@@ -33,8 +27,8 @@ export const VerifyEmail = ({
     if (verifyEmailError) {
       console.log("Verify Email Error:", verifyEmailError);
       setError(verifyEmailError.message);
-      console.log(code);
     } else {
+      // Route user to Onboarding
       router.push("/onboarding");
     }
   };

@@ -44,6 +44,7 @@ export default function AuthPage() {
         console.log("Signup failed:", signUpError);
         setError(`${signUpError}`);
       } else {
+        // Prompt user for code
         setVerifyEmailModal(true);
       }
     }
@@ -51,7 +52,7 @@ export default function AuthPage() {
 
   return (
     <div className="w-full h-full flex justify-center">
-      {verifyEmailModal && <VerifyEmail email={email} password={password} />}
+      {verifyEmailModal && <VerifyEmail email={email} />}
       {isSignIn ? (
         <div className="flex w-9/10 h-3/4 mt-20 md:mt-40 items-center flex-col gap-5">
           <div className="flex flex-col items-center gap-2">
