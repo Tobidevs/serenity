@@ -127,15 +127,15 @@ export default function AuthPage() {
               </p>
             </div>
             {/* Actions */}
-            <div className="w-full flex flex-col items-center">
+            <div className="w-full flex flex-col gap-2 items-center">
               <button
-                className="btn bg-grey-primary text-white rounded-xl w-6/8 hover:border"
+                className="btn bg-grey-primary border-none text-white rounded-xl w-6/8 hover:border"
                 onClick={handleSubmit}
               >
                 Continue
               </button>
               <button
-                className="btn bg-grey-main border-none text-sm "
+                className="btn bg-grey-main border-none text-sm text-grey-primary shadow-none"
                 onClick={() => setIsSignIn(!isSignIn)}
               >
                 Create an Account
@@ -146,9 +146,9 @@ export default function AuthPage() {
                 {error}
               </div>
             )}
-
+{/* 
             <div className="divider">OR</div>
-            {/* OAuth */}
+            
             <button className="btn bg-grey-main text-grey-primary w-full md:w-3/5">
               <svg
                 aria-label="Google logo"
@@ -178,7 +178,7 @@ export default function AuthPage() {
                 </g>
               </svg>
               Login with Google
-            </button>
+            </button> */}
           </div>
         </div>
       ) : (
@@ -265,16 +265,16 @@ export default function AuthPage() {
                 At least one uppercase letter
               </p>
             </div>
-            <div className="w-full flex flex-col items-center">
+            <div className="w-full flex flex-col gap-2 items-center">
               {/* Actions */}
               <button
-                className="btn bg-grey-primary text-white rounded-xl w-6/8 hover:border"
+                className="btn bg-grey-primary text-white rounded-xl border-none w-6/8 hover:border"
                 onClick={handleSubmit}
               >
                 Continue
               </button>
               <button
-                className="btn bg-grey-main border-none text-sm"
+                className="btn bg-grey-main border-none text-sm text-grey-primary shadow-none"
                 onClick={() => setIsSignIn(!isSignIn)}
               >
                 Sign In
@@ -285,9 +285,9 @@ export default function AuthPage() {
                 {error}
               </div>
             )}
-
+            {/*
             <div className="divider">OR</div>
-            {/* OAuth */}
+            
             <button className="btn bg-grey-main text-grey-primary w-full md:w-3/5">
               <svg
                 aria-label="Google logo"
@@ -317,7 +317,7 @@ export default function AuthPage() {
                 </g>
               </svg>
               Sign Up with Google
-            </button>
+            </button> */}
           </div>
         </div>
       )}
