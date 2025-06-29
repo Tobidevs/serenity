@@ -129,7 +129,7 @@ export default function OnboardingPage() {
                             selectedTranslation === translation.name
                               ? `${translation.bg_primary_color} text-white border-gray-300 border-3 shadow-lg`
                               : `${translation.bg_color} ${translation.text_color}`
-                          } flex-wrap border-none w-80 h-17 rounded-2xl border-2`}
+                          } flex-wrap  w-80 h-17 rounded-2xl border-2`}
                           key={key}
                           onClick={() =>
                             setSelectedTranslation(translation.name)
@@ -140,7 +140,7 @@ export default function OnboardingPage() {
                       ))}
                     </div>
                     {/* Navigation */}
-                    <div className="flex justify-between items-center border w-9/10">
+                    <div className="flex justify-between items-center w-9/10">
                       <button
                         className="pointer-events-none opacity-30 btn rounded-xl flex justify-center items-center p-3 bg-grey-main w-fit"
                         onClick={() => handleUiChange("previous")}
