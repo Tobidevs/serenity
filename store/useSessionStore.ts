@@ -4,11 +4,14 @@ import { Session } from "@supabase/supabase-js";
 
 type SessionState = {
   session: Session | null;
+  setSession: (session: Session | null) => void
   fetchSession: () => Promise<void>;
 };
 
 export const useSessionStore = create<SessionState>((set) => ({
   session: null,
+
+  setSession: (session) => set({ session }),
 
   fetchSession: async () => {
     const currentSession = await supabase.auth.getSession();
