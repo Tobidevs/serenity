@@ -14,18 +14,8 @@ export default function AuthPage() {
   const [password, setPassword] = useState("");
   const [isSignIn, setIsSignIn] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [session, setSession] = useState<any>(null);
   const [verifyEmailModal, setVerifyEmailModal] = useState(false);
   const router = useRouter();
-
-  const fetchSession = async () => {
-    const currentSession = await supabase.auth.getSession();
-    console.log(currentSession);
-    setSession(currentSession.data.session); // todo verify email and password exists
-  };
-  useEffect(() => {
-    fetchSession();
-  }, []);
 
   const handleSubmit = async () => {
     if (isSignIn) {

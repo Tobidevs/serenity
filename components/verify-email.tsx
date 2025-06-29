@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { signUpToSupabase, supabase } from "../db/supabase-client";
+import { supabase } from "../db/supabase-client";
 import {
   InputOTP,
   InputOTPGroup,
