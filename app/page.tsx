@@ -15,7 +15,12 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-3  justify-center relative items-center w-full h-full border">
       <div className="flex">
-        <button className="btn" onClick={() => (session) ? router.push("/dashboard") : router.push("/auth")}>
+        <button
+          className="btn"
+          onClick={() =>
+            session ? router.push("/dashboard") : router.push("/auth")
+          }
+        >
           Sign in
         </button>
       </div>

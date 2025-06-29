@@ -4,7 +4,7 @@ import { Session } from "@supabase/supabase-js";
 
 type SessionState = {
   session: Session | null;
-  setSession: (session: Session | null) => void
+  setSession: (session: Session | null) => void;
   fetchSession: () => Promise<void>;
 };
 

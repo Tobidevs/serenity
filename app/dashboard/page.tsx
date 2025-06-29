@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { UserButton, UserProfile } from "@clerk/nextjs";
 import { supabase } from "../../db/supabase-client";
 import { useSessionStore } from "../../store/useSessionStore";
@@ -11,7 +11,7 @@ export default function DashboardPage() {
   const onLogout = async () => {
     await supabase.auth.signOut();
     setSession(null);
-    router.push("/")
+    router.push("/");
   };
   return (
     <div>
