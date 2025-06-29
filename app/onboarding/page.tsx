@@ -96,9 +96,9 @@ export default function OnboardingPage() {
   return (
     <>
       {!loading ? (
-        <div className="flex w-full h-full justify-center md:items-center ">
+        <div className="w-full flex min-h-screen justify-center items-start md:items-center pb-4 pt-4">
           <Card className="w-full lg:w-3/6 md:justify-center h-fit md:h-5/8 relative flex sm:gap-12 lg:gap-17 flex-col bg-transparent border-none shadow-none">
-            <CardHeader className="w-full md:absolute md:top-5">
+            <CardHeader className="w-full md:absolute ">
               <CardTitle className="text-4xl font-bold text-grey-primary ">
                 Welcome To Serenity!
               </CardTitle>
@@ -112,7 +112,7 @@ export default function OnboardingPage() {
                 // Onboarding Question #1
                 questionNumber === 1 && (
                   <div
-                    className={`transition-opacity duration-500 flex flex-col gap-3 container ${
+                    className={`transition-opacity duration-500 flex flex-col items-center w-full gap-3 container ${
                       isFading ? "opacity-0" : "opacity-100"
                     }`}
                   >
@@ -129,7 +129,7 @@ export default function OnboardingPage() {
                             selectedTranslation === translation.name
                               ? `${translation.bg_primary_color} text-white border-gray-300 border-3 shadow-lg`
                               : `${translation.bg_color} ${translation.text_color}`
-                          } flex-wrap w-80 h-17 rounded-2xl border-2`}
+                          } flex-wrap border-none w-80 h-17 rounded-2xl border-2`}
                           key={key}
                           onClick={() =>
                             setSelectedTranslation(translation.name)
@@ -140,7 +140,7 @@ export default function OnboardingPage() {
                       ))}
                     </div>
                     {/* Navigation */}
-                    <div className="flex justify-between items-center w-9/10">
+                    <div className="flex justify-between items-center border w-9/10">
                       <button
                         className="pointer-events-none opacity-30 btn rounded-xl flex justify-center items-center p-3 bg-grey-main w-fit"
                         onClick={() => handleUiChange("previous")}
@@ -170,7 +170,7 @@ export default function OnboardingPage() {
                 // Onboarding Question #2
                 questionNumber === 2 && (
                   <div
-                    className={`transition-opacity duration-500 flex flex-col gap-3 container ${
+                    className={`transition-opacity duration-500 flex flex-col items-center w-full gap-3 container ${
                       isFading ? "opacity-0" : "opacity-100"
                     }`}
                   >
@@ -225,7 +225,7 @@ export default function OnboardingPage() {
                 // Onboarding Question #3
                 questionNumber === 3 && (
                   <div
-                    className={`transition-opacity duration-500 flex flex-col gap-3 container ${
+                    className={`transition-opacity duration-500 flex flex-col items-center w-full gap-3 container ${
                       isFading ? "opacity-0" : "opacity-100"
                     }`}
                   >

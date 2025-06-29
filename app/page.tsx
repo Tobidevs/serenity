@@ -13,7 +13,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-3  justify-center relative items-center w-full h-full border">
+    <div className="flex flex-col gap-3  justify-center relative items-center w-full h-full">
       <div className="flex">
         <button
           className="btn"

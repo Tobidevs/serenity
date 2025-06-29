@@ -16,8 +16,8 @@ export default function RootLayout({
   return (
     <SidebarProvider>
       <html lang="en">
-        <body className="flex w-screen h-screen bg-grey-main">
-          <main className="flex w-full h-full">{children}</main>
+        <body className="flex w-screen bg-grey-main">
+          <main className="flex w-full min-h-screen overflow-y-auto">{children}</main>
         </body>
       </html>
     </SidebarProvider>
