@@ -97,8 +97,8 @@ export default function OnboardingPage() {
     <>
       {!loading ? (
         <div className="w-full flex min-h-screen justify-center items-start md:items-center pb-4 pt-4">
-          <Card className="w-full lg:w-3/6 md:justify-center h-fit md:h-5/8 relative flex sm:gap-12 lg:gap-17 flex-col bg-transparent border-none shadow-none">
-            <CardHeader className="w-full md:absolute ">
+          <Card className="w-full lg:w-3/6 md:justify-center h-fit border relative flex sm:gap-12 lg:gap-17 flex-col bg-transparent border-none shadow-none">
+            <CardHeader className="w-full ">
               <CardTitle className="text-4xl font-bold text-grey-primary ">
                 Welcome To Serenity!
               </CardTitle>
@@ -128,8 +128,8 @@ export default function OnboardingPage() {
                             // Change color based on selected translation
                             selectedTranslation === translation.name
                               ? `${translation.bg_primary_color} text-white border-gray-300 border-3 shadow-lg`
-                              : `${translation.bg_color} ${translation.text_color}`
-                          } flex-wrap  w-80 h-17 rounded-2xl border-2`}
+                              : `${translation.bg_color} ${translation.text_color} border-grey-main shadow-none`
+                          } flex-wrap w-80 h-17 rounded-2xl border-2`}
                           key={key}
                           onClick={() =>
                             setSelectedTranslation(translation.name)
@@ -142,25 +142,25 @@ export default function OnboardingPage() {
                     {/* Navigation */}
                     <div className="flex justify-between items-center w-9/10">
                       <button
-                        className="pointer-events-none opacity-30 btn rounded-xl flex justify-center items-center p-3 bg-grey-main w-fit"
+                        className="pointer-events-none opacity-30 btn rounded-xl flex justify-center border border-gray-300 shadow-none items-center p-3 bg-grey-main w-fit"
                         onClick={() => handleUiChange("previous")}
                       >
-                        <ChevronRightIcon className="rotate-180" />
-                        <p className="text-md">Previous</p>
+                        <ChevronRightIcon className="rotate-180 " />
+                        <p className="text-md text-grey-primary">Prev</p>
                       </button>
                       <Progress
                         value={progress}
-                        className="w-27 [&>div]:bg-[#414142]"
+                        className="w-27 md:w-1/2 [&>div]:bg-[#414142]"
                       />
                       <button
                         className={`${
                           !selectedTranslation &&
                           "pointer-events-none opacity-30"
-                        } btn rounded-xl flex justify-center items-center p-3 bg-grey-main w-fit`}
+                        } btn rounded-xl flex justify-center border border-gray-300 shadow-none items-center p-3 bg-grey-main w-fit`}
                         onClick={() => handleUiChange("next")}
                       >
-                        <p className="text-md">Next</p>
-                        <ChevronRightIcon />
+                        <p className="text-md text-grey-primary">Next</p>
+                        <ChevronRightIcon className="text-grey-primary" />
                       </button>
                     </div>
                   </div>
@@ -182,7 +182,7 @@ export default function OnboardingPage() {
                     <div className="flex justify-center gap-3 flex-wrap mx-auto md:mx-0 w-full">
                       {bibleTopics.map((topic, key) => (
                         <button
-                          className={`btn rounded-xl btn-lg text-grey-secondary ${
+                          className={`btn rounded-xl btn-lg text-grey-secondary border border-gray-300 shadow-none ${
                             selectedTopics.includes(topic.name)
                               ? "bg-grey-primary text-white"
                               : "bg-grey-main"
@@ -197,25 +197,25 @@ export default function OnboardingPage() {
                     {/* Navigation */}
                     <div className="flex justify-between items-center w-9/10">
                       <button
-                        className="btn rounded-xl flex justify-center items-center p-3 bg-grey-main "
+                        className="btn rounded-xl flex justify-center items-center p-3 border border-gray-300 shadow-none bg-grey-main "
                         onClick={() => handleUiChange("previous")}
                       >
-                        <ChevronRightIcon className="rotate-180" />
-                        <p className="text-md">Previous</p>
+                        <ChevronRightIcon className="rotate-180 text-grey-primary" />
+                        <p className="text-md text-grey-primary ">Prev</p>
                       </button>
                       <Progress
                         value={progress}
-                        className="w-27 [&>div]:bg-[#414142]"
+                        className="w-27 md:w-1/2 [&>div]:bg-[#414142]"
                       />
                       <button
                         className={`${
                           selectedTopics.length === 0 &&
                           "pointer-events-none opacity-30"
-                        } btn rounded-xl flex justify-center items-center p-3 bg-grey-main w-fit`}
+                        } btn rounded-xl flex justify-center border border-gray-300 shadow-none items-center p-3 bg-grey-main w-fit`}
                         onClick={() => handleUiChange("next")}
                       >
-                        <p className="text-md">Next</p>
-                        <ChevronRightIcon />
+                        <p className="text-md text-grey-primary">Next</p>
+                        <ChevronRightIcon className="text-grey-primary" />
                       </button>
                     </div>
                   </div>
@@ -242,14 +242,14 @@ export default function OnboardingPage() {
                           type="text"
                           placeholder="Name"
                           onChange={(e) => setStudyPlanName(e.target.value)}
-                          className="md:w-2/5"
+                          className="md:w-4/5"
                         />
                       </div>
                       <div className="flex justify-center gap-2 flex-col ">
                         <h3>Select books to add to study plan</h3>
                         <Drawer>
                           <DrawerTrigger asChild>
-                            <button className="btn bg-grey-alt w-full md:w-3/5 rounded-xl md:self-center-safe border-grey-alt">
+                            <button className="btn bg-grey-alt w-full md:w-3/5 rounded-xl shadow-none text-grey-primary md:self-center-safe border-grey-alt">
                               Select Books
                             </button>
                           </DrawerTrigger>
@@ -265,8 +265,8 @@ export default function OnboardingPage() {
                                     className={`${
                                       selectedBooks.includes(book)
                                         ? "bg-grey-primary text-white "
-                                        : "bg-grey-main border-none"
-                                    } btn flex justify-center items-center rounded-xl whitespace-nowrap w-31 h-10 p-1 `}
+                                        : "bg-grey-main "
+                                    } btn flex justify-center border-none shadow-none text-grey-primary items-center rounded-xl whitespace-nowrap w-31 h-10 p-1 `}
                                     key={key}
                                     onClick={() => handleSelectedBook(book)}
                                   >
@@ -283,8 +283,8 @@ export default function OnboardingPage() {
                                     className={`${
                                       selectedBooks.includes(book)
                                         ? "bg-grey-primary text-white"
-                                        : "bg-grey-main border-none"
-                                    } btn flex justify-center items-center rounded-xl whitespace-nowrap w-29 h-10 `}
+                                        : "bg-grey-main"
+                                    } btn flex justify-center border-none shadow-none text-grey-primary items-center rounded-xl whitespace-nowrap w-29 h-10 `}
                                     key={key}
                                     onClick={() => handleSelectedBook(book)}
                                   >
@@ -326,49 +326,55 @@ export default function OnboardingPage() {
                     {/* Navigation */}
                     <div className="flex justify-between items-center w-9/10">
                       <button
-                        className="btn rounded-xl flex justify-center items-center p-3 bg-grey-main "
+                        className="btn rounded-xl flex justify-center border border-gray-300 shadow-none items-center p-3 bg-grey-main "
                         onClick={() => handleUiChange("previous")}
                       >
-                        <ChevronRightIcon className="rotate-180" />
-                        <p className="text-md">Previous</p>
+                        <ChevronRightIcon className="rotate-180 text-grey-primary" />
+                        <p className="text-md text-grey-primary">Prev</p>
                       </button>
                       <Progress
                         value={progress}
-                        className="w-27 [&>div]:bg-[#414142]"
+                        className="w-27 md:w-1/2 [&>div]:bg-[#414142]"
                       />
                       <button
-                        className={`btn rounded-xl flex justify-center items-center p-3 bg-grey-main w-fit`}
+                        className={`btn rounded-xl flex justify-center border border-gray-300 shadow-none items-center p-3 bg-grey-main w-fit`}
                         onClick={() => handleUiChange("next")}
                       >
-                        <p className="text-md">
+                        <p className="text-md text-grey-primary">
                           {studyPlanName && selectedBooks.length > 0
                             ? "Finish"
                             : "Skip"}
                         </p>
-                        <ChevronRightIcon />
+                        <ChevronRightIcon className="text-grey-primary" />
                       </button>
                     </div>
                   </div>
                 )
               }
-              {questionNumber === 4 && (
-                <div
-                  className={`transition-opacity duration-500 flex flex-col h-50 justify-center items-center gap-3 container ${
-                    isFading ? "opacity-0" : "opacity-100"
-                  }`}
-                >
-                  <Progress
-                    value={progress}
-                    className="w-27 [&>div]:bg-[#414142]"
-                  />
-                  <h2 className="flex justify-center text-2xl font-bold text-grey-primary">
-                    Your All Set!
-                  </h2>
-                  <button onClick={handleSubmit} className="btn bg-grey-main">
-                    Go To Dashboard
-                  </button>
-                </div>
-              )}
+              {
+                // Completion Screen
+                questionNumber === 4 && (
+                  <div
+                    className={`transition-opacity duration-500 flex flex-col h-50 justify-center items-center gap-5 container ${
+                      isFading ? "opacity-0" : "opacity-100"
+                    }`}
+                  >
+                    <Progress
+                      value={progress}
+                      className="w-27 [&>div]:bg-[#414142]"
+                    />
+                    <h2 className="flex justify-center text-2xl font-bold text-grey-primary">
+                      Your All Set!
+                    </h2>
+                    <button
+                      onClick={handleSubmit}
+                      className="btn rounded-2xl border-none shadow-none text-grey-main bg-grey-primary"
+                    >
+                      Go To Dashboard
+                    </button>
+                  </div>
+                )
+              }
             </CardContent>
           </Card>
         </div>

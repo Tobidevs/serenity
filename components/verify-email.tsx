@@ -35,7 +35,7 @@ export const VerifyEmail = ({ email }: { email: string }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex justify-center bg-black/50">
-      <div className="bg-grey-main h-3/8 w-5/6 rounded-2xl shadow-lg p-6 mt-20">
+      <div className="bg-grey-main h-3/8 w-5/6 md:w-3/8 md:h-3/9 rounded-2xl shadow-lg p-6 mt-20">
         <h2 className="text-xl font-semibold mb-4">Verify Your Email</h2>
         <p className="text-gray-700 mb-6">
           A verification link has been sent to{" "}
@@ -69,7 +69,7 @@ export const VerifyEmail = ({ email }: { email: string }) => {
           Enter
         </button>
         {error && (
-          <div className="text-red-600 text-sm bg-red-100 rounded p-2">
+          <div className="text-red-600 text-sm m-3 bg-red-100 rounded p-2">
             {error}
           </div>
         )}
