@@ -1,11 +1,22 @@
-import { Sidebar } from "./ui/sidebar";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarHeader,
+} from "@/components/ui/sidebar";
 
-export const Navbar = () => {
+export function Navbar() {
   return (
-    <div>
-      <Sidebar >
-        
-      </Sidebar>
-    </div>
+    <Sidebar>
+      <div className="w-full h-full bg-grey-alt">
+        <SidebarHeader className="h-1/10 border mt-10"></SidebarHeader>
+        <SidebarContent>
+          <SidebarGroup />
+          <SidebarGroup />
+        </SidebarContent>
+        <SidebarFooter />
+      </div>
+    </Sidebar>
   );
-};
+}
