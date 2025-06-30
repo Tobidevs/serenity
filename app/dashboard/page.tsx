@@ -15,6 +15,7 @@ export default function DashboardPage() {
     setSession(null);
     router.push("/");
   };
+  
   return (
     <div>
       <div>Dashboard</div>
