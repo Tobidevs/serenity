@@ -89,7 +89,6 @@ export default function OnboardingPage() {
 
   // Submit Onboarding
   const handleSubmit = async () => {
-    // Redirect after short delay
     router.push("/dashboard");
   };
 
