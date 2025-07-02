@@ -41,26 +41,24 @@ export const useAccountStore = create<Account>((set, get) => ({
     topics_of_interest
   ) => {
     // Insert user data to db
-    const { error: onboardingError } = await supabase
-      .from("account")
-      .insert({
-        user_id: user_id,
-        name,
-        preferred_translation,
-        topics_of_interest,
-        onboarding_complete: true
-      });
+    const { error: onboardingError } = await supabase.from("account").insert({
+      user_id: user_id,
+      name,
+      preferred_translation,
+      topics_of_interest,
+      onboarding_complete: true,
+    });
     if (onboardingError) {
       console.error("Error Onboarding User:", onboardingError.message);
       return onboardingError.message;
     }
 
     // Updata Account Store State
-    get().setUser_id((user_id))
-    get().setPreferredTranslation(preferred_translation)
-    get().setTopicsOfInterest(topics_of_interest)
-    get().setOnboardingComplete(true)
-    
+    get().setUser_id(user_id);
+    get().setPreferredTranslation(preferred_translation);
+    get().setTopicsOfInterest(topics_of_interest);
+    get().setOnboardingComplete(true);
+
     return null;
   },
 }));

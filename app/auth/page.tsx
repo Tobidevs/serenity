@@ -146,7 +146,7 @@ export default function AuthPage() {
                 {error}
               </div>
             )}
-{/* 
+            {/* 
             <div className="divider">OR</div>
             
             <button className="btn bg-grey-main text-grey-primary w-full md:w-3/5">
