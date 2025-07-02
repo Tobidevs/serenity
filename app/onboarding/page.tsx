@@ -26,6 +26,7 @@ export default function OnboardingPage() {
   // Loading UI
   const [loading, setLoading] = useState(false);
   // User Data
+  const [name, setName] = useState("")
   const [selectedTranslation, setSelectedTranslation] = useState("");
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
   const [studyPlanName, setStudyPlanName] = useState("");
@@ -115,6 +116,10 @@ export default function OnboardingPage() {
                       isFading ? "opacity-0" : "opacity-100"
                     }`}
                   >
+                    <h2 className="text-xl text-grey-primary w-full font-extrabold">
+                      What's your Name?
+                    </h2>
+                    <Input type="text" placeholder="Type your name..." onChange={(e) => setName(e.target.value)} className="input bg-grey-light border border-grey-alt-dark"/>
                     {/* Question */}
                     <h2 className="text-xl text-grey-primary font-extrabold">
                       What is your main Bible Translation?
@@ -153,8 +158,8 @@ export default function OnboardingPage() {
                       />
                       <button
                         className={`${
-                          !selectedTranslation &&
-                          "pointer-events-none opacity-30"
+                          !selectedTranslation || name.length === 0 ?
+                          "pointer-events-none opacity-30" : ""
                         } btn rounded-xl flex justify-center border border-gray-300 shadow-none items-center p-3 bg-grey-main w-fit`}
                         onClick={() => handleUiChange("next")}
                       >
