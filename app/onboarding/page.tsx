@@ -265,7 +265,7 @@ export default function OnboardingPage() {
                     </h2>
                     {/* Question Content */}
 
-                    <div className="flex justify-center gap-6 flex-col ">
+                    <div className="flex justify-center w-11/12 gap-6 flex-col ">
                       <div className="flex flex-col gap-2">
                         <h3>Name your study plan</h3>
                         <Input
@@ -328,28 +328,12 @@ export default function OnboardingPage() {
                       </div>
 
                       {studyPlanName && (
-                        <div className="flex flex-col items-center justify-center">
-                          <div className="stats shadow w-3/4 md:w-2/5">
-                            <div className="stat">
-                              <div className="stat-title text-lg font-bold w-20 whitespace-nowrap">
-                                {studyPlanName}
-                              </div>
-                              <div className="stat-value text-grey-primary">
-                                0 / {selectedBooks.length}
-                              </div>
-                              <div className="stat-desc font-bold">
-                                Completed
-                              </div>
-                              <div
-                                className="radial-progress stat-figure bg-[#e3e5ee] text-primary"
-                                style={{ "--value": 0 } as React.CSSProperties}
-                                aria-valuenow={0}
-                                role="progressbar"
-                              >
-                                0%
-                              </div>
+                        <div className="flex flex-wrap gap-2 w-full items-center justify-center ">
+                          {selectedBooks.map((book) => (
+                            <div className="badge text-xs pr-2 pl-2 bg-grey-light">
+                              {book}
                             </div>
-                          </div>
+                          ))}
                         </div>
                       )}
                     </div>
