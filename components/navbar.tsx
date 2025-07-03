@@ -36,7 +36,7 @@ export function Navbar() {
           </div>
         </section>
         
-          <main className="flex text-grey-primary gap-6 flex-col w-full pb-10 pt-10 pl-5">
+          <main className="flex text-grey-primary gap-6 flex-col w-full pb-8 pt-8 pl-5">
             <Link
               href={"/dashboard"}
               className="flex justify-center items-center w-fit text-xl gap-3 font-bold"

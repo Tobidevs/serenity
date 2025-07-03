@@ -136,6 +136,7 @@ export default function OnboardingPage() {
                       isFading ? "opacity-0" : "opacity-100"
                     }`}
                   >
+                    {/* Question */}
                     <h2 className="text-xl text-grey-primary md:text-center w-full font-extrabold">
                       What's your Name?
                     </h2>
