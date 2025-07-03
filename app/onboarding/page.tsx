@@ -136,14 +136,14 @@ export default function OnboardingPage() {
                       isFading ? "opacity-0" : "opacity-100"
                     }`}
                   >
-                    <h2 className="text-xl text-grey-primary w-full font-extrabold">
+                    <h2 className="text-xl text-grey-primary md:text-center w-full font-extrabold">
                       What's your Name?
                     </h2>
                     <Input
                       type="text"
                       placeholder="Type your name..."
                       onChange={(e) => setName(e.target.value)}
-                      className="input bg-grey-light border border-grey-alt-dark"
+                      className="input bg-grey-light border border-grey-alt-dark md:w-3/5"
                     />
                     {/* Question */}
                     <h2 className="text-xl text-grey-primary font-extrabold">
@@ -272,7 +272,7 @@ export default function OnboardingPage() {
                           type="text"
                           placeholder="Name"
                           onChange={(e) => setStudyPlanName(e.target.value)}
-                          className="md:w-4/5"
+                          className="md:w-3/5"
                         />
                       </div>
                       <div className="flex justify-center gap-2 flex-col ">
