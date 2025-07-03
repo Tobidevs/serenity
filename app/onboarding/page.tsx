@@ -93,14 +93,17 @@ export default function OnboardingPage() {
 
   // Submit Onboarding
   const handleSubmit = async () => {
+    // Get User Id
     const {
       data: { user },
     } = await supabase.auth.getUser();
+    // Complete Onboarding Process
     const error = await completeOnboarding(
       user?.id,
       name,
       selectedTranslation,
-      selectedTopics
+      selectedTopics,
+      studyPlanName
     );
     if (error) {
       console.log("Onboarding Error", error);
