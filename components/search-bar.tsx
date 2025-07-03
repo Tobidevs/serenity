@@ -1,9 +1,7 @@
-"use client";
 import { ChevronRightIcon } from "lucide-react";
 import { Input } from "./ui/input";
 import { SidebarTrigger } from "./ui/sidebar";
 import { translationsData } from "../data/translation-data";
-import { useEffect, useState } from "react";
 import { useAccountStore } from "../store/useAccountStore";
 
 export const SearchBar = () => {
