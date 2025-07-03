@@ -103,7 +103,8 @@ export default function OnboardingPage() {
       name,
       selectedTranslation,
       selectedTopics,
-      studyPlanName
+      studyPlanName,
+      selectedBooks
     );
     if (error) {
       console.log("Onboarding Error", error);
