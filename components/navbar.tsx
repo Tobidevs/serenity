@@ -59,7 +59,9 @@ export function Navbar() {
             </div>
           </div>
           <div className=" w-fit">
-            <h1 className="text-2xl text-grey-primary font-semibold">{name}</h1>
+            <h1 className="text-2xl text-grey-primary font-semibold overflow-x-auto whitespace-nowrap">
+              {name}
+            </h1>
             <p className="text-grey-secondary text-sm">{email}</p>
           </div>
         </section>

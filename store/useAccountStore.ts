@@ -21,6 +21,7 @@ type Account = {
   setOnboardingComplete: (onboarding_complete: boolean) => void;
 
   fetchUser: () => Promise<void>;
+  loadAccount: () => Promise<void>;
   completeOnboarding: (
     name: string,
     preferred_translation: string,
@@ -66,6 +67,25 @@ export const useAccountStore = create<Account>()(
           console.error("Failed to fetch user", error?.message);
         }
       },
+      // Load account state locally
+      loadAccount: async () => {
+        await get().fetchUser();
+        const { data: account, error: loadAccountError } = await supabase
+          .from("account")
+          .select("*")
+          .eq("user_id", get().user?.id)
+          .single();
+        if (loadAccountError) {
+          console.error("Failed to load account:", loadAccountError?.message);
+        } else {
+          // Update State locally
+          get().setName(account.name);
+          get().setPreferredTranslation(account.preferred_translation);
+          get().setTopicsOfInterest(account.topics_of_interest);
+          get().setStudyPlan(account.study_plan);
+          get().setBooks(account.books);
+        }
+      },
 
       // Complete User Onboarding
       completeOnboarding: async (
@@ -75,11 +95,14 @@ export const useAccountStore = create<Account>()(
         study_plan,
         books
       ) => {
+        // Fetch User
+        await get().fetchUser();
         // Insert user data to db
         const { error: onboardingError } = await supabase
           .from("account")
           .insert({
             user_id: get().user?.id,
+            email: get().user?.email,
             name,
             preferred_translation,
             topics_of_interest,
@@ -97,6 +120,7 @@ export const useAccountStore = create<Account>()(
         get().setPreferredTranslation(preferred_translation);
         get().setTopicsOfInterest(topics_of_interest);
         get().setStudyPlan(study_plan);
+        get().setBooks(books);
         get().setOnboardingComplete(true);
 
         return null;
@@ -110,7 +134,7 @@ export const useAccountStore = create<Account>()(
         } = await supabase.auth.getUser();
         const { error } = await supabase
           .from("account")
-          .update({ preferred_translation }) // todo Configure RLS for updates
+          .update({ preferred_translation })
           .eq("user_id", user?.id);
         if (error) {
           console.error("Error setting preferred translation:", error.message);

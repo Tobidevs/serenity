@@ -29,6 +29,9 @@ export const SearchBar = () => {
           tabIndex={0}
           className="dropdown-content  bg-grey-main rounded-box z-1 w-fit p-2 shadow-sm"
         >
+          <h2 className="text-grey-secondary p-1 text-center">
+            Select Default Translation
+          </h2>
           {translationsData.map((translation, key) => (
             <li
               className={`btn btn-lg flex ${

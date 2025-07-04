@@ -95,8 +95,6 @@ export default function OnboardingPage() {
 
   // Submit Onboarding
   const handleSubmit = async () => {
-    // Fetch user
-    await fetchUser();
     // Complete Onboarding Process
     const error = await completeOnboarding(
       name,
