@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SidebarProvider } from "@/components/ui/sidebar";
+import { Toaster } from "@/components/ui/sonner";
 
 import "./globals.css";
 
@@ -19,6 +20,7 @@ export default function RootLayout({
         <body className="flex w-screen bg-grey-main">
           <main className="flex w-full min-h-screen overflow-y-auto">
             {children}
+            <Toaster position="top-center" className="bg-grey-alt" />
           </main>
         </body>
       </html>

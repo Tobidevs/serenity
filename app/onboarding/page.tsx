@@ -20,6 +20,7 @@ import {
 import { useRouter } from "next/navigation";
 import { useAccountStore } from "../../store/useAccountStore";
 import { supabase } from "../../db/supabase-client";
+import { toast } from "sonner";
 
 export default function OnboardingPage() {
   const { completeOnboarding } = useAccountStore();
@@ -87,6 +88,7 @@ export default function OnboardingPage() {
     setLoading(true);
     const timer = setTimeout(() => {
       setLoading(false);
+      toast("Successfully Created Account!")
     }, 1000);
     return () => clearTimeout(timer);
   }, []);

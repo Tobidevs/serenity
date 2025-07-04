@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Input } from "../../components/ui/input";
 import {
   signInToSupabase,
   signUpToSupabase,
@@ -39,6 +38,16 @@ export default function AuthPage() {
       }
     }
   };
+
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setError(null); // clear the error after 3 seconds
+      }, 3000);
+
+      return () => clearTimeout(timer); // cleanup if component unmounts
+    }
+  });
 
   return (
     <div className="w-full h-full flex justify-center">
@@ -143,8 +152,6 @@ export default function AuthPage() {
             </div>
             {error && (
               <div className="text-red-600 text-sm bg-red-100 rounded p-2">
-                {" "}
-                // todo remove error after 3sec
                 {error}
               </div>
             )}

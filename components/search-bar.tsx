@@ -13,7 +13,7 @@ export const SearchBar = () => {
   );
 
   return (
-    <div className="h-15 border-b-2 w-full flex pr-4 pl-4 items-center justify-between fixed top-0 z-50  md:justify-center md:gap-4">
+    <div className="h-15 border-b-2 w-full bg-grey-main flex pr-4 pl-4 items-center justify-between fixed top-0 z-50  md:justify-center md:gap-4">
       <SidebarTrigger size={"lg"} className="border h-9 w-9 md:hidden" />
       <Input className="w-6/10 md:w-3/10" placeholder="Search..." />
       <div className="dropdown dropdown-bottom dropdown-end">
