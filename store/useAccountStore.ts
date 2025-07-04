@@ -11,6 +11,7 @@ type Account = {
   onboarding_complete: Boolean;
 
   setUser_id: (user_id?: String) => void;
+  setName: (name: String) => void;
   setPreferredTranslation: (preferredTranslation: String) => void;
   setTopicsOfInterest: (topics_of_interest: String[]) => void;
   setStudyPlan: (study_plan: String) => void;
@@ -37,6 +38,7 @@ export const useAccountStore = create<Account>((set, get) => ({
   onboarding_complete: false,
 
   setUser_id: (user_id) => set({ user_id }),
+  setName: (name) => set({ name }),
   setPreferredTranslation: (preferred_translation) =>
     set({ preferred_translation }),
   setTopicsOfInterest: (topics_of_interest) => set({ topics_of_interest }),
@@ -69,6 +71,7 @@ export const useAccountStore = create<Account>((set, get) => ({
 
     // Update Account Store State
     get().setUser_id(user_id);
+    get().setName(name);
     get().setPreferredTranslation(preferred_translation);
     get().setTopicsOfInterest(topics_of_interest);
     get().setStudyPlan(study_plan);
