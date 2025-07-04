@@ -1,9 +1,10 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { supabase } from "../db/supabase-client";
+import { User } from "@supabase/supabase-js";
 
 type Account = {
-  user_id: string | undefined;
+  user: User | null;
   name: string;
   preferred_translation: string | null;
   topics_of_interest: string[] | null;
@@ -11,7 +12,7 @@ type Account = {
   books: string[] | null;
   onboarding_complete: boolean;
 
-  setUser_id: (user_id?: string) => void;
+  setUser: (user?: User) => void;
   setName: (name: string) => void;
   setPreferredTranslation: (preferredTranslation: string) => void;
   setTopicsOfInterest: (topics_of_interest: string[]) => void;
@@ -19,8 +20,8 @@ type Account = {
   setBooks: (books: string[]) => void;
   setOnboardingComplete: (onboarding_complete: boolean) => void;
 
+  fetchUser: () => Promise<void>;
   completeOnboarding: (
-    user_id: string | undefined,
     name: string,
     preferred_translation: string,
     topics_of_interest: string[],
@@ -33,7 +34,7 @@ type Account = {
 export const useAccountStore = create<Account>()(
   persist(
     (set, get) => ({
-      user_id: undefined,
+      user: null,
       name: "",
       preferred_translation: null,
       topics_of_interest: null,
@@ -41,7 +42,7 @@ export const useAccountStore = create<Account>()(
       books: null,
       onboarding_complete: false,
 
-      setUser_id: (user_id) => set({ user_id }),
+      setUser: (user) => set({ user }),
       setName: (name) => set({ name }),
       setPreferredTranslation: (preferred_translation) =>
         set({ preferred_translation }),
@@ -51,9 +52,23 @@ export const useAccountStore = create<Account>()(
       setOnboardingComplete: (onboarding_complete) =>
         set({ onboarding_complete }),
 
+      // Fetch user
+      fetchUser: async () => {
+        const {
+          data: { user },
+          error,
+        } = await supabase.auth.getUser();
+
+        if (user) {
+          set({ user });
+          console.log(user);
+        } else {
+          console.error("Failed to fetch user", error?.message);
+        }
+      },
+
       // Complete User Onboarding
       completeOnboarding: async (
-        user_id,
         name,
         preferred_translation,
         topics_of_interest,
@@ -64,7 +79,7 @@ export const useAccountStore = create<Account>()(
         const { error: onboardingError } = await supabase
           .from("account")
           .insert({
-            user_id: user_id,
+            user_id: get().user?.id,
             name,
             preferred_translation,
             topics_of_interest,
@@ -78,7 +93,6 @@ export const useAccountStore = create<Account>()(
         }
 
         // Update Account Store State
-        get().setUser_id(user_id);
         get().setName(name);
         get().setPreferredTranslation(preferred_translation);
         get().setTopicsOfInterest(topics_of_interest);

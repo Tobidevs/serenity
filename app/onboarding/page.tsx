@@ -23,7 +23,7 @@ import { supabase } from "../../db/supabase-client";
 import { toast } from "sonner";
 
 export default function OnboardingPage() {
-  const { completeOnboarding } = useAccountStore();
+  const { completeOnboarding, fetchUser } = useAccountStore();
   const router = useRouter();
   // Used for changing question
   const [questionNumber, setQuestionNumber] = useState(1);
@@ -88,20 +88,17 @@ export default function OnboardingPage() {
     setLoading(true);
     const timer = setTimeout(() => {
       setLoading(false);
-      toast("Successfully Created Account!")
+      toast("Successfully Created Account!");
     }, 1000);
     return () => clearTimeout(timer);
   }, []);
 
   // Submit Onboarding
   const handleSubmit = async () => {
-    // Get User Id
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
+    // Fetch user
+    await fetchUser();
     // Complete Onboarding Process
     const error = await completeOnboarding(
-      user?.id,
       name,
       selectedTranslation,
       selectedTopics,
