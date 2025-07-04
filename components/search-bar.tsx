@@ -11,14 +11,14 @@ export const SearchBar = () => {
   );
 
   return (
-    <div className="h-16 border-b-2 w-full flex pr-4 pl-4 items-center justify-between">
-      <SidebarTrigger size={"lg"} className="border border-grey-alt" />
-      <Input className="w-6/10" placeholder="Search..." />
+    <div className="h-15 border-b-2 w-full flex pr-4 pl-4 items-center justify-between md:justify-center md:gap-4">
+      <SidebarTrigger size={"lg"} className="border h-9 w-9 md:hidden" />
+      <Input className="w-6/10 md:w-3/10" placeholder="Search..." />
       <div className="dropdown dropdown-bottom dropdown-end">
         <div
           tabIndex={0}
           role="button"
-          className={`btn m-1 w-22 h-9 pr-1 pl-1 rounded-md text-white ${translationStyle?.bg_primary_color}`}
+          className={`btn m-1 w-22 h-9 pr-1 pl-1 rounded-md text-white border-none shadow-none ${translationStyle?.bg_primary_color}`}
         >
           <ChevronRightIcon className="rotate-90" size={"22"} />
           {translationStyle?.abbreviation}

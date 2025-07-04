@@ -9,8 +9,8 @@ export default function DashboardPage() {
 
   return (
     <div className="w-full flex min-h-screen">
-      <SearchBar />
       <Navbar />
+      <SearchBar />
     </div>
   );
 }
