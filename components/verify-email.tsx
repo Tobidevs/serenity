@@ -29,7 +29,7 @@ export const VerifyEmail = ({ email }: { email: string }) => {
       setError(verifyEmailError.message);
     } else {
       // Route user to Onboarding
-      router.push("/onboarding");
+      router.push("/onboarding"); // todo visual confirmation of account created successful
     }
   };
 

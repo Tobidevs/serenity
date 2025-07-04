@@ -261,7 +261,7 @@ export default function OnboardingPage() {
                     }`}
                   >
                     {/* Question */}
-                    <h2 className="text-xl text-grey-primary font-extrabold">
+                    <h2 className="text-xl w-11/12 text-grey-primary font-extrabold">
                       Create Your Study plan
                     </h2>
                     {/* Question Content */}

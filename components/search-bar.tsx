@@ -3,15 +3,17 @@ import { Input } from "./ui/input";
 import { SidebarTrigger } from "./ui/sidebar";
 import { translationsData } from "../data/translation-data";
 import { useAccountStore } from "../store/useAccountStore";
+import { supabase } from "../db/supabase-client";
 
 export const SearchBar = () => {
-  const { preferred_translation, setPreferredTranslation } = useAccountStore();
+  const { preferred_translation, updatePreferredTranslation } =
+    useAccountStore();
   const translationStyle = translationsData.find(
     (t) => t.name === preferred_translation
   );
 
   return (
-    <div className="h-15 border-b-2 w-full flex pr-4 pl-4 items-center justify-between md:justify-center md:gap-4">
+    <div className="h-15 border-b-2 w-full flex pr-4 pl-4 items-center justify-between fixed top-0 z-50  md:justify-center md:gap-4">
       <SidebarTrigger size={"lg"} className="border h-9 w-9 md:hidden" />
       <Input className="w-6/10 md:w-3/10" placeholder="Search..." />
       <div className="dropdown dropdown-bottom dropdown-end">
@@ -36,7 +38,7 @@ export const SearchBar = () => {
                   : `${translation.bg_color} ${translation.text_color} border-grey-main`
               } flex-wrap w-65 h-17 rounded-2xl border-2 shadow-none`}
               key={key}
-              onClick={() => setPreferredTranslation(translation.name)}
+              onClick={() => updatePreferredTranslation(translation.name)}
             >
               <h2 className={`font-bold text-center`}>{translation.name}</h2>
             </li>

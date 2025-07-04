@@ -9,11 +9,11 @@ import { LuNotebookPen } from "react-icons/lu";
 import { FaBoxArchive } from "react-icons/fa6";
 import { FaHandsHelping } from "react-icons/fa";
 import { FaSignOutAlt } from "react-icons/fa";
-import Link from "next/link";
 import { useAccountStore } from "../store/useAccountStore";
 import { translationsData } from "../data/translation-data";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export function Navbar() {
   const { setSession } = useSessionStore();
@@ -51,7 +51,7 @@ export function Navbar() {
 
   return (
     <Sidebar>
-      <div className="w-full h-full bg-grey-alt pb-10 pt-10 pr-3 pl-3">
+      <div className="w-full h-full bg-grey-main pb-10 pt-10 pr-3 pl-3">
         <section className="h-1/8 w-full flex gap-3 items-center">
           <div className="avatar avatar-placeholder w-15 h-15">
             <div className="bg-grey-primary text-white rounded-full">
@@ -64,7 +64,7 @@ export function Navbar() {
           </div>
         </section>
 
-        <main className="flex gap-6 flex-col text-grey-primary w-full pl-5">
+        <main className="flex gap-6 flex-col text-grey-primary w-full mt-5 pl-5">
           <Link
             href={"/dashboard"}
             className={`flex p-2 rounded-lg justify-center items-center w-fit text-xl gap-3 font-bold ${
