@@ -66,7 +66,7 @@ export function Navbar() {
           </div>
         </section>
 
-        <main className="flex gap-6 flex-col text-grey-primary w-full mt-5 pl-5">
+        <main className="flex gap-4 flex-col text-grey-primary w-full mt-5 pl-5">
           <Link
             href={"/dashboard"}
             className={`flex p-2 rounded-lg justify-center items-center w-fit text-xl gap-3 font-bold ${
