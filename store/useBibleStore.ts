@@ -10,8 +10,10 @@ export type TranslationBook = {
 };
 
 type BibleStore = {
+  selectedBook: string;
   translation: string | null;
   translationBooks: TranslationBook[] | null;
+  setSelectedBook: (selectedBook: string) => void;
 
   setTranslation: (translation: string) => void;
 
@@ -24,9 +26,10 @@ const preferred_translation = useAccountStore.getState().preferred_translation;
 export const useBibleStore = create<BibleStore>()(
   persist(
     (set, get) => ({
+      selectedBook: "",
       translation: preferred_translation || null,
       translationBooks: null,
-
+      setSelectedBook: (selectedBook) => set({ selectedBook }),
       setTranslation: (translation: string) => {
         set({ translation });
       },
@@ -42,7 +45,7 @@ export const useBibleStore = create<BibleStore>()(
         try {
           // Simulate fetching books from an API or database
           const response = await fetch(
-            `https://bolls.life/get-books/${get().translation}/`
+            `https://bolls.life/get-books/${get().translation?.toUpperCase}/`
           );
           if (!response.ok) {
             throw new Error("Failed to fetch books");
@@ -50,6 +53,7 @@ export const useBibleStore = create<BibleStore>()(
           const data = await response.json();
 
           set({ translationBooks: data });
+          console.log(get().translation);
           console.log("Fetched translation books:", data);
         } catch (error) {
           console.error("Error fetching translation books:", error);

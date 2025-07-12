@@ -17,11 +17,14 @@ import { useBibleStore, TranslationBook } from "../../store/useBibleStore";
 
 export default function BibleStudyPage() {
   const { session } = useSessionStore();
-  const [selectedBook, setSelectedBook] = useState(""); // todo transfer book and chapter into bible store
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [openChapters, setOpenChapters] = useState(false);
-  const { preferred_translation } = useAccountStore();
-  const { translationBooks, getTranslationBooks } = useBibleStore();
+  const { preferred_translation } = useAccountStore(); // may not need
+  const {
+    translationBooks,
+    getTranslationBooks,
+    selectedBook,
+    setSelectedBook,
+  } = useBibleStore();
 
   const translationStyle = translationsData.find(
     (t) => t.name === preferred_translation
@@ -37,7 +40,7 @@ export default function BibleStudyPage() {
       (translationBook) => translationBook.name === selectedBook
     );
     const chapters = bookData?.chapters || 0;
-    return Array.from({length: chapters}, (_, i) => i + 1)
+    return Array.from({ length: chapters }, (_, i) => i + 1);
   };
 
   if (!session) {
@@ -48,11 +51,11 @@ export default function BibleStudyPage() {
       <Navbar />
       <SearchBar />
       <div className="mt-20 w-full flex flex-col items-center">
-        <Drawer open={isDrawerOpen}>
+        <Drawer>
           <DrawerTrigger asChild>
             <button
               className="btn bg-grey-alt w-fit rounded-2xl shadow-none text-grey-primary md:self-center-safe border-grey-alt"
-              onClick={() => setIsDrawerOpen(true)}
+              onClick={() => getTranslationBooks()} // onclick
             >
               Select Scripture
             </button>
@@ -69,7 +72,7 @@ export default function BibleStudyPage() {
               </div>
               <section className="flex flex-wrap gap-2 justify-center">
                 {bibleBooks.slice(0, 39).map((book, key) => (
-                  <div className="overflow-hidden">
+                  <div className="overflow-hidden" key={key}>
                     <button
                       className={`${
                         selectedBook === book
@@ -121,19 +124,18 @@ export default function BibleStudyPage() {
                 </h1>
                 <div className="w-10/12 flex gap-3 flex-wrap">
                   {getBookChapters().map((number, key) => (
-                    <div className="p-3 w-13 rounded-xl text-xl text-center text-grey-primary" key={key}>{number}</div>
+                    <div
+                      className="p-3 w-13 rounded-xl text-xl text-center text-grey-primary"
+                      key={key}
+                    >
+                      {number}
+                    </div>
                   ))}
                 </div>
               </div>
             </div>
           </DrawerContent>
         </Drawer>
-        {/* <section className="w-fit h-10 border rounded-2xl flex shadow-sm">
-          <div className="border-r-1 flex justify-center items-center pl-2 pr-2">
-            Romans 8:18
-          </div>
-          <div className="flex justify-center items-center pl-2 pr-2">ESV</div>
-        </section> */}
       </div>
     </div>
   );
