@@ -30,7 +30,7 @@ export const useBibleStore = create<BibleStore>()(
         set({ translation });
       },
 
-      
+      // todo on select scripture button click, fetch books based on translation, create function to find book in translation to get chapters
 
       // Method to fetch books based on translation
       getTranslationBooks: async () => {
