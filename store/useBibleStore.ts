@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { useAccountStore } from "./useAccountStore";
 
-type TranslationBook = {
+export type TranslationBook = {
   bookid: number;
   chronorder: number;
   name: string;
@@ -15,6 +15,7 @@ type BibleStore = {
 
   setTranslation: (translation: string) => void;
 
+  getBookChapters: (book: string) => TranslationBook | undefined;
   getTranslationBooks: () => Promise<void>;
 };
 
@@ -30,7 +31,11 @@ export const useBibleStore = create<BibleStore>()(
         set({ translation });
       },
 
-      // todo on select scripture button click, fetch books based on translation, create function to find book in translation to get chapters
+      getBookChapters: (book: string) => {
+        return get().translationBooks?.find(
+          (translationBook) => translationBook.name === book
+        );
+      },
 
       // Method to fetch books based on translation
       getTranslationBooks: async () => {

@@ -13,24 +13,30 @@ import { translationsData } from "../../data/translation-data";
 import { useAccountStore } from "../../store/useAccountStore";
 import { useSessionStore } from "../../store/useSessionStore";
 import { ChevronRightIcon } from "lucide-react";
-import { useBibleStore } from "../../store/useBibleStore";
+import { useBibleStore, TranslationBook } from "../../store/useBibleStore";
 
 export default function BibleStudyPage() {
   const { session } = useSessionStore();
   const [selectedBook, setSelectedBook] = useState("");
-  const [drawerSwitch, setDrawerSwitch] = useState(true);
+  const [openChapters, setOpenChapters] = useState(false);
   const { preferred_translation } = useAccountStore();
-  const { getTranslationBooks } = useBibleStore();
-  
+  const { translationBooks, getTranslationBooks } = useBibleStore();
+
   const translationStyle = translationsData.find(
     (t) => t.name === preferred_translation
   );
 
   const handleSwitch = async (book: string) => {
+    setOpenChapters(!openChapters);
     setSelectedBook(book);
-    // call chapters of book
-    setDrawerSwitch(!drawerSwitch);
-    getTranslationBooks();
+  };
+
+  const getBookChapters = () => {
+    const bookData = translationBooks?.find(
+      (translationBook) => translationBook.name === selectedBook
+    );
+    const chapters = bookData?.chapters || 0;
+    return Array.from({length: chapters}, (_, i) => i + 1)
   };
 
   if (!session) {
@@ -43,7 +49,10 @@ export default function BibleStudyPage() {
       <div className="mt-20 w-full flex flex-col items-center">
         <Drawer>
           <DrawerTrigger asChild>
-            <button className="btn bg-grey-alt w-fit rounded-2xl shadow-none text-grey-primary md:self-center-safe border-grey-alt">
+            <button
+              className="btn bg-grey-alt w-fit rounded-2xl shadow-none text-grey-primary md:self-center-safe border-grey-alt"
+              // todo fix this
+            >
               Select Scripture
             </button>
           </DrawerTrigger>
@@ -51,7 +60,7 @@ export default function BibleStudyPage() {
           <DrawerContent className="bg-grey-main">
             <div
               className={`flex flex-wrap w-full overflow-x-auto pb-6 transition-transform duration-500 ease-in-out ${
-                drawerSwitch ? "translate-x-0" : "-translate-x-full"
+                openChapters ? "translate-x-0" : "-translate-x-full"
               }`}
             >
               <div className="w-full text-xl text-center font-bold p-5 ">
@@ -96,12 +105,12 @@ export default function BibleStudyPage() {
             {/* Switch */}
             <div
               className={`absolute w-full h-full transition-transform duration-500 ease-in-out ${
-                drawerSwitch ? "translate-x-full" : "translate-x-0"
+                openChapters ? "translate-x-full" : "translate-x-0"
               }`}
             >
               <button
                 className="btn absolute top-6 left-4 rounded-xl flex justify-center border-gray-300 shadow-none items-center p-3 bg-grey-main "
-                onClick={() => setDrawerSwitch(!drawerSwitch)}
+                onClick={() => setOpenChapters(!openChapters)}
               >
                 <ChevronRightIcon className="rotate-180 text-grey-primary" />
               </button>
@@ -109,7 +118,11 @@ export default function BibleStudyPage() {
                 <h1 className="text-xl font-bold text-grey-primary">
                   {selectedBook}
                 </h1>
-                <div className="w-10/12 border"></div>
+                <div className="w-10/12 border flex gap-3 flex-wrap">
+                  {getBookChapters().map((number) => (
+                    <div className="p-3 w-13 rounded-xl text-xl text-center ">{number}</div>
+                  ))}
+                </div>
               </div>
             </div>
           </DrawerContent>
