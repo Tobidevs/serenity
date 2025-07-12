@@ -17,7 +17,8 @@ import { useBibleStore, TranslationBook } from "../../store/useBibleStore";
 
 export default function BibleStudyPage() {
   const { session } = useSessionStore();
-  const [selectedBook, setSelectedBook] = useState("");
+  const [selectedBook, setSelectedBook] = useState(""); // todo transfer book and chapter into bible store
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [openChapters, setOpenChapters] = useState(false);
   const { preferred_translation } = useAccountStore();
   const { translationBooks, getTranslationBooks } = useBibleStore();
@@ -47,11 +48,11 @@ export default function BibleStudyPage() {
       <Navbar />
       <SearchBar />
       <div className="mt-20 w-full flex flex-col items-center">
-        <Drawer>
+        <Drawer open={isDrawerOpen}>
           <DrawerTrigger asChild>
             <button
               className="btn bg-grey-alt w-fit rounded-2xl shadow-none text-grey-primary md:self-center-safe border-grey-alt"
-              // todo fix this
+              onClick={() => setIsDrawerOpen(true)}
             >
               Select Scripture
             </button>
