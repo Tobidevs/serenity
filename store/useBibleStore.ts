@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { useAccountStore } from "./useAccountStore";
 
 type TranslationBook = {
   bookid: number;
@@ -12,17 +13,24 @@ type BibleStore = {
   translation: string | null;
   translationBooks: TranslationBook[] | null;
 
+  setTranslation: (translation: string) => void;
+
   getTranslationBooks: () => Promise<void>;
 };
+
+const preferred_translation = useAccountStore.getState().preferred_translation;
 
 export const useBibleStore = create<BibleStore>()(
   persist(
     (set, get) => ({
-      translation: null,
+      translation: preferred_translation || null,
       translationBooks: null,
 
+      setTranslation: (translation: string) => {
+        set({ translation });
+      },
 
-    // todo Create set translation fucntion
+      
 
       // Method to fetch books based on translation
       getTranslationBooks: async () => {
@@ -34,8 +42,8 @@ export const useBibleStore = create<BibleStore>()(
           if (!response.ok) {
             throw new Error("Failed to fetch books");
           }
-            const data = await response.json();
-          
+          const data = await response.json();
+
           set({ translationBooks: data });
           console.log("Fetched translation books:", data);
         } catch (error) {
@@ -44,7 +52,7 @@ export const useBibleStore = create<BibleStore>()(
       },
     }),
     {
-      name: "bible-store", // unique name for the storage
+      name: "bible-store",
     }
   )
 );
