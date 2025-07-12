@@ -104,7 +104,7 @@ export default function BibleStudyPage() {
             </div>
             {/* Switch */}
             <div
-              className={`absolute w-full h-full transition-transform duration-500 ease-in-out ${
+              className={`absolute w-full h-full overflow-x-auto pb-6 transition-transform duration-500 ease-in-out ${
                 openChapters ? "translate-x-full" : "translate-x-0"
               }`}
             >
@@ -118,9 +118,9 @@ export default function BibleStudyPage() {
                 <h1 className="text-xl font-bold text-grey-primary">
                   {selectedBook}
                 </h1>
-                <div className="w-10/12 border flex gap-3 flex-wrap">
-                  {getBookChapters().map((number) => (
-                    <div className="p-3 w-13 rounded-xl text-xl text-center ">{number}</div>
+                <div className="w-10/12 flex gap-3 flex-wrap">
+                  {getBookChapters().map((number, key) => (
+                    <div className="p-3 w-13 rounded-xl text-xl text-center text-grey-primary" key={key}>{number}</div>
                   ))}
                 </div>
               </div>
