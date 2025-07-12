@@ -113,7 +113,7 @@ export default function BibleStudyPage() {
               }`}
             >
               <button
-                className="btn absolute top-6 left-4 rounded-xl flex justify-center border-gray-300 shadow-none items-center p-3 bg-grey-main "
+                className="btn absolute top-6 left-4 rounded-xl flex justify-center border-none shadow-none items-center p-3 bg-grey-main "
                 onClick={() => setOpenChapters(!openChapters)}
               >
                 <ChevronRightIcon className="rotate-180 text-grey-primary" />
@@ -122,10 +122,10 @@ export default function BibleStudyPage() {
                 <h1 className="text-xl font-bold text-grey-primary">
                   {selectedBook}
                 </h1>
-                <div className="w-10/12 flex gap-3 flex-wrap">
+                <div className="w-10/12 flex gap-3 flex-wrap justify-center items-center">
                   {getBookChapters().map((number, key) => (
                     <div
-                      className="p-3 w-13 rounded-xl text-xl text-center text-grey-primary"
+                      className="btn bg-grey-main border-none shadow-none p-3 w-13 rounded-xl text-xl text-center text-grey-secondary"
                       key={key}
                     >
                       {number}

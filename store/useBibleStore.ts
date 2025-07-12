@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { useAccountStore } from "./useAccountStore";
+import { translationsData } from "../data/translation-data";
 
 export type TranslationBook = {
   bookid: number;
@@ -16,7 +17,7 @@ type BibleStore = {
   setSelectedBook: (selectedBook: string) => void;
 
   setTranslation: (translation: string) => void;
-
+    getTranslationAbbrev: () => string | undefined;
   getBookChapters: (book: string) => TranslationBook | undefined;
   getTranslationBooks: () => Promise<void>;
 };
@@ -34,6 +35,12 @@ export const useBibleStore = create<BibleStore>()(
         set({ translation });
       },
 
+
+      getTranslationAbbrev: () => {
+        const translation = translationsData.find((translation) => translation.name === get().translation)
+        return translation?.abbreviation
+      },
+
       getBookChapters: (book: string) => {
         return get().translationBooks?.find(
           (translationBook) => translationBook.name === book
@@ -42,10 +49,11 @@ export const useBibleStore = create<BibleStore>()(
 
       // Method to fetch books based on translation
       getTranslationBooks: async () => {
+        const abbrev = get().getTranslationAbbrev()
         try {
           // Simulate fetching books from an API or database
           const response = await fetch(
-            `https://bolls.life/get-books/${get().translation?.toUpperCase}/`
+            `https://bolls.life/get-books/${abbrev}/`
           );
           if (!response.ok) {
             throw new Error("Failed to fetch books");
