@@ -13,12 +13,15 @@ import { translationsData } from "../../data/translation-data";
 import { useAccountStore } from "../../store/useAccountStore";
 import { useSessionStore } from "../../store/useSessionStore";
 import { ChevronRightIcon } from "lucide-react";
+import { useBibleStore } from "../../store/useBibleStore";
 
 export default function BibleStudyPage() {
   const { session } = useSessionStore();
   const [selectedBook, setSelectedBook] = useState("");
   const [drawerSwitch, setDrawerSwitch] = useState(true);
   const { preferred_translation } = useAccountStore();
+  const { getTranslationBooks } = useBibleStore();
+  
   const translationStyle = translationsData.find(
     (t) => t.name === preferred_translation
   );
@@ -27,6 +30,7 @@ export default function BibleStudyPage() {
     setSelectedBook(book);
     // call chapters of book
     setDrawerSwitch(!drawerSwitch);
+    getTranslationBooks();
   };
 
   if (!session) {
