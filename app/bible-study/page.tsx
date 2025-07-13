@@ -61,15 +61,7 @@ export default function BibleStudyPage() {
         <Drawer>
           {selectedBook ? (
             <section
-              className={`${
-                translationsData.find(
-                  (translation) => translation.name === selectedTranslation
-                )?.bg_color
-              } ${
-                translationsData.find(
-                  (translation) => translation.name === selectedTranslation
-                )?.text_color
-              } w-fit h-10 border rounded-2xl flex items-center shadow-sm`}
+              className={`${translationStyle?.bg_color} ${translationStyle?.text_color} w-fit h-10 border border-grey-light rounded-2xl flex items-center shadow-sm`}
             >
               <DrawerTrigger asChild>
                 <div
@@ -85,11 +77,7 @@ export default function BibleStudyPage() {
                   tabIndex={0}
                   role="button"
                 >
-                  {
-                    translationsData.find(
-                      (translation) => translation.name === selectedTranslation
-                    )?.abbreviation
-                  }
+                  {translationStyle?.abbreviation}
                 </div>
                 <ul
                   tabIndex={0}
@@ -127,11 +115,11 @@ export default function BibleStudyPage() {
 
           <DrawerContent className="bg-grey-main">
             <div
-              className={`flex flex-wrap w-full overflow-x-auto pb-6 transition-transform duration-500 ease-in-out ${
+              className={`flex flex-wrap w-full overflow-x-auto pb-12 transition-transform duration-500 ease-in-out ${
                 isChaptersOpen ? "translate-x-0" : "-translate-x-full"
               }`}
             >
-              <div className="w-full text-xl text-center font-bold p-5 ">
+              <div className="w-full text-xl text-center font-bold p-5">
                 Old Testament
               </div>
               <section className="flex flex-wrap gap-2 justify-center">
@@ -172,7 +160,7 @@ export default function BibleStudyPage() {
             </div>
             {/* Switch */}
             <div
-              className={`absolute w-full h-full overflow-x-auto pb-6 transition-transform duration-500 ease-in-out ${
+              className={`absolute w-full h-full overflow-x-auto pb-6 mt-6 transition-transform duration-500 ease-in-out ${
                 isChaptersOpen ? "translate-x-full" : "translate-x-0"
               }`}
             >
@@ -182,8 +170,8 @@ export default function BibleStudyPage() {
               >
                 <ChevronRightIcon className="rotate-180 text-grey-primary" />
               </button>
-              <div className="mt-10 w-full h-fit flex flex-col items-center gap-4 p-2">
-                <h1 className="text-xl font-bold text-grey-primary">
+              <div className="mt-4 w-full h-fit flex flex-col items-center gap-4 p-2">
+                <h1 className="text-xl font-bold">
                   {selectedBook}
                 </h1>
                 <div className="w-10/12 flex gap-3 flex-wrap justify-center items-center">
