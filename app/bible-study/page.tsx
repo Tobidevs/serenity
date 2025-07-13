@@ -18,10 +18,11 @@ import { useBibleStore } from "../../store/useBibleStore";
 export default function BibleStudyPage() {
   const { session } = useSessionStore();
   const [isChaptersOpen, setIsChaptersOpen] = useState(false);
-  const { preferred_translation } = useAccountStore(); // may not need
   const {
     translationBooks,
     getTranslationBooks,
+    selectedTranslation,
+    setSelectedTranslation,
     selectedBook,
     setSelectedBook,
     selectedChapter,
@@ -30,7 +31,7 @@ export default function BibleStudyPage() {
 
   const translationStyle = translationsData.find(
     // todo change styling of button
-    (t) => t.name === preferred_translation
+    (t) => t.name === selectedTranslation
   );
 
   const handleSwitch = async (book: string) => {
@@ -59,21 +60,65 @@ export default function BibleStudyPage() {
       <div className="mt-20 w-full flex flex-col items-center">
         <Drawer>
           {selectedBook ? (
-            <section className="w-fit h-10 border rounded-2xl flex shadow-sm">
+            <section
+              className={`${
+                translationsData.find(
+                  (translation) => translation.name === selectedTranslation
+                )?.bg_color
+              } ${
+                translationsData.find(
+                  (translation) => translation.name === selectedTranslation
+                )?.text_color
+              } w-fit h-10 border rounded-2xl flex items-center shadow-sm`}
+            >
               <DrawerTrigger asChild>
-                <div className="border-r-1 flex justify-center items-center pl-2 pr-2">
+                <div
+                  className="border-r-1 h-full flex justify-center items-center pl-2 pr-2"
+                  onClick={() => getTranslationBooks()}
+                >
                   {selectedBook} {selectedChapter}
                 </div>
               </DrawerTrigger>
-              <div className="flex justify-center items-center pl-2 pr-2">
-                ESV
+              <div className="dropdown dropdown-center">
+                <div
+                  className="flex justify-center items-center pl-2 pr-2"
+                  tabIndex={0}
+                  role="button"
+                >
+                  {
+                    translationsData.find(
+                      (translation) => translation.name === selectedTranslation
+                    )?.abbreviation
+                  }
+                </div>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content bg-grey-main flex flex-wrap rounded-box z-1 w-40 p-2 shadow-sm"
+                >
+                  {translationsData.map((translation, key) => (
+                    <li
+                      className={`btn flex ${
+                        // Change color based on selected translation
+                        selectedTranslation === translation.name
+                          ? `${translation.bg_color} ${translation.text_color} border-gray-300 border-3 shadow-lg`
+                          : ` border-none bg-grey-main text-grey-primary`
+                      } flex-wrap w-18 h-12 rounded-2xl border-2 shadow-none`}
+                      key={key}
+                      onClick={() => setSelectedTranslation(translation.name)}
+                    >
+                      <h2 className={`font-bold text-center`}>
+                        {translation.abbreviation}
+                      </h2>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </section>
           ) : (
             <DrawerTrigger asChild>
               <button
                 className="btn bg-grey-alt w-fit rounded-2xl shadow-none text-grey-primary md:self-center-safe border-grey-alt"
-                onClick={() => getTranslationBooks()} // onclick
+                onClick={() => getTranslationBooks()}
               >
                 Select Scripture
               </button>

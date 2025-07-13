@@ -43,7 +43,7 @@ export const translationsData = [
   },
   {
     name: "CSB (Christian Standard Bible)",
-    abbreviation: "CSB",
+    abbreviation: "CSB17",
     bg_primary_color: "bg-[#d946ef]",
     bg_color: "bg-[#fee8fc]",
     text_color: "text-[#7c0e73]",
