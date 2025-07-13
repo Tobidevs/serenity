@@ -17,7 +17,7 @@ import { useBibleStore } from "../../store/useBibleStore";
 
 export default function BibleStudyPage() {
   const { session } = useSessionStore();
-  const [isChaptersOpen, setIsChaptersOpen] = useState(false);
+  const [isBooksOpen, setIsBooksOpen] = useState(true);
   const {
     translationBooks,
     getTranslationBooks,
@@ -35,9 +35,9 @@ export default function BibleStudyPage() {
   );
 
   const handleSwitch = async (book: string) => {
-    setIsChaptersOpen(!isChaptersOpen);
+    setIsBooksOpen(!isBooksOpen);
     setSelectedBook(book);
-    if (!isChaptersOpen) {
+    if (!isBooksOpen) {
       setSelectedChapter(null);
     }
   };
@@ -116,7 +116,7 @@ export default function BibleStudyPage() {
           <DrawerContent className="bg-grey-main">
             <div
               className={`flex flex-wrap w-full overflow-x-auto pb-12 transition-transform duration-500 ease-in-out ${
-                isChaptersOpen ? "translate-x-0" : "-translate-x-full"
+                isBooksOpen ? "translate-x-0" : "-translate-x-full"
               }`}
             >
               <div className="w-full text-xl text-center font-bold p-5">
@@ -161,7 +161,7 @@ export default function BibleStudyPage() {
             {/* Switch */}
             <div
               className={`absolute w-full h-full overflow-x-auto pb-6 mt-6 transition-transform duration-500 ease-in-out ${
-                isChaptersOpen ? "translate-x-full" : "translate-x-0"
+                isBooksOpen ? "translate-x-full" : "translate-x-0"
               }`}
             >
               <button
@@ -171,9 +171,7 @@ export default function BibleStudyPage() {
                 <ChevronRightIcon className="rotate-180 text-grey-primary" />
               </button>
               <div className="mt-4 w-full h-fit flex flex-col items-center gap-4 p-2">
-                <h1 className="text-xl font-bold">
-                  {selectedBook}
-                </h1>
+                <h1 className="text-xl font-bold">{selectedBook}</h1>
                 <div className="w-10/12 flex gap-3 flex-wrap justify-center items-center">
                   {getBookChapters().map((number, key) => (
                     <div
