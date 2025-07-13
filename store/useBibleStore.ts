@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { useAccountStore } from "./useAccountStore";
 import { translationsData } from "../data/translation-data";
+import { bibleBooks } from "../data/bible-data";
 
 export type TranslationBook = {
   bookid: number;
@@ -21,6 +22,8 @@ type BibleStore = {
   getTranslationAbbrev: () => string | undefined;
   getBookChapters: (book: string) => TranslationBook | undefined;
   getTranslationBooks: () => Promise<void>;
+  getBibleText: (selectedChatper: number | null) => void;
+  getBookIndex: () => number | null;
 };
 
 const preferred_translation = useAccountStore.getState().preferred_translation;
@@ -66,9 +69,34 @@ export const useBibleStore = create<BibleStore>()(
           const data = await response.json();
 
           set({ translationBooks: data });
-
         } catch (error) {
           console.error("Error fetching selectedTranslation books:", error);
+        }
+      },
+
+      getBookIndex: () => {
+        const index = bibleBooks.findIndex(
+          (book) => book === get().selectedBook
+        );
+        return index !== -1 ? index + 1 : null;
+      },
+
+      getBibleText: async (selectedChapter) => {
+        get().setSelectedChapter(selectedChapter);
+
+        const bookIndex = get().getBookIndex();
+        const abbrev = get().getTranslationAbbrev();
+        try {
+          const response = await fetch(
+            `https://bolls.life/get-text/${abbrev}/${bookIndex}/${selectedChapter}/`
+          );
+          if (!response.ok) {
+            throw new Error("API failed to fetch");
+          }
+          const data = await response.json();
+          console.log(data);
+        } catch (error) {
+          console.error("Error fetching Bible text:", error);
         }
       },
     }),

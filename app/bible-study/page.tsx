@@ -27,6 +27,7 @@ export default function BibleStudyPage() {
     setSelectedBook,
     selectedChapter,
     setSelectedChapter,
+    getBibleText,
   } = useBibleStore();
 
   const translationStyle = translationsData.find(
@@ -56,7 +57,7 @@ export default function BibleStudyPage() {
     <div className="w-full flex min-h-screen">
       <Navbar />
       <SearchBar />
-      <div className="mt-20 w-full flex flex-col items-center"> 
+      <div className="mt-20 w-full flex flex-col items-center">
         <Drawer>
           {selectedBook ? ( // todo add documentation and add important notice showing problems
             <section
@@ -180,7 +181,7 @@ export default function BibleStudyPage() {
                           : "bg-grey-main"
                       } btn bg-grey-main border-none shadow-none p-3 w-13 rounded-xl text-xl text-center text-grey-secondary`}
                       key={key}
-                      onClick={() => setSelectedChapter(number)}
+                      onClick={() => getBibleText(number)}
                     >
                       {number}
                     </div>
