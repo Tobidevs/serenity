@@ -30,7 +30,6 @@ export default function BibleStudyPage() {
   } = useBibleStore();
 
   const translationStyle = translationsData.find(
-    // todo change styling of button
     (t) => t.name === selectedTranslation
   );
 
@@ -57,11 +56,11 @@ export default function BibleStudyPage() {
     <div className="w-full flex min-h-screen">
       <Navbar />
       <SearchBar />
-      <div className="mt-20 w-full flex flex-col items-center">
+      <div className="mt-20 w-full flex flex-col items-center"> 
         <Drawer>
-          {selectedBook ? (
+          {selectedBook ? ( // todo add documentation and add important notice showing problems
             <section
-              className={`${translationStyle?.bg_color} ${translationStyle?.text_color} w-fit h-10 border border-grey-light rounded-2xl flex items-center shadow-sm`}
+              className={`${translationStyle?.bg_color} ${translationStyle?.text_color} w-fit h-10 border border-grey-light rounded-2xl flex items-center shadow-md`}
             >
               <DrawerTrigger asChild>
                 <div

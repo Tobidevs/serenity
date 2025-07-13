@@ -66,7 +66,7 @@ export const useBibleStore = create<BibleStore>()(
           const data = await response.json();
 
           set({ translationBooks: data });
-          console.log("Fetched selectedTranslation books:", data);
+
         } catch (error) {
           console.error("Error fetching selectedTranslation books:", error);
         }
