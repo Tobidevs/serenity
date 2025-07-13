@@ -11,13 +11,14 @@ export type TranslationBook = {
 };
 
 type BibleStore = {
+  selectedChapter: number | null;
   selectedBook: string;
   translation: string | null;
   translationBooks: TranslationBook[] | null;
+  setSelectedChapter: (selectedChapter: number | null) => void;
   setSelectedBook: (selectedBook: string) => void;
-
   setTranslation: (translation: string) => void;
-    getTranslationAbbrev: () => string | undefined;
+  getTranslationAbbrev: () => string | undefined;
   getBookChapters: (book: string) => TranslationBook | undefined;
   getTranslationBooks: () => Promise<void>;
 };
@@ -27,18 +28,19 @@ const preferred_translation = useAccountStore.getState().preferred_translation;
 export const useBibleStore = create<BibleStore>()(
   persist(
     (set, get) => ({
+      selectedChapter: null,
       selectedBook: "",
       translation: preferred_translation || null,
       translationBooks: null,
+      setSelectedChapter: (selectedChapter) => set({ selectedChapter }),
       setSelectedBook: (selectedBook) => set({ selectedBook }),
-      setTranslation: (translation: string) => {
-        set({ translation });
-      },
-
+      setTranslation: (translation: string) => set({ translation }),
 
       getTranslationAbbrev: () => {
-        const translation = translationsData.find((translation) => translation.name === get().translation)
-        return translation?.abbreviation
+        const translation = translationsData.find(
+          (translation) => translation.name === get().translation
+        );
+        return translation?.abbreviation;
       },
 
       getBookChapters: (book: string) => {
@@ -49,7 +51,7 @@ export const useBibleStore = create<BibleStore>()(
 
       // Method to fetch books based on translation
       getTranslationBooks: async () => {
-        const abbrev = get().getTranslationAbbrev()
+        const abbrev = get().getTranslationAbbrev();
         try {
           // Simulate fetching books from an API or database
           const response = await fetch(

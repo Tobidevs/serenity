@@ -13,26 +13,32 @@ import { translationsData } from "../../data/translation-data";
 import { useAccountStore } from "../../store/useAccountStore";
 import { useSessionStore } from "../../store/useSessionStore";
 import { ChevronRightIcon } from "lucide-react";
-import { useBibleStore, TranslationBook } from "../../store/useBibleStore";
+import { useBibleStore } from "../../store/useBibleStore";
 
 export default function BibleStudyPage() {
   const { session } = useSessionStore();
-  const [openChapters, setOpenChapters] = useState(false);
+  const [isChaptersOpen, setIsChaptersOpen] = useState(false);
   const { preferred_translation } = useAccountStore(); // may not need
   const {
     translationBooks,
     getTranslationBooks,
     selectedBook,
     setSelectedBook,
+    selectedChapter,
+    setSelectedChapter,
   } = useBibleStore();
 
   const translationStyle = translationsData.find(
+    // todo change styling of button
     (t) => t.name === preferred_translation
   );
 
   const handleSwitch = async (book: string) => {
-    setOpenChapters(!openChapters);
+    setIsChaptersOpen(!isChaptersOpen);
     setSelectedBook(book);
+    if (!isChaptersOpen) {
+      setSelectedChapter(null);
+    }
   };
 
   const getBookChapters = () => {
@@ -52,19 +58,32 @@ export default function BibleStudyPage() {
       <SearchBar />
       <div className="mt-20 w-full flex flex-col items-center">
         <Drawer>
-          <DrawerTrigger asChild>
-            <button
-              className="btn bg-grey-alt w-fit rounded-2xl shadow-none text-grey-primary md:self-center-safe border-grey-alt"
-              onClick={() => getTranslationBooks()} // onclick
-            >
-              Select Scripture
-            </button>
-          </DrawerTrigger>
+          {selectedBook ? (
+            <section className="w-fit h-10 border rounded-2xl flex shadow-sm">
+              <DrawerTrigger asChild>
+                <div className="border-r-1 flex justify-center items-center pl-2 pr-2">
+                  {selectedBook} {selectedChapter}
+                </div>
+              </DrawerTrigger>
+              <div className="flex justify-center items-center pl-2 pr-2">
+                ESV
+              </div>
+            </section>
+          ) : (
+            <DrawerTrigger asChild>
+              <button
+                className="btn bg-grey-alt w-fit rounded-2xl shadow-none text-grey-primary md:self-center-safe border-grey-alt"
+                onClick={() => getTranslationBooks()} // onclick
+              >
+                Select Scripture
+              </button>
+            </DrawerTrigger>
+          )}
 
           <DrawerContent className="bg-grey-main">
             <div
               className={`flex flex-wrap w-full overflow-x-auto pb-6 transition-transform duration-500 ease-in-out ${
-                openChapters ? "translate-x-0" : "-translate-x-full"
+                isChaptersOpen ? "translate-x-0" : "-translate-x-full"
               }`}
             >
               <div className="w-full text-xl text-center font-bold p-5 ">
@@ -109,12 +128,12 @@ export default function BibleStudyPage() {
             {/* Switch */}
             <div
               className={`absolute w-full h-full overflow-x-auto pb-6 transition-transform duration-500 ease-in-out ${
-                openChapters ? "translate-x-full" : "translate-x-0"
+                isChaptersOpen ? "translate-x-full" : "translate-x-0"
               }`}
             >
               <button
                 className="btn absolute top-6 left-4 rounded-xl flex justify-center border-none shadow-none items-center p-3 bg-grey-main "
-                onClick={() => setOpenChapters(!openChapters)}
+                onClick={() => handleSwitch(selectedBook)}
               >
                 <ChevronRightIcon className="rotate-180 text-grey-primary" />
               </button>
@@ -125,8 +144,13 @@ export default function BibleStudyPage() {
                 <div className="w-10/12 flex gap-3 flex-wrap justify-center items-center">
                   {getBookChapters().map((number, key) => (
                     <div
-                      className="btn bg-grey-main border-none shadow-none p-3 w-13 rounded-xl text-xl text-center text-grey-secondary"
+                      className={`${
+                        selectedChapter === number
+                          ? "bg-grey-primary text-white "
+                          : "bg-grey-main"
+                      } btn bg-grey-main border-none shadow-none p-3 w-13 rounded-xl text-xl text-center text-grey-secondary`}
                       key={key}
+                      onClick={() => setSelectedChapter(number)}
                     >
                       {number}
                     </div>
