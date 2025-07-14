@@ -13,7 +13,7 @@ import { translationsData } from "../../data/translation-data";
 import { useAccountStore } from "../../store/useAccountStore";
 import { useSessionStore } from "../../store/useSessionStore";
 import { ChevronRightIcon } from "lucide-react";
-import { useBibleStore } from "../../store/useBibleStore";
+import { BibleText, useBibleStore } from "../../store/useBibleStore";
 
 export default function BibleStudyPage() {
   const { session } = useSessionStore();
@@ -27,6 +27,7 @@ export default function BibleStudyPage() {
     setSelectedBook,
     selectedChapter,
     setSelectedChapter,
+    bibleText,
     getBibleText,
   } = useBibleStore();
 
@@ -57,12 +58,14 @@ export default function BibleStudyPage() {
     <div className="w-full flex min-h-screen">
       <Navbar />
       <SearchBar />
-      <div className="mt-20 w-full flex flex-col items-center">
+      <div className="mt-15 w-full flex flex-col items-center border">
         <Drawer>
-          {selectedBook ? ( // todo add documentation and add important notice showing problems
+          {selectedBook ? ( // todo add important notice showing problems
+            // Control Tab
             <section
-              className={`${translationStyle?.bg_color} ${translationStyle?.text_color} w-fit h-10 border border-grey-light rounded-2xl flex items-center shadow-md`}
+              className={`${translationStyle?.bg_color} ${translationStyle?.text_color} mt-5 mb-5 w-fit h-10 min-h-10 border border-grey-light rounded-2xl flex items-center shadow-md`}
             >
+              {/* Bible Tab */}
               <DrawerTrigger asChild>
                 <div
                   className="border-r-1 h-full flex justify-center items-center pl-2 pr-2"
@@ -71,6 +74,7 @@ export default function BibleStudyPage() {
                   {selectedBook} {selectedChapter}
                 </div>
               </DrawerTrigger>
+              {/* Translation Tab */}
               <div className="dropdown dropdown-center">
                 <div
                   className="flex justify-center items-center pl-2 pr-2"
@@ -79,6 +83,7 @@ export default function BibleStudyPage() {
                 >
                   {translationStyle?.abbreviation}
                 </div>
+                {/* Translation Dropdown */}
                 <ul
                   tabIndex={0}
                   className="dropdown-content bg-grey-main flex flex-wrap rounded-box z-1 w-40 p-2 shadow-sm"
@@ -92,7 +97,7 @@ export default function BibleStudyPage() {
                           : ` border-none bg-grey-main text-grey-primary`
                       } flex-wrap w-18 h-12 rounded-2xl border-2 shadow-none`}
                       key={key}
-                      onClick={() => setSelectedTranslation(translation.name)}
+                      onClick={() => setSelectedTranslation(translation.name)} // todo refactor to update text on translation change
                     >
                       <h2 className={`font-bold text-center`}>
                         {translation.abbreviation}
@@ -103,6 +108,7 @@ export default function BibleStudyPage() {
               </div>
             </section>
           ) : (
+            // Select Scripture Tab
             <DrawerTrigger asChild>
               <button
                 className="btn bg-grey-alt w-fit rounded-2xl shadow-none text-grey-primary md:self-center-safe border-grey-alt"
@@ -112,13 +118,15 @@ export default function BibleStudyPage() {
               </button>
             </DrawerTrigger>
           )}
-
+          {/* Bible Drawer */}
           <DrawerContent className="bg-grey-main">
+            {/* Bible Books */}
             <div
               className={`flex flex-wrap w-full overflow-x-auto pb-12 transition-transform duration-500 ease-in-out ${
                 isBooksOpen ? "translate-x-0" : "-translate-x-full"
               }`}
             >
+              {/* Old Testament Books */}
               <div className="w-full text-xl text-center font-bold p-5">
                 Old Testament
               </div>
@@ -139,6 +147,7 @@ export default function BibleStudyPage() {
                   </div>
                 ))}
               </section>
+              {/* New Testament Books */}
               <div className="w-full text-xl text-center font-bold p-5">
                 New Testament
               </div>
@@ -158,18 +167,20 @@ export default function BibleStudyPage() {
                 ))}
               </section>
             </div>
-            {/* Switch */}
+            {/* Bible Chapters */}
             <div
               className={`absolute w-full h-full overflow-x-auto pb-6 mt-6 transition-transform duration-500 ease-in-out ${
                 isBooksOpen ? "translate-x-full" : "translate-x-0"
               }`}
             >
+              {/* Back Button */}
               <button
                 className="btn absolute top-6 left-4 rounded-xl flex justify-center border-none shadow-none items-center p-3 bg-grey-main "
                 onClick={() => handleSwitch(selectedBook)}
               >
                 <ChevronRightIcon className="rotate-180 text-grey-primary" />
               </button>
+              {/* Bible Chapters */}
               <div className="mt-4 w-full h-fit flex flex-col items-center gap-4 p-2">
                 <h1 className="text-xl font-bold">{selectedBook}</h1>
                 <div className="w-10/12 flex gap-3 flex-wrap justify-center items-center">
@@ -191,6 +202,14 @@ export default function BibleStudyPage() {
             </div>
           </DrawerContent>
         </Drawer>
+        {/* Page Content */}
+        <div className="flex flex-col items-center  w-full border">
+          <button></button>
+          <div className="w-10/12 border">
+            <p>{bibleText?.map((bibleText: BibleText) => bibleText.text)} </p>
+          </div>
+          <button></button>
+        </div>
       </div>
     </div>
   );

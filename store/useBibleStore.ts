@@ -11,7 +11,7 @@ export type TranslationBook = {
   chapters: number;
 };
 
-type BibleText = {
+export type BibleText = {
   pk: number;
   verse: number;
   text: string;
@@ -92,6 +92,7 @@ export const useBibleStore = create<BibleStore>()(
       },
 
       getBibleText: async (selectedChapter) => {
+        // Update Selected Chapter State
         get().setSelectedChapter(selectedChapter);
 
         const bookIndex = get().getBookIndex();
