@@ -11,11 +11,19 @@ export type TranslationBook = {
   chapters: number;
 };
 
+type BibleText = {
+  pk: number;
+  verse: number;
+  text: string;
+};
+
 type BibleStore = {
+  bibleText: BibleText[] | null;
   selectedChapter: number | null;
   selectedBook: string;
   selectedTranslation: string | null;
   translationBooks: TranslationBook[] | null;
+  setBibleText: (bibleText: BibleText[] | null) => void;
   setSelectedChapter: (selectedChapter: number | null) => void;
   setSelectedBook: (selectedBook: string) => void;
   setSelectedTranslation: (selectedTranslation: string) => void;
@@ -31,10 +39,12 @@ const preferred_translation = useAccountStore.getState().preferred_translation;
 export const useBibleStore = create<BibleStore>()(
   persist(
     (set, get) => ({
+      bibleText: null,
       selectedChapter: null,
       selectedBook: "",
       selectedTranslation: preferred_translation || null,
       translationBooks: null,
+      setBibleText: (bibleText) => set({ bibleText }),
       setSelectedChapter: (selectedChapter) => set({ selectedChapter }),
       setSelectedBook: (selectedBook) => set({ selectedBook }),
       setSelectedTranslation: (selectedTranslation: string) =>
@@ -94,7 +104,7 @@ export const useBibleStore = create<BibleStore>()(
             throw new Error("API failed to fetch");
           }
           const data = await response.json();
-          console.log(data);
+          set({ bibleText: data });
         } catch (error) {
           console.error("Error fetching Bible text:", error);
         }
