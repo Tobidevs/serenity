@@ -14,6 +14,14 @@ import { useAccountStore } from "../../store/useAccountStore";
 import { useSessionStore } from "../../store/useSessionStore";
 import { ChevronRightIcon } from "lucide-react";
 import { BibleText, useBibleStore } from "../../store/useBibleStore";
+import { Merriweather } from "next/font/google";
+
+// Importing Merriweather font for Bible text styling
+const merriweather = Merriweather({
+  subsets: ["latin"],
+  weight: ["400", "700"], 
+  display: "swap",
+});
 
 export default function BibleStudyPage() {
   const { session } = useSessionStore();
@@ -58,55 +66,69 @@ export default function BibleStudyPage() {
     <div className="w-full flex min-h-screen">
       <Navbar />
       <SearchBar />
-      <div className="mt-15 w-full flex flex-col items-center border">
+      <div className="mt-15 w-full flex flex-col items-center">
         <Drawer>
           {selectedBook ? ( // todo add important notice showing problems
-            // Control Tab
-            <section
-              className={`${translationStyle?.bg_color} ${translationStyle?.text_color} mt-5 mb-5 w-fit h-10 min-h-10 border border-grey-light rounded-2xl flex items-center shadow-md`}
-            >
-              {/* Bible Tab */}
-              <DrawerTrigger asChild>
-                <div
-                  className="border-r-1 h-full flex justify-center items-center pl-2 pr-2"
-                  onClick={() => getTranslationBooks()}
-                >
-                  {selectedBook} {selectedChapter}
+            <div className="flex w-10/12 justify-between">
+              <button>
+                <ChevronRightIcon
+                  className={`${translationStyle?.bg_color} ${translationStyle?.text_color} border rotate-180 rounded-full p-1`}
+                  size={30}
+                />
+              </button>
+              {/* Control Tab */}
+              <section
+                className={`${translationStyle?.bg_color} ${translationStyle?.text_color} mt-5 mb-4 w-fit h-10 min-h-10 border border-grey-light rounded-2xl flex items-center shadow-md`}
+              >
+                {/* Bible Tab */}
+                <DrawerTrigger asChild>
+                  <div
+                    className="border-r-1 h-full flex justify-center items-center pl-2 pr-2"
+                    onClick={() => getTranslationBooks()}
+                  >
+                    {selectedBook} {selectedChapter}
+                  </div>
+                </DrawerTrigger>
+                {/* Translation Tab */}
+                <div className="dropdown dropdown-center">
+                  <div
+                    className="flex justify-center items-center pl-2 pr-2"
+                    tabIndex={0}
+                    role="button"
+                  >
+                    {translationStyle?.abbreviation}
+                  </div>
+                  {/* Translation Dropdown */}
+                  <ul
+                    tabIndex={0}
+                    className="dropdown-content bg-grey-main flex flex-wrap rounded-box z-1 w-40 p-2 shadow-sm"
+                  >
+                    {translationsData.map((translation, key) => (
+                      <li
+                        className={`btn flex ${
+                          // Change color based on selected translation
+                          selectedTranslation === translation.name
+                            ? `${translation.bg_color} ${translation.text_color} border-gray-300 border-3 shadow-lg`
+                            : ` border-none bg-grey-main text-grey-primary`
+                        } flex-wrap w-18 h-12 rounded-2xl border-2 shadow-none`}
+                        key={key}
+                        onClick={() => setSelectedTranslation(translation.name)} // todo refactor to update text on translation change
+                      >
+                        <h2 className={`font-bold text-center`}>
+                          {translation.abbreviation}
+                        </h2>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              </DrawerTrigger>
-              {/* Translation Tab */}
-              <div className="dropdown dropdown-center">
-                <div
-                  className="flex justify-center items-center pl-2 pr-2"
-                  tabIndex={0}
-                  role="button"
-                >
-                  {translationStyle?.abbreviation}
-                </div>
-                {/* Translation Dropdown */}
-                <ul
-                  tabIndex={0}
-                  className="dropdown-content bg-grey-main flex flex-wrap rounded-box z-1 w-40 p-2 shadow-sm"
-                >
-                  {translationsData.map((translation, key) => (
-                    <li
-                      className={`btn flex ${
-                        // Change color based on selected translation
-                        selectedTranslation === translation.name
-                          ? `${translation.bg_color} ${translation.text_color} border-gray-300 border-3 shadow-lg`
-                          : ` border-none bg-grey-main text-grey-primary`
-                      } flex-wrap w-18 h-12 rounded-2xl border-2 shadow-none`}
-                      key={key}
-                      onClick={() => setSelectedTranslation(translation.name)} // todo refactor to update text on translation change
-                    >
-                      <h2 className={`font-bold text-center`}>
-                        {translation.abbreviation}
-                      </h2>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </section>
+              </section>
+              <button>
+                <ChevronRightIcon
+                  className={`${translationStyle?.bg_color} ${translationStyle?.text_color} border rounded-full p-1`}
+                  size={30}
+                />
+              </button>
+            </div>
           ) : (
             // Select Scripture Tab
             <DrawerTrigger asChild>
@@ -203,12 +225,40 @@ export default function BibleStudyPage() {
           </DrawerContent>
         </Drawer>
         {/* Page Content */}
-        <div className="flex flex-col items-center  w-full border">
+        <div className="flex flex-col items-center w-full">
           <button></button>
-          <div className="w-10/12 border">
-            <p>{bibleText?.map((bibleText: BibleText) => bibleText.text)} </p>
+          <div className="w-10/12">
+            {/* <p className={`${merriweather.className} leading-relaxed`}>
+              {bibleText?.map((bibleText: BibleText) => bibleText.text)}
+            </p> */}
+            {/* <p className={`${merriweather.className} leading-relaxed`}>
+              {bibleText?.map((verse, index) => (
+                <span
+                  key={index}
+                  dangerouslySetInnerHTML={{
+                    __html: `<sup class="text-gray-500 mr-1">${verse.verse}</sup>${verse.text} `,
+                  }}
+                />
+              ))}
+            </p> */}
+            <p className={`${merriweather.className} leading-relaxed`}>
+              {bibleText?.map((verse, index) => {
+                const sanitizedText = verse.text.replaceAll(
+                  /<S>(.*?)<\/S>/g,
+                  ""
+                );
+
+                return (
+                  <span
+                    key={index}
+                    dangerouslySetInnerHTML={{
+                      __html: `<sup class="text-gray-500 mr-1">${verse.verse}</sup>${sanitizedText}`,
+                    }}
+                  />
+                );
+              })}
+            </p>
           </div>
-          <button></button>
         </div>
       </div>
     </div>
