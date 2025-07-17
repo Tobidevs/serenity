@@ -19,7 +19,7 @@ import { Merriweather } from "next/font/google";
 // Importing Merriweather font for Bible text styling
 const merriweather = Merriweather({
   subsets: ["latin"],
-  weight: ["400", "700"], 
+  weight: ["400", "700"],
   display: "swap",
 });
 
@@ -70,9 +70,10 @@ export default function BibleStudyPage() {
         <Drawer>
           {selectedBook ? ( // todo add important notice showing problems
             <div className="flex w-10/12 justify-between">
+              {/* Previous Chapter Button */}
               <button>
                 <ChevronRightIcon
-                  className={`${translationStyle?.bg_color} ${translationStyle?.text_color} border rotate-180 rounded-full p-1`}
+                  className={`rotate-180 rounded-full p-1`}
                   size={30}
                 />
               </button>
@@ -112,7 +113,9 @@ export default function BibleStudyPage() {
                             : ` border-none bg-grey-main text-grey-primary`
                         } flex-wrap w-18 h-12 rounded-2xl border-2 shadow-none`}
                         key={key}
-                        onClick={() => setSelectedTranslation(translation.name)} // todo refactor to update text on translation change
+                        onClick={() =>
+                          getBibleText(selectedChapter, translation.name)
+                        }
                       >
                         <h2 className={`font-bold text-center`}>
                           {translation.abbreviation}
@@ -122,11 +125,9 @@ export default function BibleStudyPage() {
                   </ul>
                 </div>
               </section>
+              {/* Next Chapter Button */}
               <button>
-                <ChevronRightIcon
-                  className={`${translationStyle?.bg_color} ${translationStyle?.text_color} border rounded-full p-1`}
-                  size={30}
-                />
+                <ChevronRightIcon className={`rounded-full p-1`} size={30} />
               </button>
             </div>
           ) : (

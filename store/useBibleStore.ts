@@ -30,7 +30,10 @@ type BibleStore = {
   getTranslationAbbrev: () => string | undefined;
   getBookChapters: (book: string) => TranslationBook | undefined;
   getTranslationBooks: () => Promise<void>;
-  getBibleText: (selectedChatper: number | null) => void;
+  getBibleText: (
+    selectedChatper: number | null,
+    selectedTranslation?: string | null
+  ) => void;
   getBookIndex: () => number | null;
 };
 
@@ -91,9 +94,13 @@ export const useBibleStore = create<BibleStore>()(
         return index !== -1 ? index + 1 : null;
       },
 
-      getBibleText: async (selectedChapter) => {
+      getBibleText: async (selectedChapter, selectedTranslation?) => {
         // Update Selected Chapter State
         get().setSelectedChapter(selectedChapter);
+        // If Translation is provided, update the selected translation
+        if (selectedTranslation) {
+          get().setSelectedTranslation(selectedTranslation);
+        }
 
         const bookIndex = get().getBookIndex();
         const abbrev = get().getTranslationAbbrev();
