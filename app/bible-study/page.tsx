@@ -73,11 +73,18 @@ export default function BibleStudyPage() {
               {/* Previous Chapter Button, */}
               {
                 // Check if there is a previous chapter
-                getBookChapters()[0] !== selectedChapter ? (
+                getBookChapters().at(0) !== selectedChapter ? (
                   <button>
                     <ChevronRightIcon
                       className="rotate-180 rounded-full p-1"
                       size={30}
+                      onClick={() =>
+                        getBibleText(
+                          selectedChapter,
+                          selectedTranslation,
+                          "previous"
+                        )
+                      }
                     />
                   </button>
                 ) : (
@@ -138,12 +145,18 @@ export default function BibleStudyPage() {
               {/* Next Chapter Button */}
               {
                 // Check if there is a next chapter
-                getBookChapters()[getBookChapters().length - 1] !==
-                selectedChapter ? (
+                getBookChapters().at(-1) !== selectedChapter ? (
                   <button>
                     <ChevronRightIcon
                       className={`rounded-full p-1`}
                       size={30}
+                      onClick={() =>
+                        getBibleText(
+                          selectedChapter,
+                          selectedTranslation,
+                          "next"
+                        )
+                      }
                     />
                   </button>
                 ) : (

@@ -32,7 +32,8 @@ type BibleStore = {
   getTranslationBooks: () => Promise<void>;
   getBibleText: (
     selectedChatper: number | null,
-    selectedTranslation?: string | null
+    selectedTranslation?: string | null,
+    changeChapter?: string | null
   ) => void;
   getBookIndex: () => number | null;
 };
@@ -94,10 +95,24 @@ export const useBibleStore = create<BibleStore>()(
         return index !== -1 ? index + 1 : null;
       },
 
-      getBibleText: async (selectedChapter, selectedTranslation?) => {
+      getBibleText: async (
+        selectedChapter,
+        selectedTranslation?,
+        changeChapter?
+      ) => {
         // Update Selected Chapter State
+        if (!changeChapter) {
+          get().setSelectedChapter(selectedChapter);
+        } else {
+          if (changeChapter === "next") {
+            get().setSelectedChapter((selectedChapter ?? 0) + 1);
+          } else if (changeChapter === "previous") {
+            get().setSelectedChapter((selectedChapter ?? 0) - 1);
+          } else {
+            console.error("Invalid changeChapter value:", changeChapter);
+          }
+        }
 
-        get().setSelectedChapter(selectedChapter);
         // If Translation is provided, update the selected translation
         if (selectedTranslation) {
           get().setSelectedTranslation(selectedTranslation);
@@ -107,7 +122,7 @@ export const useBibleStore = create<BibleStore>()(
         const abbrev = get().getTranslationAbbrev();
         try {
           const response = await fetch(
-            `https://bolls.life/get-text/${abbrev}/${bookIndex}/${selectedChapter}/`
+            `https://bolls.life/get-text/${abbrev}/${bookIndex}/${get().selectedChapter}/`
           );
           if (!response.ok) {
             throw new Error("API failed to fetch");
