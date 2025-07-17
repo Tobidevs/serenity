@@ -70,13 +70,23 @@ export default function BibleStudyPage() {
         <Drawer>
           {selectedBook ? ( // todo add important notice showing problems
             <div className="flex w-10/12 justify-between">
-              {/* Previous Chapter Button */}
-              <button>
-                <ChevronRightIcon
-                  className={`rotate-180 rounded-full p-1`}
-                  size={30}
-                />
-              </button>
+              {/* Previous Chapter Button, */}
+              {
+                // Check if there is a previous chapter
+                getBookChapters()[0] !== selectedChapter ? (
+                  <button>
+                    <ChevronRightIcon
+                      className="rotate-180 rounded-full p-1"
+                      size={30}
+                    />
+                  </button>
+                ) : (
+                  <button className="rotate-180 rounded-full p-1 opacity-30 pointer-events-none">
+                    <ChevronRightIcon className="rounded-full p-1" size={30} />
+                  </button>
+                )
+              }
+
               {/* Control Tab */}
               <section
                 className={`${translationStyle?.bg_color} ${translationStyle?.text_color} mt-5 mb-4 w-fit h-10 min-h-10 border border-grey-light rounded-2xl flex items-center shadow-md`}
@@ -126,9 +136,25 @@ export default function BibleStudyPage() {
                 </div>
               </section>
               {/* Next Chapter Button */}
-              <button>
-                <ChevronRightIcon className={`rounded-full p-1`} size={30} />
-              </button>
+              {
+                // Check if there is a next chapter
+                getBookChapters()[getBookChapters().length - 1] !==
+                selectedChapter ? (
+                  <button>
+                    <ChevronRightIcon
+                      className={`rounded-full p-1`}
+                      size={30}
+                    />
+                  </button>
+                ) : (
+                  <button className="rounded-full p-1 opacity-30 pointer-events-none">
+                    <ChevronRightIcon
+                      className={`rounded-full p-1`}
+                      size={30}
+                    />
+                  </button>
+                )
+              }
             </div>
           ) : (
             // Select Scripture Tab

@@ -96,6 +96,7 @@ export const useBibleStore = create<BibleStore>()(
 
       getBibleText: async (selectedChapter, selectedTranslation?) => {
         // Update Selected Chapter State
+
         get().setSelectedChapter(selectedChapter);
         // If Translation is provided, update the selected translation
         if (selectedTranslation) {
