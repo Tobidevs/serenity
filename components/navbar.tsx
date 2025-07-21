@@ -74,7 +74,7 @@ export function Navbar() {
             }`}
           >
             <BiSolidDashboard
-              size={30}
+              size={25}
               className={`${
                 pathname === "/dashboard" && `${translationStyle?.text_color}`
               }`}
@@ -95,7 +95,7 @@ export function Navbar() {
             }`}
           >
             <FaBookBible
-              size={30}
+              size={25}
               className={`${
                 pathname === "/bible-study" && `${translationStyle?.text_color}`
               }`}
@@ -116,7 +116,7 @@ export function Navbar() {
             }`}
           >
             <LuNotebookPen
-              size={30}
+              size={25}
               className={`${
                 pathname === "/study-plan" && `${translationStyle?.text_color}`
               }`}
@@ -137,7 +137,7 @@ export function Navbar() {
             }`}
           >
             <FaBoxArchive
-              size={30}
+              size={25}
               className={`${
                 pathname === "/my-stuff" && `${translationStyle?.text_color}`
               }`}
@@ -158,7 +158,7 @@ export function Navbar() {
             }`}
           >
             <FaHandsHelping
-              size={30}
+              size={25}
               className={`${
                 pathname === "/help-serenity" &&
                 `${translationStyle?.text_color}`

@@ -96,7 +96,7 @@ export default function BibleStudyPage() {
 
               {/* Control Tab */}
               <section
-                className={`${translationStyle?.bg_color} ${translationStyle?.text_color} mt-5 mb-4 w-fit h-10 min-h-10 border border-grey-light rounded-2xl flex items-center shadow-md`}
+                className={`${translationStyle?.bg_color} ${translationStyle?.text_color} mt-5 mb-4 w-fit h-10 min-h-10 border border-grey-light rounded-2xl flex items-center shadow-none`}
               >
                 {/* Bible Tab */}
                 <DrawerTrigger asChild>
