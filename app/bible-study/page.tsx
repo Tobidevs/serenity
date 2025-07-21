@@ -283,11 +283,12 @@ export default function BibleStudyPage() {
             </p> */}
             <p className={`${merriweather.className} leading-relaxed`}>
               {bibleText?.map((verse, index) => {
+                // Sanitize the verse text by removing <S> tags
                 const sanitizedText = verse.text.replaceAll(
                   /<S>(.*?)<\/S>/g,
                   ""
                 );
-
+                // Return the verse with its number and sanitized text
                 return (
                   <span
                     key={index}
