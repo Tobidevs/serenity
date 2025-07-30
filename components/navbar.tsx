@@ -110,6 +110,27 @@ export function Navbar() {
           </Link>
 
           <Link
+            href={"/bible-quiz"}
+            className={`flex p-2 rounded-lg justify-center items-center w-fit text-xl gap-3 font-bold ${
+              pathname === "/bible-quiz" && `${translationStyle?.bg_color}`
+            }`}
+          >
+            <BiSolidDashboard
+              size={25}
+              className={`${
+                pathname === "/bible-quiz" && `${translationStyle?.text_color}`
+              }`}
+            />
+            <h2
+              className={`${
+                pathname === "/bible-quiz" && `${translationStyle?.text_color}`
+              }`}
+            >
+              Bible Quiz
+            </h2>
+          </Link>
+
+          <Link
             href={"/study-plan"}
             className={`flex p-2 rounded-lg justify-center items-center w-fit text-xl gap-3 font-bold ${
               pathname === "/study-plan" && `${translationStyle?.bg_color}`
