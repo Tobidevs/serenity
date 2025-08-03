@@ -34,8 +34,8 @@ export default function BibleStudyPage() {
         <BibleDrawer />
         {/* Page Content */}
         <div className="flex flex-col items-center w-full">
-          <button></button>
-          <div className="w-10/12">
+          
+          <div className="w-10/12 mb-10">
             <p className={`${merriweather.className} leading-relaxed`}>
               {bibleText?.map((verse, index) => {
                 // Sanitize the verse text by removing <S> tags

@@ -110,20 +110,20 @@ export function Navbar() {
           </Link>
 
           <Link
-            href={"/bible-quiz"}
+            href={"/quiz-menu"}
             className={`flex p-2 rounded-lg justify-center items-center w-fit text-xl gap-3 font-bold ${
-              pathname === "/bible-quiz" && `${translationStyle?.bg_color}`
+              pathname === "/quiz-menu" && `${translationStyle?.bg_color}`
             }`}
           >
             <BiSolidDashboard
               size={25}
               className={`${
-                pathname === "/bible-quiz" && `${translationStyle?.text_color}`
+                pathname === "/quiz-menu" && `${translationStyle?.text_color}`
               }`}
             />
             <h2
               className={`${
-                pathname === "/bible-quiz" && `${translationStyle?.text_color}`
+                pathname === "/quiz-menu" && `${translationStyle?.text_color}`
               }`}
             >
               Bible Quiz
