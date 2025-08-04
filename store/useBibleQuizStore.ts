@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { useAccountStore } from "./useAccountStore";
 import { useBibleStore } from "./useBibleStore";
 import { translationsData } from "../data/translation-data";
+import { bibleBooks } from "../data/bible-data";
 
 type BibleQuizStore = {
   verse: string | null;
@@ -12,6 +13,7 @@ type BibleQuizStore = {
   setCorrectAnswer: (correctAnswer: string | null) => void;
   setIncorrectAnswers: (incorrectAnswers: string[] | null) => void;
   getTranslationAbbrev: () => string | undefined;
+  getBookIndex: (bookId: string) => number | null;
 
   generateVerses: () => void;
   generateQuestion: (results: ResultsObject[]) => void;
@@ -44,6 +46,10 @@ export const useBibleQuizStore = create<BibleQuizStore>((set, get) => ({
     );
     return translationAbbrev?.abbreviation;
   },
+  getBookIndex: (bookId) => {
+    const index = bibleBooks.findIndex((book) => book === bookId);
+    return index !== -1 ? index + 1 : null;
+  },
 
   generateVerses: async () => {
     // Logic to generate a question based on the user's topics of interest
@@ -69,11 +75,10 @@ export const useBibleQuizStore = create<BibleQuizStore>((set, get) => ({
   },
 
   generateQuestion: (results) => {
-
-    const correctVerseData = results[Math.floor(Math.random() * results.length)]
-    // make function to get index of book
-
-    const correctAnswer = `${correctVerseData.book} ${correctVerseData.chapter}:${correctVerseData.verse} - ${correctVerseData.text}`;
+    // Pick a random verse from the results
+    const verseData = results[Math.floor(Math.random() * results.length)];
+    const book = get().getBookIndex(verseData.book);
+    const correctAnswer = `${book} ${verseData.chapter}:${verseData.verse}`;
     const incorrectAnswers: string[] = [];
 
     // Generate 3 random incorrect answers
