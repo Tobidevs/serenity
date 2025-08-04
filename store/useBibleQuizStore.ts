@@ -13,7 +13,7 @@ type BibleQuizStore = {
   setCorrectAnswer: (correctAnswer: string | null) => void;
   setIncorrectAnswers: (incorrectAnswers: string[] | null) => void;
   getTranslationAbbrev: () => string | undefined;
-  getBookIndex: (bookId: string) => number | null;
+  getBookName: (bookId: string) => string | null;
 
   generateVerses: () => void;
   generateQuestion: (results: ResultsObject[]) => void;
@@ -46,9 +46,9 @@ export const useBibleQuizStore = create<BibleQuizStore>((set, get) => ({
     );
     return translationAbbrev?.abbreviation;
   },
-  getBookIndex: (bookId) => {
-    const index = bibleBooks.findIndex((book) => book === bookId);
-    return index !== -1 ? index + 1 : null;
+  getBookName: (bookId) => {
+    const bookIndex = Number(bookId) - 1;
+    return bibleBooks[bookIndex] || null; 
   },
 
   generateVerses: async () => {
@@ -61,14 +61,14 @@ export const useBibleQuizStore = create<BibleQuizStore>((set, get) => ({
 
     try {
       const response = await fetch(
-        `https://bolls.life/v2/find/${translationAbbrev}?search=${topic}&book=nt&limit=10`
+        `https://bolls.life/v2/find/${translationAbbrev}?search=${topic}&book=nt`
       );
       console.log(topic, translationAbbrev);
       if (!response.ok) {
         throw new Error("Failed to fetch verse");
       }
       const { results } = await response.json();
-      console.log(results);
+      get().generateQuestion(results as ResultsObject[]);
     } catch (error) {
       console.error("Error generating verses", error);
     }
@@ -77,7 +77,7 @@ export const useBibleQuizStore = create<BibleQuizStore>((set, get) => ({
   generateQuestion: (results) => {
     // Pick a random verse from the results
     const verseData = results[Math.floor(Math.random() * results.length)];
-    const book = get().getBookIndex(verseData.book);
+    const book = get().getBookName(verseData.book);
     const correctAnswer = `${book} ${verseData.chapter}:${verseData.verse}`;
     const incorrectAnswers: string[] = [];
 
@@ -94,6 +94,13 @@ export const useBibleQuizStore = create<BibleQuizStore>((set, get) => ({
       }
     }
 
+    console.log(correctAnswer,verseData.text, incorrectAnswers);
+
     // Set the state with the generated question
+    set({
+        verse: verseData.text,
+        correctAnswer,
+        incorrectAnswers,
+    })
   },
 }));
