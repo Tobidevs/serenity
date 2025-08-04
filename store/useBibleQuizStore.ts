@@ -9,6 +9,7 @@ type BibleQuizStore = {
   correctAnswer: string | null;
   incorrectAnswers: string[] | null;
   questionTranslation: string | null;
+  answerChoices: string[] | null;
   setVerse: (verse: string | null) => void;
   setCorrectAnswer: (correctAnswer: string | null) => void;
   setIncorrectAnswers: (incorrectAnswers: string[] | null) => void;
@@ -36,6 +37,7 @@ export const useBibleQuizStore = create<BibleQuizStore>((set, get) => ({
   correctAnswer: null,
   incorrectAnswers: null,
   questionTranslation: preferred_translation || null,
+  answerChoices: null,
 
   setVerse: (verse) => set({ verse }),
   setCorrectAnswer: (correctAnswer) => set({ correctAnswer }),
@@ -84,8 +86,8 @@ export const useBibleQuizStore = create<BibleQuizStore>((set, get) => ({
     // Generate 3 random incorrect answers
     while (incorrectAnswers.length < 3) {
       const randomVerse = results[Math.floor(Math.random() * results.length)];
-
-      const randomText = `${randomVerse.book} ${randomVerse.chapter}:${randomVerse.verse} - ${randomVerse.text}`;
+      const randomText = `${get().getBookName(randomVerse.book)} ${randomVerse.chapter}:${randomVerse.verse}`;
+      
       if (
         randomText !== correctAnswer &&
         !incorrectAnswers.includes(randomText)
@@ -93,8 +95,13 @@ export const useBibleQuizStore = create<BibleQuizStore>((set, get) => ({
         incorrectAnswers.push(randomText);
       }
     }
+    // Shuffle the answers
+    get().answerChoices = [correctAnswer, ...incorrectAnswers].sort(() => Math.random() - 0.5);
+    console.log(get().answerChoices);
+    console.log("Correct Answer:", correctAnswer);
 
-    console.log(correctAnswer,verseData.text, incorrectAnswers);
+
+    
 
     // Set the state with the generated question
     set({
