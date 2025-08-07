@@ -1,11 +1,28 @@
+import { Merriweather } from "next/font/google";
 import { useBibleQuizStore } from "../store/useBibleQuizStore";
+
+// Importing Merriweather font for Bible text styling
+const merriweather = Merriweather({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  display: "swap",
+});
+
 export const Quiz = () => {
   const { generateVerses, verse, answerChoices, correctAnswer } =
     useBibleQuizStore();
 
   return (
     <div className="flex flex-col items-center justify-center p-4">
-      <div>"{verse}"</div>
+      <p className={`${merriweather.className} leading-relaxed`}>
+        {verse && (
+          <span
+            dangerouslySetInnerHTML={{
+              __html: `${verse.replaceAll(/<\/?(S|mark)>/g, "")}`,
+            }}
+          />
+        )}
+      </p>
       <div className="flex flex-col items-center mt-4">
         {answerChoices?.map((choice, index) => (
           <button
