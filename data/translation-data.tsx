@@ -1,3 +1,12 @@
+
+export type TranslationData = {
+  name: string;
+  abbreviation: string;
+  bg_primary_color: string;
+  bg_color: string;
+  text_color: string;
+};
+
 export const translationsData = [
   {
     name: "KJV (King James Version)",
