@@ -8,7 +8,7 @@ export default function BibleQuizPage() {
     <div className="w-full flex min-h-screen">
       <Navbar />
       <SearchBar />
-       <div className="mt-15 w-full flex flex-col items-center">
+       <div className="mt-15 pt-10 pl-5 pr-5 w-full flex flex-col items-center">
         <Quiz />
       </div>
     </div>

@@ -14,15 +14,16 @@ export const Quiz = () => {
 
   return (
     <div className="flex flex-col items-center justify-center p-4">
-      <p className={`${merriweather.className} leading-relaxed`}>
+      <p className={`${merriweather.className} leading-relaxed text-xl`}>
         {verse && (
           <span
             dangerouslySetInnerHTML={{
-              __html: `${verse.replaceAll(/<\/?(S|mark)>/g, "")}`,
+              __html: `“${verse.replaceAll(/<\/?(S|mark)>/g, "")}”`,
             }}
           />
         )}
       </p>
+
       <div className="flex flex-col items-center mt-4">
         {answerChoices?.map((choice, index) => (
           <button
