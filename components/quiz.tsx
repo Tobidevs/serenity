@@ -24,11 +24,11 @@ export const Quiz = () => {
         )}
       </p>
 
-      <div className="flex flex-col items-center mt-4">
+      <div className="flex flex-col items-center mt-8 w-9/10">
         {answerChoices?.map((choice, index) => (
           <button
             key={index}
-            className="btn mb-2"
+            className="btn h-16 w-full mb-2 flex items-center justify-start px-4 text-left text-lg"
             onClick={() => {
               if (choice === correctAnswer) {
                 alert("Correct!");
@@ -37,6 +37,9 @@ export const Quiz = () => {
               }
             }}
           >
+            <span className="font-bold w-8 h-8 border flex justify-center items-center border-black rounded-lg mr-2">
+              {String.fromCharCode(65 + index)}
+            </span>
             {choice}
           </button>
         ))}
