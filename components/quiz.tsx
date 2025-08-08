@@ -15,15 +15,29 @@ export const Quiz = () => {
   const { generateVerses, verse, answerChoices, correctAnswer } =
     useBibleQuizStore();
   const [buttonStyles, setButtonStyles] = useState<TranslationData[]>([]);
+  const randomAnswerChoiceStyles = false;
 
   const generateNextQuestion = () => {
-    // Set button styles based on the translations data
-    const styles: TranslationData[] = [];
-    const stylesConfig = [0, 2, 4, 6];
-    stylesConfig.forEach(idx => {
-      styles.push(translationsData[idx]);
-    });
-    setButtonStyles(styles);
+    if (randomAnswerChoiceStyles) {
+      // Generate random styles for answer choices
+      const styles: TranslationData[] = [];
+      while (styles.length < 4) {
+        const randomStyle =
+          translationsData[Math.floor(Math.random() * translationsData.length)];
+        if (!styles.includes(randomStyle)) {
+          styles.push(randomStyle);
+        }
+      }
+      setButtonStyles(styles);
+    } else {
+      // Use predefined styles for answer choices
+      const styles: TranslationData[] = [];
+      const stylesConfig = [0, 2, 4, 6];
+      stylesConfig.forEach((idx) => {
+        styles.push(translationsData[idx]);
+      });
+      setButtonStyles(styles);
+    }
     // Generate a new question
     generateVerses();
   };
@@ -45,12 +59,12 @@ export const Quiz = () => {
           <button
             key={index}
             className={`${buttonStyles[index]?.bg_color} ${buttonStyles[index]?.text_color} btn h-16 w-full mb-3 flex items-center justify-start border-gray-300 border rounded-2xl shadow-none px-4 text-left text-lg`}
-            style={{
-              borderColor:
-                buttonStyles[index]?.text_color?.match(
-                  /#(?:[0-9a-fA-F]{3}){1,2}/
-                )?.[0] || "#000",
-            }}
+            // style={{
+            //   borderColor:
+            //     buttonStyles[index]?.text_color?.match(
+            //       /#(?:[0-9a-fA-F]{3}){1,2}/
+            //     )?.[0] || "#000",
+            // }}
             onClick={() => {
               if (choice === correctAnswer) {
                 alert("Correct!");
