@@ -17,6 +17,16 @@ export const Quiz = () => {
   const [buttonStyles, setButtonStyles] = useState<TranslationData[]>([]);
   const randomAnswerChoiceStyles = true;
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+  const [clickedChoice, setClickedChoice] = useState<string | null>(null);
+
+  const handleAnswerClick = (choice: string) => {
+    setClickedChoice(choice);
+    if (choice === correctAnswer) {
+      setIsCorrect(true);
+    } else {
+      setIsCorrect(false);
+    }
+  };
 
   const generateNextQuestion = () => {
     if (randomAnswerChoiceStyles) {
@@ -39,6 +49,9 @@ export const Quiz = () => {
       });
       setButtonStyles(styles);
     }
+    // Reset the isCorrect state for the next question
+    setIsCorrect(null);
+
     // Generate a new question
     generateVerses();
   };
@@ -59,31 +72,33 @@ export const Quiz = () => {
         {answerChoices?.map((choice, index) => (
           <button
             key={index}
-            className={`${isCorrect ? correctAnswer === choice ? `${buttonStyles[index]?.bg_primary_color} text-white` : `${buttonStyles[index]?.bg_color} ${buttonStyles[index]?.text_color}` : `${buttonStyles[index]?.bg_color} ${buttonStyles[index]?.text_color}` }  btn h-16 w-full mb-3 flex items-center justify-start border-gray-300 border rounded-2xl shadow-none px-4 text-left text-lg`}
-            // style={{
-            //   borderColor:
-            //     buttonStyles[index]?.text_color?.match(
-            //       /#(?:[0-9a-fA-F]{3}){1,2}/
-            //     )?.[0] || "#000",
-            // }}
-            onClick={() => {
-              if (choice === correctAnswer) {
-                setIsCorrect(true);
-              } else {
-                setIsCorrect(false);
-              }
-            }}
+            className={`${
+              isCorrect
+                ? correctAnswer === choice
+                  ? `${buttonStyles[index]?.bg_primary_color} text-white`
+                  : `${buttonStyles[index]?.bg_color} ${buttonStyles[index]?.text_color}`
+                : `${buttonStyles[index]?.bg_color} ${buttonStyles[index]?.text_color}`
+            } btn h-16 w-full mb-3 flex items-center justify-start border-gray-300 border rounded-2xl shadow-none px-4 text-left text-lg
+              ${isCorrect === false && clickedChoice === choice ? "shake" : ""}
+            `}
+            onClick={() => handleAnswerClick(choice)}
           >
             <span
-              className={`font-bold w-8 h-8 border flex justify-center items-center rounded-lg mr-2`}
+              className="font-bold w-8 h-8 border flex justify-center items-center rounded-lg mr-2"
               style={{
                 borderColor:
-                  buttonStyles[index]?.text_color?.match(
-                    /#(?:[0-9a-fA-F]{3}){1,2}/
-                  )?.[0] || "#000",
+                  isCorrect && correctAnswer === choice
+                    ? "#fff"
+                    : buttonStyles[index]?.text_color?.match(
+                        /#(?:[0-9a-fA-F]{3}){1,2}/
+                      )?.[0] || "#000",
               }}
             >
-              {String.fromCharCode(65 + index)}
+              {isCorrect !== null && clickedChoice === choice
+                ? correctAnswer === choice
+                  ? "✔"
+                  : "✘"
+                : String.fromCharCode(65 + index)}
             </span>
             {choice}
           </button>
