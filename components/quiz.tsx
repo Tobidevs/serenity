@@ -3,6 +3,7 @@ import { Merriweather } from "next/font/google";
 import { useBibleQuizStore } from "../store/useBibleQuizStore";
 import { useState } from "react";
 import { translationsData, TranslationData } from "../data/translation-data";
+import { ChevronRightIcon } from "lucide-react";
 
 // Importing Merriweather font for Bible text styling
 const merriweather = Merriweather({
@@ -70,44 +71,53 @@ export const Quiz = () => {
 
       <div className="flex flex-col items-center mt-8 w-9/10">
         {answerChoices?.map((choice, index) => (
-            <button
+          <button
             key={index}
             className={`${
               isCorrect
-              ? correctAnswer === choice
-                ? `${buttonStyles[index]?.bg_primary_color} text-white ${clickedChoice === choice ? "pulse-correct" : ""}`
+                ? correctAnswer === choice
+                  ? `${buttonStyles[index]?.bg_primary_color} text-white ${
+                      clickedChoice === choice ? "pulse-correct" : ""
+                    }`
+                  : `${buttonStyles[index]?.bg_color} ${buttonStyles[index]?.text_color}`
                 : `${buttonStyles[index]?.bg_color} ${buttonStyles[index]?.text_color}`
-              : `${buttonStyles[index]?.bg_color} ${buttonStyles[index]?.text_color}`
             } btn h-16 w-full mb-3 flex items-center justify-start border-gray-300 border rounded-2xl shadow-none px-4 text-left text-lg
               ${isCorrect === false && clickedChoice === choice ? "shake" : ""}
             `}
             onClick={() => handleAnswerClick(choice)}
-            >
+          >
             <span
               className="font-bold w-8 h-8 border flex justify-center items-center rounded-lg mr-2"
               style={{
-              borderColor:
-                isCorrect && correctAnswer === choice
-                ? "#fff"
-                : buttonStyles[index]?.text_color?.match(
-                  /#(?:[0-9a-fA-F]{3}){1,2}/
-                  )?.[0] || "#000",
+                borderColor:
+                  isCorrect && correctAnswer === choice
+                    ? "#fff"
+                    : buttonStyles[index]?.text_color?.match(
+                        /#(?:[0-9a-fA-F]{3}){1,2}/
+                      )?.[0] || "#000",
               }}
             >
               {isCorrect !== null && clickedChoice === choice
-              ? correctAnswer === choice
-                ? "✔"
-                : "✘"
-              : String.fromCharCode(65 + index)}
+                ? correctAnswer === choice
+                  ? "✔"
+                  : "✘"
+                : String.fromCharCode(65 + index)}
             </span>
             {choice}
-            </button>
+          </button>
         ))}
       </div>
-
-      <button className="btn" onClick={() => generateNextQuestion()}>
-        next
-      </button>
+      <div className="mt-4 w-full flex justify-end">
+        <button
+          className={
+            "btn rounded-xl flex justify-center border border-gray-300 shadow-none items-center p-3 bg-grey-main w-fit"
+          }
+          onClick={() => generateNextQuestion()}
+        >
+          <p className="text-md text-grey-primary">Next Question</p>
+          <ChevronRightIcon className="text-grey-primary" />
+        </button>
+      </div>
     </div>
   );
 };
