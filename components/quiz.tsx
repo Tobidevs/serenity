@@ -99,7 +99,7 @@ export const Quiz = () => {
             >
               {isCorrect !== null && clickedChoice === choice
                 ? correctAnswer === choice
-                  ? "✔"
+                  ? "✓"
                   : "✘"
                 : String.fromCharCode(65 + index)}
             </span>

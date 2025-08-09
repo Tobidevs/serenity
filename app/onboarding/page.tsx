@@ -154,7 +154,7 @@ export default function OnboardingPage() {
                           className={`btn btn-lg flex ${
                             // Change color based on selected translation
                             selectedTranslation === translation.name
-                              ? `${translation.bg_primary_color} text-white border-gray-300 border-3 shadow-lg`
+                              ? `${translation.bg_primary_color} text-white border-gray-300 border-3 shadow-lg pulse-correct`
                               : `${translation.bg_color} ${translation.text_color} border-grey-main shadow-none`
                           } flex-wrap w-80 h-17 rounded-2xl border-2`}
                           key={key}
