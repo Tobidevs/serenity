@@ -15,7 +15,7 @@ export default function BibleQuizPage() {
         <div className="flex justify-between w-full">
           <button
             className="btn rounded-xl flex justify-center border-none shadow-none items-center p-3 bg-grey-main "
-            onClick={() => router.push("/bible-menu")}
+            onClick={() => router.push("/quiz-menu")}
           >
             <ChevronRightIcon className="rotate-180 text-grey-primary" />
           </button>
