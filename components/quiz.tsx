@@ -15,7 +15,8 @@ export const Quiz = () => {
   const { generateVerses, verse, answerChoices, correctAnswer } =
     useBibleQuizStore();
   const [buttonStyles, setButtonStyles] = useState<TranslationData[]>([]);
-  const randomAnswerChoiceStyles = false;
+  const randomAnswerChoiceStyles = true;
+  const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
 
   const generateNextQuestion = () => {
     if (randomAnswerChoiceStyles) {
@@ -58,7 +59,7 @@ export const Quiz = () => {
         {answerChoices?.map((choice, index) => (
           <button
             key={index}
-            className={`${buttonStyles[index]?.bg_color} ${buttonStyles[index]?.text_color} btn h-16 w-full mb-3 flex items-center justify-start border-gray-300 border rounded-2xl shadow-none px-4 text-left text-lg`}
+            className={`${isCorrect ? correctAnswer === choice ? `${buttonStyles[index]?.bg_primary_color} text-white` : `${buttonStyles[index]?.bg_color} ${buttonStyles[index]?.text_color}` : `${buttonStyles[index]?.bg_color} ${buttonStyles[index]?.text_color}` }  btn h-16 w-full mb-3 flex items-center justify-start border-gray-300 border rounded-2xl shadow-none px-4 text-left text-lg`}
             // style={{
             //   borderColor:
             //     buttonStyles[index]?.text_color?.match(
@@ -67,9 +68,9 @@ export const Quiz = () => {
             // }}
             onClick={() => {
               if (choice === correctAnswer) {
-                alert("Correct!");
+                setIsCorrect(true);
               } else {
-                alert("Incorrect, try again!");
+                setIsCorrect(false);
               }
             }}
           >
