@@ -9,6 +9,7 @@ import { LuNotebookPen } from "react-icons/lu";
 import { FaBoxArchive } from "react-icons/fa6";
 import { FaHandsHelping } from "react-icons/fa";
 import { FaSignOutAlt } from "react-icons/fa";
+import { LiaSchoolSolid } from "react-icons/lia";
 import { useAccountStore } from "../store/useAccountStore";
 import { translationsData } from "../data/translation-data";
 import { usePathname } from "next/navigation";
@@ -115,8 +116,8 @@ export function Navbar() {
               pathname === "/quiz-menu" && `${translationStyle?.bg_color}`
             }`}
           >
-            <BiSolidDashboard
-              size={25}
+            <LiaSchoolSolid
+              size={28}
               className={`${
                 pathname === "/quiz-menu" && `${translationStyle?.text_color}`
               }`}

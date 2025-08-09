@@ -10,6 +10,8 @@ type BibleQuizStore = {
   incorrectAnswers: string[] | null;
   questionTranslation: string | null;
   answerChoices: string[] | null;
+  currentQuestion: number;
+  totalQuestions: number;
   setVerse: (verse: string | null) => void;
   setCorrectAnswer: (correctAnswer: string | null) => void;
   setIncorrectAnswers: (incorrectAnswers: string[] | null) => void;
@@ -18,6 +20,7 @@ type BibleQuizStore = {
 
   generateVerses: () => void;
   generateQuestion: (results: ResultsObject[]) => void;
+  resetQuiz: () => void;
 };
 
 type ResultsObject = {
@@ -38,6 +41,9 @@ export const useBibleQuizStore = create<BibleQuizStore>((set, get) => ({
   incorrectAnswers: null,
   questionTranslation: preferred_translation || null,
   answerChoices: null,
+  currentQuestion: 0,
+  totalQuestions: 10, // Set a default number of questions
+
 
   setVerse: (verse) => set({ verse }),
   setCorrectAnswer: (correctAnswer) => set({ correctAnswer }),
@@ -100,14 +106,22 @@ export const useBibleQuizStore = create<BibleQuizStore>((set, get) => ({
     console.log(get().answerChoices);
     console.log("Correct Answer:", correctAnswer);
 
-
-    
-
     // Set the state with the generated question
     set({
         verse: verseData.text,
         correctAnswer,
         incorrectAnswers,
+        currentQuestion : get().currentQuestion + 1,
     })
+  },
+
+  resetQuiz: () => {
+    set({
+      verse: null,
+      correctAnswer: null,
+      incorrectAnswers: null,
+      answerChoices: null,
+      currentQuestion: 0,
+    });
   },
 }));

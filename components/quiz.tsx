@@ -1,7 +1,7 @@
 "use client";
 import { Merriweather } from "next/font/google";
 import { useBibleQuizStore } from "../store/useBibleQuizStore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { translationsData, TranslationData } from "../data/translation-data";
 import { ChevronRightIcon } from "lucide-react";
 
@@ -13,7 +13,7 @@ const merriweather = Merriweather({
 });
 
 export const Quiz = () => {
-  const { generateVerses, verse, answerChoices, correctAnswer } =
+  const { generateVerses, verse, answerChoices, correctAnswer, currentQuestion } =
     useBibleQuizStore();
   const [buttonStyles, setButtonStyles] = useState<TranslationData[]>([]);
   const randomAnswerChoiceStyles = true;
@@ -50,12 +50,21 @@ export const Quiz = () => {
       });
       setButtonStyles(styles);
     }
+    // Reset the clicked choice state
+    setClickedChoice(null);
     // Reset the isCorrect state for the next question
     setIsCorrect(null);
-
     // Generate a new question
     generateVerses();
   };
+
+  // Initialize quiz on page load - runs when component first mounts
+  // Only initialize if we don't have a verse and no button styles are set
+  if (!verse && buttonStyles.length === 0 && currentQuestion === 0) {
+    generateNextQuestion();
+  }
+
+
 
   return (
     <div className="flex flex-col items-center justify-center p-4">
