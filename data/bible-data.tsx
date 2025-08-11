@@ -60,3 +60,32 @@ export const bibleTopics = [
     keywords: ["temptation", "sin", "resist", "armor of God", "battle", "enemy"]
   }
 ]
+
+export const bibleThemes = [
+  "Faith",
+  "Love",
+  "Forgiveness",
+  "Grace",
+  "Mercy",
+  "Repentance",
+  "Salvation",
+  "Hope",
+  "Obedience",
+  "Prayer",
+  'Wisdom',
+  "Patience",
+  "Righteousness",
+]
+
+export const bibleSections = [
+  "New Testament",
+  "Old Testament",
+  "Gospels",
+  "Pauline Epistles",
+  "Proverbs",
+  "Psalms",
+]
+
+
+
+
