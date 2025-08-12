@@ -4,6 +4,8 @@ import { useSessionStore } from "../store/useSessionStore";
 import { useEffect } from "react";
 import AOS from "aos";
 import { ReactTyped } from "react-typed";
+import { PiSignIn } from "react-icons/pi";
+import { MdOutlineAccountCircle } from "react-icons/md";
 import "aos/dist/aos.css";
 
 export default function Home() {
@@ -24,22 +26,14 @@ export default function Home() {
       <div className="flex"></div>
       <div className="flex flex-col items-center gap-13">
         <div className="flex w-full items-center justify-between">
-          <button
-            data-aos="fade-down-right"
-            className="btn rounded-xl flex justify-center border border-gray-300 text-grey-primary shadow-none items-center p-3 bg-grey-main w-fit"
-            onClick={() =>
-              session ? router.push("/dashboard") : router.push("/auth")
-            }
-          >
-            Sign in
-          </button>
+          <div className="w-1/3"></div>
           <div
             data-aos="fade-down"
-            className="text-xl flex items-center justify-center font-bold text-grey-primary"
+            className="text-xl flex w-1/3 items-center justify-center font-bold text-grey-primary"
           >
             Serenity.
           </div>
-          <button
+          {/* <button
             data-aos="fade-down-left"
             className="btn rounded-xl flex justify-center border border-gray-300 text-grey-primary shadow-none items-center p-3 bg-grey-main w-fit"
             onClick={() =>
@@ -47,7 +41,30 @@ export default function Home() {
             }
           >
             Sign in
-          </button>
+          </button> */}
+          <div data-aos="fade-down-left" className="flex gap-4 w-1/3 justify-end">
+            <div
+              className="flex flex-col items-center"
+              onClick={() =>
+                session ? router.push("/dashboard") : router.push("/auth")
+              }
+            >
+              <MdOutlineAccountCircle
+                className="text-3xl text-grey-primary"
+                size={20}
+              />
+              <label className="text-xs text-grey-secondary">Sign Up</label>
+            </div>
+            <div
+              className="flex flex-col items-center"
+              onClick={() =>
+                session ? router.push("/dashboard") : router.push("/auth")
+              }
+            >
+              <PiSignIn className="text-3xl text-grey-primary" size={20} />
+              <label className="text-xs text-grey-secondary">Sign In</label>
+            </div>
+          </div>
         </div>
         <ReactTyped
           data-aos="fade-up"
