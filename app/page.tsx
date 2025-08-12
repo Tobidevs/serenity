@@ -9,6 +9,7 @@ import { MdOutlineAccountCircle } from "react-icons/md";
 import "aos/dist/aos.css";
 import { FaHandsHelping } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
+import Link from "next/link";
 
 export default function Home() {
   const { session, fetchSession } = useSessionStore();
@@ -30,20 +31,26 @@ export default function Home() {
         <div className="flex w-full items-center justify-between">
           {/* External links */}
           <div
-            data-aos="fade-down-right"
+            
             className="flex gap-4 w-1/3 justify-start"
           >
-            <div className="flex flex-col items-center">
+            <Link href={'https://github.com/Tobidevs/serenity'} 
+            data-aos="fade-down-right"
+            data-aos-delay="250"
+            className="flex flex-col items-center">
               <FaGithub size={15} className="text-3xl text-grey-primary" />
               <label className="text-xs text-grey-secondary">Github</label>
-            </div>
-            <div className="flex flex-col items-center">
+            </Link>
+            <Link href={'/help-serenity'}
+            data-aos="fade-down-right"
+            data-aos-delay="200"
+            className="flex flex-col items-center">
               <FaHandsHelping
                 size={15}
                 className="text-3xl text-grey-primary"
               />
               <label className="text-xs text-grey-secondary">Help</label>
-            </div>
+            </Link>
           </div>
           {/* Title */}
           <div
@@ -54,11 +61,13 @@ export default function Home() {
           </div>
           {/* Authentication Links */}
           <div
-            data-aos="fade-down-left"
+
             className="flex gap-4 w-1/3 justify-end"
           >
             <div
               className="flex flex-col items-center"
+              data-aos="fade-down-left"
+            data-aos-delay="200"
               onClick={() =>
                 session ? router.push("/dashboard") : router.push("/auth")
               }
@@ -71,6 +80,8 @@ export default function Home() {
             </div>
             <div
               className="flex flex-col items-center"
+              data-aos="fade-down-left"
+            data-aos-delay="250"
               onClick={() =>
                 session ? router.push("/dashboard") : router.push("/auth")
               }
