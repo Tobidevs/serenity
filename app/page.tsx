@@ -7,6 +7,8 @@ import { ReactTyped } from "react-typed";
 import { PiSignIn } from "react-icons/pi";
 import { MdOutlineAccountCircle } from "react-icons/md";
 import "aos/dist/aos.css";
+import { FaHandsHelping } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
 
 export default function Home() {
   const { session, fetchSession } = useSessionStore();
@@ -26,10 +28,22 @@ export default function Home() {
       <div className="flex"></div>
       <div className="flex flex-col items-center gap-13">
         <div className="flex w-full items-center justify-between">
-          <div className="w-1/3"></div>
+          <div data-aos="fade-down-right" className="flex gap-4 w-1/3">
+            <div className="flex flex-col items-center">
+              <FaGithub size={20} className="text-3xl text-grey-primary" />
+              <label className="text-xs text-grey-secondary">Github</label>
+            </div>
+            <div className="flex flex-col items-center">
+              <FaHandsHelping
+                size={20}
+                className="text-3xl text-grey-primary"
+              />
+              <label className="text-xs text-grey-secondary">Contribute</label>
+            </div>
+          </div>
           <div
             data-aos="fade-down"
-            className="text-xl flex w-1/3 items-center justify-center font-bold text-grey-primary"
+            className="text-2xl flex w-1/3 items-center justify-center font-bold text-grey-primary"
           >
             Serenity.
           </div>
@@ -42,7 +56,10 @@ export default function Home() {
           >
             Sign in
           </button> */}
-          <div data-aos="fade-down-left" className="flex gap-4 w-1/3 justify-end">
+          <div
+            data-aos="fade-down-left"
+            className="flex gap-4 w-1/3 justify-end"
+          >
             <div
               className="flex flex-col items-center"
               onClick={() =>
