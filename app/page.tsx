@@ -24,38 +24,35 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex flex-col pl-4 pr-4 pt-8 w-full h-full">
-      <div className="flex"></div>
+    <div className="flex flex-col pl-4 pr-4 pt-6 w-full h-full">
       <div className="flex flex-col items-center gap-13">
+        {/* Header Section */}
         <div className="flex w-full items-center justify-between">
-          <div data-aos="fade-down-right" className="flex gap-4 w-1/3">
+          {/* External links */}
+          <div
+            data-aos="fade-down-right"
+            className="flex gap-4 w-1/3 justify-start"
+          >
             <div className="flex flex-col items-center">
-              <FaGithub size={20} className="text-3xl text-grey-primary" />
+              <FaGithub size={15} className="text-3xl text-grey-primary" />
               <label className="text-xs text-grey-secondary">Github</label>
             </div>
             <div className="flex flex-col items-center">
               <FaHandsHelping
-                size={20}
+                size={15}
                 className="text-3xl text-grey-primary"
               />
-              <label className="text-xs text-grey-secondary">Contribute</label>
+              <label className="text-xs text-grey-secondary">Help</label>
             </div>
           </div>
+          {/* Title */}
           <div
             data-aos="fade-down"
             className="text-2xl flex w-1/3 items-center justify-center font-bold text-grey-primary"
           >
-            Serenity.
+            Serenity
           </div>
-          {/* <button
-            data-aos="fade-down-left"
-            className="btn rounded-xl flex justify-center border border-gray-300 text-grey-primary shadow-none items-center p-3 bg-grey-main w-fit"
-            onClick={() =>
-              session ? router.push("/dashboard") : router.push("/auth")
-            }
-          >
-            Sign in
-          </button> */}
+          {/* Authentication Links */}
           <div
             data-aos="fade-down-left"
             className="flex gap-4 w-1/3 justify-end"
@@ -68,7 +65,7 @@ export default function Home() {
             >
               <MdOutlineAccountCircle
                 className="text-3xl text-grey-primary"
-                size={20}
+                size={15}
               />
               <label className="text-xs text-grey-secondary">Sign Up</label>
             </div>
@@ -78,14 +75,15 @@ export default function Home() {
                 session ? router.push("/dashboard") : router.push("/auth")
               }
             >
-              <PiSignIn className="text-3xl text-grey-primary" size={20} />
+              <PiSignIn className="text-3xl text-grey-primary" size={15} />
               <label className="text-xs text-grey-secondary">Sign In</label>
             </div>
           </div>
         </div>
+        {/* Main Content */}
         <ReactTyped
           data-aos="fade-up"
-          className="text-3xl w-9/10 h-30 text-center font-bold text-grey-primary mb-4"
+          className="text-3xl w-9/10 h-30 text-center font-bold text-grey-primary"
           strings={[
             "Focused on building tools for the Christian community.",
             "Building apps that strengthen your walk with God.",
@@ -97,7 +95,8 @@ export default function Home() {
         ></ReactTyped>
       </div>
       <div className="flex w-full justify-center items-center">
-        <div data-aos="zoom-in-up" className="scale-70 origin-top mt-8">
+        {/* iPhone Mockup */}
+        <div data-aos="zoom-in-up" className="scale-75 origin-top mt-8">
           <div className="mockup-phone border-grey-primary">
             <div className="mockup-phone-camera"></div>
             <div className="mockup-phone-display">
