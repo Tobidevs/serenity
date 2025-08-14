@@ -118,12 +118,12 @@ export default function Home() {
             Hi, I'm Tobi
           </h1>
           <p className="text-grey-secondary text-center mt-4">
-            I'm a software engineer with a passion to glorify God through technology. Take a look at what I’ve been
-            building!
+            I'm a software engineer with a passion to glorify God through
+            technology. Take a look at what I’ve been building!
           </p>
         </div>
       </div>
-          <div className="h-96"></div>
+      <div className="h-96"></div>
     </div>
   );
 }
