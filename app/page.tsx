@@ -113,13 +113,12 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="flex w-full flex-col -mt-40 ">
-          <h1 data-aos="fade-down" data-aos-delay="200" className="text-2xl text-grey-primary font-bold text-center">
+        <div data-aos="fade-down" className="flex w-full flex-col -mt-30 ">
+          <h1 className="text-2xl text-grey-primary font-bold text-center">
             Hi, I'm Tobi
           </h1>
-          <p data-aos="fade-down" className="text-grey-secondary text-center mt-4">
-            I'm a software engineer with a passion for building tools that
-            empower the Christian community. Take a look at what I’ve been
+          <p className="text-grey-secondary text-center mt-4">
+            I'm a software engineer with a passion to glorify God through technology. Take a look at what I’ve been
             building!
           </p>
         </div>
