@@ -30,21 +30,22 @@ export default function Home() {
         {/* Header Section */}
         <div className="flex w-full items-center justify-between">
           {/* External links */}
-          <div
-            
-            className="flex gap-4 w-1/3 justify-start"
-          >
-            <Link href={'https://github.com/Tobidevs/serenity'} 
-            data-aos="fade-down-right"
-            data-aos-delay="250"
-            className="flex flex-col items-center">
+          <div className="flex gap-4 w-1/3 justify-start">
+            <Link
+              href={"https://github.com/Tobidevs/serenity"}
+              data-aos="fade-down-right"
+              data-aos-delay="250"
+              className="flex flex-col items-center"
+            >
               <FaGithub size={15} className="text-3xl text-grey-primary" />
               <label className="text-xs text-grey-secondary">Github</label>
             </Link>
-            <Link href={'/help-serenity'}
-            data-aos="fade-down-right"
-            data-aos-delay="200"
-            className="flex flex-col items-center">
+            <Link
+              href={"/help-serenity"}
+              data-aos="fade-down-right"
+              data-aos-delay="200"
+              className="flex flex-col items-center"
+            >
               <FaHandsHelping
                 size={15}
                 className="text-3xl text-grey-primary"
@@ -60,14 +61,11 @@ export default function Home() {
             Serenity
           </div>
           {/* Authentication Links */}
-          <div
-
-            className="flex gap-4 w-1/3 justify-end"
-          >
+          <div className="flex gap-4 w-1/3 justify-end">
             <div
               className="flex flex-col items-center"
               data-aos="fade-down-left"
-            data-aos-delay="200"
+              data-aos-delay="200"
               onClick={() =>
                 session ? router.push("/dashboard") : router.push("/auth")
               }
@@ -81,7 +79,7 @@ export default function Home() {
             <div
               className="flex flex-col items-center"
               data-aos="fade-down-left"
-            data-aos-delay="250"
+              data-aos-delay="250"
               onClick={() =>
                 session ? router.push("/dashboard") : router.push("/auth")
               }
@@ -105,17 +103,28 @@ export default function Home() {
           loop={true}
         ></ReactTyped>
       </div>
-      <div className="flex w-full justify-center items-center">
+      <div className="flex w-full justify-center items-center flex-col h-fit">
         {/* iPhone Mockup */}
         <div data-aos="zoom-in-up" className="scale-75 origin-top mt-8">
           <div className="mockup-phone border-grey-primary">
             <div className="mockup-phone-camera"></div>
             <div className="mockup-phone-display">
-              <img alt="wallpaper" src="/iphoneMockup.png" />
+              <img alt="wallpaper" src="/iphoneMockup.png" className="block" />
             </div>
           </div>
         </div>
+        <div className="flex w-full flex-col -mt-40 ">
+          <h1 data-aos="fade-down" data-aos-delay="200" className="text-2xl text-grey-primary font-bold text-center">
+            Hi, I'm Tobi
+          </h1>
+          <p data-aos="fade-down" className="text-grey-secondary text-center mt-4">
+            I'm a software engineer with a passion for building tools that
+            empower the Christian community. Take a look at what I’ve been
+            building!
+          </p>
+        </div>
       </div>
+          <div className="h-96"></div>
     </div>
   );
 }
