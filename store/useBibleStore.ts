@@ -122,7 +122,9 @@ export const useBibleStore = create<BibleStore>()(
         const abbrev = get().getTranslationAbbrev();
         try {
           const response = await fetch(
-            `https://bolls.life/get-text/${abbrev}/${bookIndex}/${get().selectedChapter}/`
+            `https://bolls.life/get-text/${abbrev}/${bookIndex}/${
+              get().selectedChapter
+            }/`
           );
           if (!response.ok) {
             throw new Error("API failed to fetch");

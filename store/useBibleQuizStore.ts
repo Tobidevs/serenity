@@ -6,7 +6,7 @@ import { bibleBooks } from "../data/bible-data";
 
 type BibleQuizStore = {
   verse: string | null;
-  topics_of_interest : string[];
+  topics_of_interest: string[];
   bookFilter: string | null;
   correctAnswer: string | null;
   incorrectAnswers: string[] | null;
@@ -50,7 +50,6 @@ export const useBibleQuizStore = create<BibleQuizStore>((set, get) => ({
   currentQuestion: 0,
   totalQuestions: 10, // Set a default number of questions
 
-
   setVerse: (verse) => set({ verse }),
   setTopicsOfInterest: (topics) => set({ topics_of_interest: topics }),
   setBookFilter: (bookFilter) => set({ bookFilter }),
@@ -64,7 +63,7 @@ export const useBibleQuizStore = create<BibleQuizStore>((set, get) => ({
   },
   getBookName: (bookId) => {
     const bookIndex = Number(bookId) - 1;
-    return bibleBooks[bookIndex] || null; 
+    return bibleBooks[bookIndex] || null;
   },
 
   generateVerses: async () => {
@@ -74,14 +73,14 @@ export const useBibleQuizStore = create<BibleQuizStore>((set, get) => ({
         Math.floor(Math.random() * get().topics_of_interest.length)
       ] ?? "faith"; // Default to "faith" if no topics are set
     const translationAbbrev = get().getTranslationAbbrev();
-    
+
     let bookFilterValue: string | null = null;
-    if (get().bookFilter === 'New Testament') {
+    if (get().bookFilter === "New Testament") {
       bookFilterValue = "nt";
-    } else if (get().bookFilter === 'Old Testament') {
+    } else if (get().bookFilter === "Old Testament") {
       bookFilterValue = "ot";
-    } else if (get().bookFilter === 'Proverbs') {
-      bookFilterValue = "20"
+    } else if (get().bookFilter === "Proverbs") {
+      bookFilterValue = "20";
     } else {
       bookFilterValue = null; // No filter applied
     }
@@ -111,8 +110,10 @@ export const useBibleQuizStore = create<BibleQuizStore>((set, get) => ({
     // Generate 3 random incorrect answers
     while (incorrectAnswers.length < 3) {
       const randomVerse = results[Math.floor(Math.random() * results.length)];
-      const randomText = `${get().getBookName(randomVerse.book)} ${randomVerse.chapter}:${randomVerse.verse}`;
-      
+      const randomText = `${get().getBookName(randomVerse.book)} ${
+        randomVerse.chapter
+      }:${randomVerse.verse}`;
+
       if (
         randomText !== correctAnswer &&
         !incorrectAnswers.includes(randomText)
@@ -121,17 +122,19 @@ export const useBibleQuizStore = create<BibleQuizStore>((set, get) => ({
       }
     }
     // Shuffle the answers
-    get().answerChoices = [correctAnswer, ...incorrectAnswers].sort(() => Math.random() - 0.5);
+    get().answerChoices = [correctAnswer, ...incorrectAnswers].sort(
+      () => Math.random() - 0.5
+    );
     console.log(get().answerChoices);
     console.log("Correct Answer:", correctAnswer);
 
     // Set the state with the generated question
     set({
-        verse: verseData.text,
-        correctAnswer,
-        incorrectAnswers,
-        currentQuestion : get().currentQuestion + 1,
-    })
+      verse: verseData.text,
+      correctAnswer,
+      incorrectAnswers,
+      currentQuestion: get().currentQuestion + 1,
+    });
   },
 
   resetQuiz: () => {

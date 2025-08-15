@@ -13,8 +13,13 @@ const merriweather = Merriweather({
 });
 
 export const Quiz = () => {
-  const { generateVerses, verse, answerChoices, correctAnswer, currentQuestion } =
-    useBibleQuizStore();
+  const {
+    generateVerses,
+    verse,
+    answerChoices,
+    correctAnswer,
+    currentQuestion,
+  } = useBibleQuizStore();
   const [buttonStyles, setButtonStyles] = useState<TranslationData[]>([]);
   const randomAnswerChoiceStyles = true;
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
@@ -63,8 +68,6 @@ export const Quiz = () => {
   if (!verse && buttonStyles.length === 0 && currentQuestion === 0) {
     generateNextQuestion();
   }
-
-
 
   return (
     <div className="flex flex-col items-center justify-center p-4">
