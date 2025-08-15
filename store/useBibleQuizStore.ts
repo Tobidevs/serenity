@@ -6,6 +6,7 @@ import { bibleBooks } from "../data/bible-data";
 
 type BibleQuizStore = {
   verse: string | null;
+  topics_of_interest : string[];
   correctAnswer: string | null;
   incorrectAnswers: string[] | null;
   questionTranslation: string | null;
@@ -13,6 +14,7 @@ type BibleQuizStore = {
   currentQuestion: number;
   totalQuestions: number;
   setVerse: (verse: string | null) => void;
+  setTopicsOfInterest: (topics: string[]) => void;
   setCorrectAnswer: (correctAnswer: string | null) => void;
   setIncorrectAnswers: (incorrectAnswers: string[] | null) => void;
   getTranslationAbbrev: () => string | undefined;
@@ -37,6 +39,7 @@ const { preferred_translation, topics_of_interest } =
 
 export const useBibleQuizStore = create<BibleQuizStore>((set, get) => ({
   verse: null,
+  topics_of_interest: topics_of_interest || [],
   correctAnswer: null,
   incorrectAnswers: null,
   questionTranslation: preferred_translation || null,
@@ -46,6 +49,7 @@ export const useBibleQuizStore = create<BibleQuizStore>((set, get) => ({
 
 
   setVerse: (verse) => set({ verse }),
+  setTopicsOfInterest: (topics) => set({ topics_of_interest: topics }),
   setCorrectAnswer: (correctAnswer) => set({ correctAnswer }),
   setIncorrectAnswers: (incorrectAnswers) => set({ incorrectAnswers }),
   getTranslationAbbrev: () => {
@@ -62,8 +66,8 @@ export const useBibleQuizStore = create<BibleQuizStore>((set, get) => ({
   generateVerses: async () => {
     // Logic to generate a question based on the user's topics of interest
     const topic =
-      topics_of_interest?.[
-        Math.floor(Math.random() * topics_of_interest.length)
+      get().topics_of_interest?.[
+        Math.floor(Math.random() * get().topics_of_interest.length)
       ] ?? "faith"; // Default to "faith" if no topics are set
     const translationAbbrev = get().getTranslationAbbrev();
 

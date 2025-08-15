@@ -8,13 +8,14 @@ import { useState } from "react";
 
 export default function QuizMenuPage() {
   const router = useRouter();
-  const { resetQuiz } = useBibleQuizStore();
+  const { resetQuiz, setTopicsOfInterest } = useBibleQuizStore();
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
   const [selectedSections, setSelectedSections] = useState<string>();
 
   const startQuiz = () => {
     // Reset and initialize the quiz before starting
     resetQuiz();
+    setTopicsOfInterest(selectedTopics);
     router.push("/bible-quiz");
   };
 
