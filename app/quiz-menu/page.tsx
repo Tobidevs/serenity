@@ -84,14 +84,14 @@ export default function QuizMenuPage() {
           </div>
           <div className="flex flex-col mb-4 w-full">
             <div className="flex mb-2 mr-2">
-              <input
+              {/* <input
                 type="checkbox"
                 defaultChecked
                 className="checkbox text-grey-primary"
               />
               <h1 className="text-lg font-bold text-grey-primary mb-2 ml-2">
                 Answer Choice Styles
-              </h1>
+              </h1> */}
             </div>
           </div>
         </div>
