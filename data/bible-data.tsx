@@ -80,10 +80,7 @@ export const bibleThemes = [
 export const bibleSections = [
   "New Testament",
   "Old Testament",
-  "Gospels",
-  "Pauline Epistles",
   "Proverbs",
-  "Psalms",
 ]
 
 

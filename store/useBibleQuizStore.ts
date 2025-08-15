@@ -7,6 +7,7 @@ import { bibleBooks } from "../data/bible-data";
 type BibleQuizStore = {
   verse: string | null;
   topics_of_interest : string[];
+  bookFilter: string | null;
   correctAnswer: string | null;
   incorrectAnswers: string[] | null;
   questionTranslation: string | null;
@@ -15,6 +16,7 @@ type BibleQuizStore = {
   totalQuestions: number;
   setVerse: (verse: string | null) => void;
   setTopicsOfInterest: (topics: string[]) => void;
+  setBookFilter: (bookFilter: string | null) => void;
   setCorrectAnswer: (correctAnswer: string | null) => void;
   setIncorrectAnswers: (incorrectAnswers: string[] | null) => void;
   getTranslationAbbrev: () => string | undefined;
@@ -40,6 +42,7 @@ const { preferred_translation, topics_of_interest } =
 export const useBibleQuizStore = create<BibleQuizStore>((set, get) => ({
   verse: null,
   topics_of_interest: topics_of_interest || [],
+  bookFilter: null,
   correctAnswer: null,
   incorrectAnswers: null,
   questionTranslation: preferred_translation || null,
@@ -50,6 +53,7 @@ export const useBibleQuizStore = create<BibleQuizStore>((set, get) => ({
 
   setVerse: (verse) => set({ verse }),
   setTopicsOfInterest: (topics) => set({ topics_of_interest: topics }),
+  setBookFilter: (bookFilter) => set({ bookFilter }),
   setCorrectAnswer: (correctAnswer) => set({ correctAnswer }),
   setIncorrectAnswers: (incorrectAnswers) => set({ incorrectAnswers }),
   getTranslationAbbrev: () => {
@@ -70,12 +74,23 @@ export const useBibleQuizStore = create<BibleQuizStore>((set, get) => ({
         Math.floor(Math.random() * get().topics_of_interest.length)
       ] ?? "faith"; // Default to "faith" if no topics are set
     const translationAbbrev = get().getTranslationAbbrev();
+    
+    let bookFilterValue: string | null = null;
+    if (get().bookFilter === 'New Testament') {
+      bookFilterValue = "nt";
+    } else if (get().bookFilter === 'Old Testament') {
+      bookFilterValue = "ot";
+    } else if (get().bookFilter === 'Proverbs') {
+      bookFilterValue = "20"
+    } else {
+      bookFilterValue = null; // No filter applied
+    }
 
     try {
       const response = await fetch(
-        `https://bolls.life/v2/find/${translationAbbrev}?search=${topic}&book=nt`
+        `https://bolls.life/v2/find/${translationAbbrev}?search=${topic}&book=${bookFilterValue || "nt"}`
       );
-      console.log(topic, translationAbbrev);
+      console.log(topic, translationAbbrev, get().bookFilter);
       if (!response.ok) {
         throw new Error("Failed to fetch verse");
       }
