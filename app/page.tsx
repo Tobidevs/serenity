@@ -26,9 +26,9 @@ export default function Home() {
 
   return (
     <div className="flex flex-col pl-4 pr-4 pt-6 w-full h-full">
-      <div className="flex flex-col items-center gap-13">
+      <div className="flex items-center justify-center w-full h-fit gap-13">
         {/* Header Section */}
-        <div className="flex w-full items-center justify-between">
+        <div className="flex w-full md:w-1/4 items-center justify-between">
           {/* External links */}
           <div className="flex gap-4 w-1/3 justify-start">
             <Link
@@ -63,7 +63,7 @@ export default function Home() {
           {/* Authentication Links */}
           <div className="flex gap-4 w-1/3 justify-end">
             <div
-              className="flex flex-col items-center"
+              className="flex flex-col items-center cursor-pointer"
               data-aos="fade-down-left"
               data-aos-delay="200"
               onClick={() =>
@@ -77,7 +77,7 @@ export default function Home() {
               <label className="text-xs text-grey-secondary">Sign Up</label>
             </div>
             <div
-              className="flex flex-col items-center"
+              className="flex flex-col items-center cursor-pointer"
               data-aos="fade-down-left"
               data-aos-delay="250"
               onClick={() =>
@@ -89,10 +89,12 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </div>
+      <div className="flex flex-col items-center">
         {/* Main Content */}
         <ReactTyped
           data-aos="fade-up"
-          className="text-3xl w-9/10 h-30 text-center font-bold text-grey-primary"
+          className="text-3xl w-9/10 h-30 text-center font-bold text-grey-primary mt-8"
           strings={[
             "Focused on building tools for the Christian community.",
             "Building apps that strengthen your walk with God.",
@@ -102,25 +104,29 @@ export default function Home() {
           backSpeed={30}
           loop={true}
         ></ReactTyped>
-      </div>
-      <div className="flex w-full justify-center items-center flex-col h-fit">
-        {/* iPhone Mockup */}
-        <div data-aos="zoom-in-up" className="scale-75 origin-top mt-8">
-          <div className="mockup-phone border-grey-primary">
-            <div className="mockup-phone-camera"></div>
-            <div className="mockup-phone-display">
-              <img alt="wallpaper" src="/iphoneMockup.png" className="block" />
+        <div className="flex w-full justify-center items-center flex-col h-fit">
+          {/* iPhone Mockup */}
+          <div data-aos="zoom-in-up" className="scale-75 origin-top mt-8">
+            <div className="mockup-phone border-grey-primary">
+              <div className="mockup-phone-camera"></div>
+              <div className="mockup-phone-display">
+                <img
+                  alt="wallpaper"
+                  src="/iphoneMockup.png"
+                  className="block"
+                />
+              </div>
             </div>
           </div>
-        </div>
-        <div data-aos="fade-down" className="flex w-full flex-col -mt-30 ">
-          <h1 className="text-2xl text-grey-primary font-bold text-center">
-            Hi, I'm Tobi
-          </h1>
-          <p className="text-grey-secondary text-center mt-4">
-            I'm a software engineer with a passion to glorify God through
-            technology. Take a look at what I’ve been building!
-          </p>
+          <div data-aos="fade-down" className="flex w-full flex-col -mt-30 ">
+            <h1 className="text-2xl text-grey-primary font-bold text-center">
+              Hi, I'm Tobi
+            </h1>
+            <p className="text-grey-secondary text-center mt-4">
+              I'm a software engineer with a passion to glorify God through
+              technology. Take a look at what I’ve been building!
+            </p>
+          </div>
         </div>
       </div>
       <div className="h-96"></div>
