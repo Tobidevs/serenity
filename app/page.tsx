@@ -90,46 +90,50 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-center">
-        {/* Main Content */}
-        <ReactTyped
-          data-aos="fade-up"
-          className="text-3xl w-9/10 h-30 text-center font-bold text-grey-primary mt-8"
-          strings={[
-            "Focused on building tools for the Christian community.",
-            "Building apps that strengthen your walk with God.",
-            "Tools to inspire, connect, and grow in faith.",
-          ]}
-          typeSpeed={50}
-          backSpeed={30}
-          loop={true}
-        ></ReactTyped>
-        <div className="flex w-full justify-center items-center flex-col h-fit">
-          {/* iPhone Mockup */}
-          <div data-aos="zoom-in-up" className="scale-75 origin-top mt-8">
-            <div className="mockup-phone border-grey-primary">
-              <div className="mockup-phone-camera"></div>
-              <div className="mockup-phone-display">
-                <img
-                  alt="wallpaper"
-                  src="/iphoneMockup.png"
-                  className="block"
-                />
+      <div className="md:flex md:justify-center md:w-full">
+        <div className="flex flex-col md:flex-row md:w-8/10 md:justify-center items-center">
+          {/* Main Content */}
+          <ReactTyped
+            data-aos="fade-up"
+            className="text-3xl md:text-7xl w-9/10 h-30 md:h-1/2 text-center md:text-start font-bold text-grey-primary mt-8"
+            strings={[
+              "Focused on building tools for the Christian community.",
+              "Building apps that strengthen your walk with God.",
+              "Tools to inspire, connect, and grow in faith.",
+            ]}
+            typeSpeed={50}
+            backSpeed={30}
+            loop={true}
+          ></ReactTyped>
+          <div className="flex w-full md:w-5/10 justify-center items-center flex-col h-fit">
+            {/* iPhone Mockup */}
+            <div data-aos="zoom-in-up" className="scale-75 origin-top mt-8 md:mt-18">
+              <div className="mockup-phone border-grey-primary">
+                <div className="mockup-phone-camera"></div>
+                <div className="mockup-phone-display">
+                  <img
+                    alt="wallpaper"
+                    src="/iphoneMockup.png"
+                    className="block"
+                  />
+                </div>
               </div>
             </div>
           </div>
-          <div data-aos="fade-down" className="flex w-full flex-col -mt-30 ">
-            <h1 className="text-2xl text-grey-primary font-bold text-center">
-              Hi, I'm Tobi
-            </h1>
-            <p className="text-grey-secondary text-center mt-4">
-              I'm a software engineer with a passion to glorify God through
-              technology. Take a look at what I’ve been building!
-            </p>
-          </div>
         </div>
       </div>
-      <div className="h-96"></div>
+      <div className="flex items-center mt-8 w-full">
+        <div data-aos="fade-down" className="flex w-full flex-col -mt-30 ">
+          <h1 className="text-2xl text-grey-primary font-bold text-center">
+            Hi, I'm Tobi
+          </h1>
+          <p className="text-grey-secondary text-center mt-4">
+            I'm a software engineer with a passion to glorify God through
+            technology. Take a look at what I’ve been building!
+          </p>
+        </div>
+      </div>
+      <div className="h-96 w-full"></div>
     </div>
   );
 }
