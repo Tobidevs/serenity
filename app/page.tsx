@@ -56,7 +56,7 @@ export default function Home() {
           {/* Title */}
           <div
             data-aos="fade-down"
-            className="text-2xl flex w-1/3 items-center justify-center font-bold text-grey-primary"
+            className="text-2xl md:text-4xl flex w-1/3 items-center justify-center font-bold text-grey-primary"
           >
             Serenity
           </div>
@@ -123,7 +123,7 @@ export default function Home() {
         </div>
       </div>
       <div className="flex items-center mt-8 w-full">
-        <div data-aos="fade-down" className="flex w-full flex-col -mt-30 ">
+        <div data-aos="fade-down" className="flex w-full flex-col -mt-30">
           <h1 className="text-2xl text-grey-primary font-bold text-center">
             Hi, I'm Tobi
           </h1>
