@@ -36,7 +36,7 @@ export default function Home() {
               data-aos-delay="250"
               className="flex flex-col items-center"
             >
-              <FaGithub size={15} className="text-3xl text-grey-primary" />
+              <FaGithub className="text-lg md:text-2xl text-grey-primary" />
               <label className="text-xs text-grey-secondary">Github</label>
             </Link>
             <Link
@@ -45,10 +45,7 @@ export default function Home() {
               data-aos-delay="200"
               className="flex flex-col items-center"
             >
-              <FaHandsHelping
-                size={15}
-                className="text-3xl text-grey-primary"
-              />
+              <FaHandsHelping className="text-lg md:text-2xl text-grey-primary" />
               <label className="text-xs text-grey-secondary">Help</label>
             </Link>
           </div>
@@ -71,10 +68,7 @@ export default function Home() {
               data-aos="fade-down-left"
               data-aos-delay="200"
             >
-              <MdOutlineAccountCircle
-                className="text-3xl text-grey-primary"
-                size={15}
-              />
+              <MdOutlineAccountCircle className="text-lg md:text-2xl text-grey-primary" />
               <label className="text-xs text-grey-secondary">Sign Up</label>
             </div>
             <div
@@ -85,7 +79,7 @@ export default function Home() {
               data-aos="fade-down-left"
               data-aos-delay="250"
             >
-              <PiSignIn className="text-3xl text-grey-primary" size={15} />
+              <PiSignIn className="text-lg md:text-2xl text-grey-primary" />
               <label className="text-xs text-grey-secondary">Sign In</label>
             </div>
           </div>
@@ -95,11 +89,11 @@ export default function Home() {
       <section className="relative w-full mt-6">
         {/* Background blobs */}
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute top-5 left-2 w-48 h-48 md:top-10 md:left-5 md:w-96 md:h-96 rounded-full bg-gradient-to-r from-pink-600 to-red-500 opacity-30 blur-3xl animate-blob" />
-          <div className="absolute top-20 right-2 w-40 h-40 md:top-1/4 md:right-5 md:w-80 md:h-80 rounded-full bg-gradient-to-r from-orange-500 to-yellow-400 opacity-30 blur-3xl animate-blob animation-delay-5s" />
-          <div className="absolute top-40 left-8 w-48 h-48 md:top-1/2 md:left-1/4 md:w-96 md:h-96 rounded-full bg-gradient-to-r from-green-500 to-teal-400 opacity-30 blur-3xl animate-blob animation-delay-10s" />
-          <div className="absolute top-10 right-8 w-40 h-40 md:bottom-1/4 md:right-1/4 md:w-80 md:h-80 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 opacity-30 blur-3xl animate-blob animation-delay-15s" />
-          <div className="absolute bottom-5 left-1/4 w-48 h-48 md:bottom-10 md:left-1/3 md:w-96 md:h-96 rounded-full bg-gradient-to-r from-fuchsia-500 to-pink-500 opacity-30 blur-3xl animate-blob animation-delay-20s" />
+          <div className="absolute top-10 left-4 w-32 h-32 md:top-10 md:left-5 md:w-96 md:h-96 rounded-full bg-gradient-to-r from-pink-600 to-red-500 opacity-50 md:opacity-35 blur-3xl animate-blob" />
+          <div className="absolute top-32 right-0 w-36 h-36 md:top-1/4 md:right-5 md:w-80 md:h-80 rounded-full bg-gradient-to-r from-orange-500 to-yellow-400 opacity-50 md:opacity-35 blur-3xl animate-blob animation-delay-5s" />
+          <div className="absolute top-64 left-1/4 w-40 h-40 md:top-1/2 md:left-1/4 md:w-96 md:h-96 rounded-full bg-gradient-to-r from-green-500 to-teal-400 opacity-50 md:opacity-35 blur-3xl animate-blob animation-delay-10s" />
+          <div className="absolute top-96 right-8 w-32 h-32 md:bottom-1/4 md:right-1/4 md:w-80 md:h-80 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 opacity-50 md:opacity-35 blur-3xl animate-blob animation-delay-15s" />
+          <div className="absolute bottom-20 left-8 w-44 h-44 md:bottom-10 md:left-1/3 md:w-96 md:h-96 rounded-full bg-gradient-to-r from-fuchsia-500 to-pink-500 opacity-50 md:opacity-35 blur-3xl animate-blob animation-delay-20s" />
         </div>
 
         {/* Main Content */}
