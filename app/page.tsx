@@ -95,14 +95,14 @@ export default function Home() {
         </div>
       </div>
 
-      <section className="relative w-full mt-6">
+      <section className="w-full mt-6">
         {/* Background blobs */}
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute top-10 left-4 w-32 h-32 md:top-10 md:left-5 md:w-96 md:h-96 rounded-full bg-gradient-to-r from-pink-600 to-red-500 opacity-50 md:opacity-35 blur-3xl animate-blob" />
-          <div className="absolute top-32 right-0 w-36 h-36 md:top-1/4 md:right-5 md:w-80 md:h-80 rounded-full bg-gradient-to-r from-orange-500 to-yellow-400 opacity-50 md:opacity-35 blur-3xl animate-blob animation-delay-5s" />
-          <div className="absolute top-64 left-1/4 w-40 h-40 md:top-1/2 md:left-1/4 md:w-96 md:h-96 rounded-full bg-gradient-to-r from-green-500 to-teal-400 opacity-50 md:opacity-35 blur-3xl animate-blob animation-delay-10s" />
-          <div className="absolute top-96 right-8 w-32 h-32 md:top-1/4 md:right-1/4 md:w-80 md:h-80 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 opacity-50 md:opacity-35 blur-3xl animate-blob animation-delay-15s" />
-          <div className="absolute bottom-20 left-8 w-44 h-44 md:bottom-10 md:left-1/3 md:w-96 md:h-96 rounded-full bg-gradient-to-r from-fuchsia-500 to-pink-500 opacity-50 md:opacity-35 blur-3xl animate-blob animation-delay-20s" />
+          <div className="absolute top-10 left-0 w-32 h-32 md:top-10 md:left-0 md:w-96 md:h-96 rounded-full bg-gradient-to-r from-pink-600 to-red-500 opacity-35 blur-3xl animate-blob" />
+          <div className="absolute top-32 right-0 w-36 h-36 md:top-16 md:right-0 md:w-80 md:h-80 rounded-full bg-gradient-to-r from-orange-500 to-yellow-400 opacity-35 blur-3xl animate-blob animation-delay-5s" />
+          <div className="absolute top-64 left-1/4 w-40 h-40 md:top-1/3 md:left-1/3 md:w-96 md:h-96 rounded-full bg-gradient-to-r from-green-500 to-teal-400 opacity-35 blur-3xl animate-blob animation-delay-10s" />
+          <div className="absolute top-96 right-8 w-32 h-32 md:top-2/3 md:right-1/4 md:w-80 md:h-80 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 opacity-35 blur-3xl animate-blob animation-delay-15s" />
+          <div className="absolute bottom-20 left-8 w-44 h-44 md:bottom-0 md:left-1/3 md:w-96 md:h-96 rounded-full bg-gradient-to-r from-fuchsia-500 to-pink-500 opacity-35 blur-3xl animate-blob animation-delay-20s" />
         </div>
 
         {/* Main Content */}
@@ -126,7 +126,7 @@ export default function Home() {
               data-aos-delay="400"
               className="hidden md:flex items-center justify-start gap-4 mt-5 w-5/7"
             >
-              <p className="text-[20px] text-grey-secondary font-semibold">
+              <p className="text-[20px]  text-grey-secondary font-semibold">
                 Serenity is a platform to help you grow closer to God through
                 scripture, prayer, and faith-building tools.
               </p>
@@ -177,6 +177,15 @@ export default function Home() {
       </div>
 
       <div className="w-full flex flex-col mt-15">
+        {/* Background blobs */}
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute top-10 left-4 w-32 h-32 md:top-10 md:left-5 md:w-96 md:h-96 rounded-full bg-gradient-to-r from-pink-600 to-red-500 opacity-35 blur-3xl animate-blob" />
+          <div className="absolute top-32 right-0 w-36 h-36 md:top-1/4 md:right-5 md:w-80 md:h-80 rounded-full bg-gradient-to-r from-orange-500 to-yellow-400 opacity-35 blur-3xl animate-blob animation-delay-5s" />
+          <div className="absolute top-64 left-1/4 w-40 h-40 md:top-1/2 md:left-1/4 md:w-96 md:h-96 rounded-full bg-gradient-to-r from-green-500 to-teal-400 opacity-35 blur-3xl animate-blob animation-delay-10s" />
+          <div className="absolute top-96 right-8 w-32 h-32 md:top-1/4 md:right-1/4 md:w-80 md:h-80 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 opacity-35 blur-3xl animate-blob animation-delay-15s" />
+          <div className="absolute bottom-20 left-8 w-44 h-44 md:bottom-10 md:left-1/3 md:w-96 md:h-96 rounded-full bg-gradient-to-r from-fuchsia-500 to-pink-500 opacity-35 blur-3xl animate-blob animation-delay-20s" />
+        </div>
+
         <Fade
           direction="up"
           triggerOnce={true}
