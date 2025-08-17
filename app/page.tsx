@@ -106,11 +106,18 @@ export default function Home() {
               backSpeed={30}
               loop={true}
             ></ReactTyped>
-            <div data-aos="fade-down" className="hidden md:flex items-center justify-start gap-5 w-4/6 -mt-30 md:mt-5">
-              <p className="text-xl w-9/10 text-grey-secondary text-start font-semibold">
-                Serenity helps you grow closer to God through scripture, prayer, and faith-building tools.
+            <div
+              data-aos="fade-down"
+              className="hidden md:flex items-center justify-start gap-2 w-4/6 -mt-30 md:mt-5"
+            >
+              <p className="text-[20px] w-9/10 text-grey-secondary text-start font-semibold">
+                Serenity helps you grow closer to God through scripture, prayer,
+                and faith-building tools.
               </p>
-              <button className="btn"> Get Started </button>
+              <button
+                className={"btn animated-button pulse-correct rounded-lg scale-130 flex justify-center text-grey-primary border border-gray-300 shadow-none items-center p-3 bg-grey-main w-fit"}>
+                Get Started
+              </button>
             </div>
           </div>
           <div className="flex w-full md:w-3/10 justify-center items-center flex-col h-fit">
