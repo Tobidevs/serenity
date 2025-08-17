@@ -1,22 +1,31 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useSessionStore } from "../store/useSessionStore";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import AOS from "aos";
 import { ReactTyped } from "react-typed";
 import { PiSignIn } from "react-icons/pi";
 import { MdOutlineAccountCircle } from "react-icons/md";
-import "aos/dist/aos.css";
 import { FaHandsHelping } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
 import Link from "next/link";
+import { Fade } from "react-awesome-reveal";
 
 export default function Home() {
   const { session, fetchSession } = useSessionStore();
   const router = useRouter();
 
   useEffect(() => {
-    AOS.init({ duration: 800, once: true });
+    // Only initialize AOS on the client side
+    if (typeof window !== "undefined") {
+      AOS.init({
+        duration: 800,
+        once: true,
+        offset: 100,
+        easing: "ease-in-out",
+      });
+      AOS.refresh();
+    }
   }, []);
 
   useEffect(() => {
@@ -92,7 +101,7 @@ export default function Home() {
           <div className="absolute top-10 left-4 w-32 h-32 md:top-10 md:left-5 md:w-96 md:h-96 rounded-full bg-gradient-to-r from-pink-600 to-red-500 opacity-50 md:opacity-35 blur-3xl animate-blob" />
           <div className="absolute top-32 right-0 w-36 h-36 md:top-1/4 md:right-5 md:w-80 md:h-80 rounded-full bg-gradient-to-r from-orange-500 to-yellow-400 opacity-50 md:opacity-35 blur-3xl animate-blob animation-delay-5s" />
           <div className="absolute top-64 left-1/4 w-40 h-40 md:top-1/2 md:left-1/4 md:w-96 md:h-96 rounded-full bg-gradient-to-r from-green-500 to-teal-400 opacity-50 md:opacity-35 blur-3xl animate-blob animation-delay-10s" />
-          <div className="absolute top-96 right-8 w-32 h-32 md:bottom-1/4 md:right-1/4 md:w-80 md:h-80 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 opacity-50 md:opacity-35 blur-3xl animate-blob animation-delay-15s" />
+          <div className="absolute top-96 right-8 w-32 h-32 md:top-1/4 md:right-1/4 md:w-80 md:h-80 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 opacity-50 md:opacity-35 blur-3xl animate-blob animation-delay-15s" />
           <div className="absolute bottom-20 left-8 w-44 h-44 md:bottom-10 md:left-1/3 md:w-96 md:h-96 rounded-full bg-gradient-to-r from-fuchsia-500 to-pink-500 opacity-50 md:opacity-35 blur-3xl animate-blob animation-delay-20s" />
         </div>
 
@@ -121,7 +130,10 @@ export default function Home() {
                 Serenity is a platform to help you grow closer to God through
                 scripture, prayer, and faith-building tools.
               </p>
-              <button className="btn animated-button rounded-lg flex justify-center text-grey-primary border border-gray-300 shadow-none items-center p-3 bg-grey-main w-fit">
+              <button
+                className="btn animated-button rounded-lg flex justify-center text-grey-primary border border-gray-300 shadow-none items-center p-4 bg-grey-main w-fit"
+                onClick={() => router.push("/auth")}
+              >
                 Get Started
               </button>
             </div>
@@ -147,20 +159,60 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Mobile intro */}
-      <div className="flex items-center mt-8 w-full md:hidden">
-        <div data-aos="fade-down" className="flex w-full flex-col mt-8">
-          <h1 className="text-2xl text-grey-primary font-bold text-center">
-            Hi, I'm Tobi
-          </h1>
-          <p className="text-grey-secondary text-center mt-4">
-            I'm a software engineer with a passion to glorify God through
-            technology. Take a look at what I’ve been building!
-          </p>
+      {/* Intro */}
+      <div className="flex items-center justify-center w-full py-20  z-10">
+        <div className="flex w-full max-w-3xl flex-col px-4">
+          <Fade direction="up" duration={1000}>
+            <h1 className="text-2xl md:text-3xl text-grey-primary font-bold text-center">
+              Hi, I'm Tobi
+            </h1>
+          </Fade>
+          <Fade direction="up" duration={1000}>
+            <p className="text-grey-secondary text-center mt-4 text-lg">
+              I'm a software engineer with a passion to glorify God through
+              technology. Take a look at what I’ve been building!
+            </p>
+          </Fade>
         </div>
       </div>
 
-      <div className="h-24 md:h-96 w-full"></div>
+      <div className="w-full flex flex-col mt-15">
+        <section className="flex flex-col border rounded-2xl p-4">
+          <Fade direction="up" duration={1000}>
+            <p className="text-sm text-grey-secondary font-semibold">
+              Last updated: Aug 17, 2025
+            </p>
+            <p className="text-md text-grey-secondary font-semibold">
+              I'm Currently Working On...
+            </p>
+          </Fade>
+          <Fade direction="up" duration={1000}>
+            <div className="flex justify-between items-center w-full mt-5 mb-7">
+              <h1 className="text-3xl text-grey-primary font-bold ">
+                Bible Quiz
+              </h1>
+
+              <div className="flex items-center bg-[#B5CEFF] h-7 rounded-2xl pr-3 pl-3 ">
+                <div className="rounded-full h-3 w-3 bg-[#5F99DF] mr-2"></div>
+                <div className="text-grey-primary text-sm font-semibold">
+                  In progress
+                </div>
+              </div>
+            </div>
+          </Fade>
+          <ReactTyped
+            typeSpeed={50}
+            strings={[
+              "A fun and interactive way to test your knowledge on Scripture. User-friendly interface with multiple choice questions, and a variety of topics to choose from, including books of the Bible, themes, and more. Explore the quiz menu to get started!",
+            ]}
+            className="text-grey-secondary"
+          ></ReactTyped>
+        </section>
+        <section>
+          
+        </section>
+      </div>
+      <div className="min-h-screen"></div>
     </div>
   );
 }
