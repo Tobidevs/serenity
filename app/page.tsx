@@ -93,21 +93,32 @@ export default function Home() {
       <div className="md:flex md:justify-center md:w-full">
         <div className="flex flex-col md:flex-row md:w-8/10 md:justify-center items-center">
           {/* Main Content */}
-          <ReactTyped
-            data-aos="fade-up"
-            className="text-3xl md:text-7xl w-9/10 h-30 md:h-1/2 text-center md:text-start font-bold text-grey-primary mt-8"
-            strings={[
-              "Focused on building tools for the Christian community.",
-              "Building apps that strengthen your walk with God.",
-              "Tools to inspire, connect, and grow in faith.",
-            ]}
-            typeSpeed={50}
-            backSpeed={30}
-            loop={true}
-          ></ReactTyped>
-          <div className="flex w-full md:w-5/10 justify-center items-center flex-col h-fit">
+          <div className="flex h-3/5 flex-col w-full md:w-7/10 justify-start items-center md:items-start">
+            <ReactTyped
+              data-aos="fade-up"
+              className="text-3xl md:text-7xl w-9/10 h-30  md:h-2/5 text-center md:text-start font-bold text-grey-primary mt-8"
+              strings={[
+                "Focused on building tools for the Christian community.",
+                "Building apps that strengthen your walk with God.",
+                "Tools to inspire, connect, and grow in faith.",
+              ]}
+              typeSpeed={50}
+              backSpeed={30}
+              loop={true}
+            ></ReactTyped>
+            <div data-aos="fade-down" className="hidden md:flex items-center justify-start gap-5 w-4/6 -mt-30 md:mt-5">
+              <p className="text-xl w-9/10 text-grey-secondary text-start font-semibold">
+                Serenity helps you grow closer to God through scripture, prayer, and faith-building tools.
+              </p>
+              <button className="btn"> Get Started </button>
+            </div>
+          </div>
+          <div className="flex w-full md:w-3/10 justify-center items-center flex-col h-fit">
             {/* iPhone Mockup */}
-            <div data-aos="zoom-in-up" className="scale-75 origin-top mt-8 md:mt-18">
+            <div
+              data-aos="zoom-in-up"
+              className="scale-75 md:scale-90 origin-top mt-8 md:mt-18"
+            >
               <div className="mockup-phone border-grey-primary">
                 <div className="mockup-phone-camera"></div>
                 <div className="mockup-phone-display">
@@ -122,7 +133,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="flex items-center mt-8 w-full">
+      <div className="flex items-center mt-8 w-full md:hidden">
         <div data-aos="fade-down" className="flex w-full flex-col -mt-30">
           <h1 className="text-2xl text-grey-primary font-bold text-center">
             Hi, I'm Tobi
