@@ -177,16 +177,22 @@ export default function Home() {
       </div>
 
       <div className="w-full flex flex-col mt-15">
-        <section className="flex flex-col border rounded-2xl p-4">
-          <Fade direction="up" duration={1000}>
-            <p className="text-sm text-grey-secondary font-semibold">
-              Last updated: Aug 17, 2025
-            </p>
-            <p className="text-md text-grey-secondary font-semibold">
-              I'm Currently Working On...
-            </p>
-          </Fade>
-          <Fade direction="up" duration={1000}>
+        <Fade
+          direction="up"
+          triggerOnce={true}
+          duration={1000}
+          className="flex flex-col border rounded-2xl p-4"
+        >
+          <div>
+            <div>
+              <p className="text-sm text-grey-secondary font-semibold">
+                Last updated: Aug 17, 2025
+              </p>
+              <p className="text-md text-grey-secondary font-semibold">
+                Currently Working On...
+              </p>
+            </div>
+
             <div className="flex justify-between items-center w-full mt-5 mb-7">
               <h1 className="text-3xl text-grey-primary font-bold ">
                 Bible Quiz
@@ -195,22 +201,138 @@ export default function Home() {
               <div className="flex items-center bg-[#B5CEFF] h-7 rounded-2xl pr-3 pl-3 ">
                 <div className="rounded-full h-3 w-3 bg-[#5F99DF] mr-2"></div>
                 <div className="text-grey-primary text-sm font-semibold">
-                  In progress
+                  In Progress
                 </div>
               </div>
             </div>
-          </Fade>
-          <ReactTyped
-            typeSpeed={50}
-            strings={[
-              "A fun and interactive way to test your knowledge on Scripture. User-friendly interface with multiple choice questions, and a variety of topics to choose from, including books of the Bible, themes, and more. Explore the quiz menu to get started!",
-            ]}
-            className="text-grey-secondary"
-          ></ReactTyped>
-        </section>
-        <section>
-          
-        </section>
+
+            <div className="h-38">
+              <ReactTyped
+                typeSpeed={50}
+                strings={[
+                  "A fun and interactive way to test your knowledge on Scripture. User-friendly interface with multiple choice questions, and a variety of topics to choose from, including books of the Bible, themes, and more. Explore the quiz menu to get started!",
+                ]}
+                className="text-grey-secondary "
+              ></ReactTyped>
+            </div>
+          </div>
+        </Fade>
+        <Fade
+          direction="up"
+          triggerOnce={true}
+          duration={1000}
+          className="flex flex-col border rounded-2xl p-4 mt-6"
+        >
+          <div>
+            <div>
+              <p className="text-md text-grey-secondary font-semibold">
+                Shipped and ready to use
+              </p>
+            </div>
+
+            <div className="flex justify-between items-center w-full mt-5 mb-7">
+              <h1 className="text-3xl text-grey-primary font-bold ">
+                Online Bible
+              </h1>
+              <div className="flex items-center bg-[#9EE9BE] h-7 rounded-2xl pr-3 pl-3 ">
+                <div className="rounded-full h-3 w-3 bg-[#3CD08B] mr-2"></div>
+                <div className="text-grey-primary text-sm font-semibold">
+                  Available
+                </div>
+              </div>
+            </div>
+
+            <div className="h-38 ">
+              <ReactTyped
+                typeSpeed={50}
+                strings={[
+                  "An online Bible application that allows you to read and study the Bible in various translations like KJV, ESV, NLT, and more. Features include chapter navigation, book selection, and a user-friendly interface for easy reading.",
+                ]}
+                className="text-grey-secondary "
+              ></ReactTyped>
+            </div>
+
+            <div className="flex justify-between items-center w-full mt-5 mb-7">
+              <h1 className="text-3xl text-grey-primary font-bold ">
+                Onboarding
+              </h1>
+              <div className="flex items-center bg-[#9EE9BE] h-7 rounded-2xl pr-3 pl-3 ">
+                <div className="rounded-full h-3 w-3 bg-[#3CD08B] mr-2"></div>
+                <div className="text-grey-primary text-sm font-semibold">
+                  Available
+                </div>
+              </div>
+            </div>
+
+            <div className="h-38">
+              <ReactTyped
+                typeSpeed={50}
+                strings={[
+                  "A guided onboarding experience to help new users get started with the app. Collects basic information like name, and preferred Bible translation to personalize the experience. Ensures a smooth introduction to the app's features and functionalities.",
+                ]}
+                className="text-grey-secondary "
+              ></ReactTyped>
+            </div>
+          </div>
+        </Fade>
+        <Fade
+          direction="up"
+          triggerOnce={true}
+          duration={1000}
+          className="flex flex-col border rounded-2xl p-4 mt-6 "
+        >
+          <div>
+            <div>
+              <p className="text-md text-grey-secondary font-semibold">
+                Planned for future release
+              </p>
+            </div>
+
+            <div className="flex justify-between items-center w-full mt-5 mb-7">
+              <h1 className="text-3xl text-grey-primary font-bold ">
+                Dashboard
+              </h1>
+              <div className="flex items-center bg-[#f1e691] h-7 rounded-2xl pr-3 pl-3 ">
+                <div className="rounded-full h-3 w-3 bg-[#d0b553] mr-2"></div>
+                <div className="text-grey-primary text-sm font-semibold">
+                  Coming Soon
+                </div>
+              </div>
+            </div>
+
+            <div className="h-38">
+              <ReactTyped
+                typeSpeed={50}
+                strings={[
+                  "A personalized dashboard to track your Bible reading progress, quiz scores, and spiritual growth. Features include easy navigation, progress tracking, and a clean interface to help you stay focused on your spiritual journey.",
+                ]}
+                className="text-grey-secondary "
+              ></ReactTyped>
+            </div>
+
+            <div className="flex justify-between items-center w-full mt-5 mb-7">
+              <h1 className="text-3xl text-grey-primary font-bold ">
+                My Stuff
+              </h1>
+              <div className="flex items-center bg-[#f1e691] h-7 rounded-2xl pr-3 pl-3 ">
+                <div className="rounded-full h-3 w-3 bg-[#d0b553] mr-2"></div>
+                <div className="text-grey-primary text-sm font-semibold">
+                  Coming Soon
+                </div>
+              </div>
+            </div>
+
+            <div className="h-38">
+              <ReactTyped
+                typeSpeed={50}
+                strings={[
+                  "A personal space to save your favorite Bible verses, notes, and reflections. Allows you to organize your spiritual insights and revisit them whenever you need encouragement or inspiration.",
+                ]}
+                className="text-grey-secondary "
+              ></ReactTyped>
+            </div>
+          </div>
+        </Fade>
       </div>
       <div className="min-h-screen"></div>
     </div>
