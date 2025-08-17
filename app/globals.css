@@ -94,6 +94,58 @@ a {
   100% { background-position: 0% 50%; }
 }
 
+/* Mobile-specific fixes for blob animations */
+@media (max-width: 768px) {
+  /* Ensure mobile layout doesn't get affected by absolute positioning */
+  body {
+    overflow-x: hidden;
+  }
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  /* overflow: hidden; */
+  font-family: sans-serif;
+}
+/* button gradient background */
+.gradient-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+}
+
+
+
+
+
+
+@keyframes blob {
+  0%   { transform: translate(0, 0) scale(1) rotate(0deg); }
+  20%  { transform: translate(150px, -100px) scale(1.2) rotate(20deg); }
+  40%  { transform: translate(-180px, 120px) scale(0.9) rotate(-15deg); }
+  60%  { transform: translate(120px, 150px) scale(1.1) rotate(25deg); }
+  80%  { transform: translate(-100px, -120px) scale(0.95) rotate(-20deg); }
+  100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+}
+
+.animate-blob {
+  animation: blob 30s infinite alternate ease-in-out;
+}
+
+.animation-delay-5s { animation-delay: 5s; }
+.animation-delay-10s { animation-delay: 10s; }
+.animation-delay-15s { animation-delay: 15s; }
+.animation-delay-20s { animation-delay: 20s; }
+
+
+
+
 
 @theme {
   --color-grey-secondary: #505673;

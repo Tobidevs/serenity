@@ -90,9 +90,17 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="md:flex md:justify-center md:w-full">
+
+      <div className="md:flex md:justify-center md:w-full relative">
+        <div className="absolute top-5 left-2 w-48 h-48 md:top-10 md:left-5 md:w-96 md:h-96 rounded-full bg-gradient-to-r from-pink-600 to-red-500 opacity-30 blur-3xl animate-blob" />
+        <div className="absolute top-20 right-2 w-40 h-40 md:top-1/4 md:right-5 md:w-80 md:h-80 rounded-full bg-gradient-to-r from-orange-500 to-yellow-400 opacity-30 blur-3xl animate-blob animation-delay-5s" />
+        <div className="absolute top-40 left-8 w-48 h-48 md:top-1/2 md:left-1/4 md:w-96 md:h-96 rounded-full bg-gradient-to-r from-green-500 to-teal-400 opacity-30 blur-3xl animate-blob animation-delay-10s" />
+        <div className="absolute bottom-32 right-8 w-40 h-40 md:bottom-1/4 md:right-1/4 md:w-80 md:h-80 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 opacity-30 blur-3xl animate-blob animation-delay-15s" />
+        <div className="absolute bottom-5 left-1/4 w-48 h-48 md:bottom-10 md:left-1/3 md:w-96 md:h-96 rounded-full bg-gradient-to-r from-fuchsia-500 to-pink-500 opacity-30 blur-3xl animate-blob animation-delay-20s" />
+
         <div className="flex flex-col md:flex-row md:w-8/10 md:justify-center items-center">
           {/* Main Content */}
+
           <div className="flex h-3/5 flex-col w-full md:w-7/10 justify-start items-center md:items-start">
             <ReactTyped
               data-aos="fade-up"
@@ -115,7 +123,10 @@ export default function Home() {
                 and faith-building tools.
               </p>
               <button
-                className={"btn animated-button pulse-correct rounded-lg scale-130 flex justify-center text-grey-primary border border-gray-300 shadow-none items-center p-3 bg-grey-main w-fit"}>
+                className={
+                  "btn animated-button pulse-correct rounded-lg scale-130 flex justify-center text-grey-primary border border-gray-300 shadow-none items-center p-3 bg-grey-main w-fit"
+                }
+              >
                 Get Started
               </button>
             </div>
