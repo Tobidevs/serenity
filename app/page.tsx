@@ -59,23 +59,22 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Main Section with blobs */}
       <section className="relative w-full mt-6">
         {/* Background blobs */}
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute top-5 left-2 w-48 h-48 md:top-10 md:left-5 md:w-96 md:h-96 rounded-full bg-gradient-to-r from-pink-600 to-red-500 opacity-30 blur-3xl animate-blob" />
           <div className="absolute top-20 right-2 w-40 h-40 md:top-1/4 md:right-5 md:w-80 md:h-80 rounded-full bg-gradient-to-r from-orange-500 to-yellow-400 opacity-30 blur-3xl animate-blob animation-delay-5s" />
           <div className="absolute top-40 left-8 w-48 h-48 md:top-1/2 md:left-1/4 md:w-96 md:h-96 rounded-full bg-gradient-to-r from-green-500 to-teal-400 opacity-30 blur-3xl animate-blob animation-delay-10s" />
-          <div className="absolute bottom-32 right-8 w-40 h-40 md:bottom-1/4 md:right-1/4 md:w-80 md:h-80 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 opacity-30 blur-3xl animate-blob animation-delay-15s" />
+          <div className="absolute top-10 right-8 w-40 h-40 md:bottom-1/4 md:right-1/4 md:w-80 md:h-80 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 opacity-30 blur-3xl animate-blob animation-delay-15s" />
           <div className="absolute bottom-5 left-1/4 w-48 h-48 md:bottom-10 md:left-1/3 md:w-96 md:h-96 rounded-full bg-gradient-to-r from-fuchsia-500 to-pink-500 opacity-30 blur-3xl animate-blob animation-delay-20s" />
         </div>
 
         {/* Main Content */}
-        <div className="flex flex-col md:flex-row md:justify-center items-center relative z-10">
-          <div className="flex flex-col w-full md:w-7/12 justify-start items-center md:items-start">
+        <div className="flex flex-col md:flex-row h-full md:justify-center items-center relative z-10">
+          <div className="flex flex-col md:h-3/5 w-full md:w-7/12 justify-start items-center md:items-start">
             <ReactTyped
               data-aos="fade-up"
-              className="text-3xl md:text-7xl w-9/10 h-30  md:h-2/5 text-center md:text-start font-bold text-grey-primary mt-8"
+              className="text-3xl md:text-7xl w-9/10 h-30 md:h-53 text-center md:text-start font-bold text-grey-primary mt-8"
               strings={[
                 "Focused on building tools for the Christian community.",
                 "Building apps that strengthen your walk with God.",
@@ -83,19 +82,20 @@ export default function Home() {
               ]}
               typeSpeed={50}
               backSpeed={30}
+              backDelay={2000}
               loop={true}
             />
-            <div data-aos="fade-down" className="hidden md:flex items-center justify-start gap-2 mt-5 w-4/6">
+            <div data-aos="fade-up" data-aos-delay="400" className="hidden md:flex items-center justify-start gap-4 mt-5 w-5/7">
               <p className="text-[20px] text-grey-secondary font-semibold">
-                Serenity helps you grow closer to God through scripture, prayer, and faith-building tools.
+                Serenity is a platform to help you grow closer to God through scripture, prayer, and faith-building tools.
               </p>
-              <button className="btn animated-button pulse-correct rounded-lg flex justify-center text-grey-primary border border-gray-300 shadow-none items-center p-3 bg-grey-main w-fit">
+              <button className="btn animated-button rounded-lg flex justify-center text-grey-primary border border-gray-300 shadow-none items-center p-3 bg-grey-main w-fit">
                 Get Started
               </button>
             </div>
           </div>
 
-          <div className="flex w-full md:w-3/12 justify-center items-center flex-col mt-8 md:mt-18">
+          <div className="flex w-full md:w-3/12 justify-center items-center flex-col mt-8 md:mt-10">
             <div data-aos="zoom-in-up" className="scale-75 md:scale-90 origin-top">
               <div className="mockup-phone border-grey-primary">
                 <div className="mockup-phone-camera"></div>
