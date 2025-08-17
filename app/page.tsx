@@ -30,28 +30,61 @@ export default function Home() {
         <div className="flex w-full md:w-1/4 items-center justify-between">
           {/* External links */}
           <div className="flex gap-4 w-1/3 justify-start">
-            <Link href="https://github.com/Tobidevs/serenity" data-aos="fade-down-right" data-aos-delay="250" className="flex flex-col items-center">
+            <Link
+              href="https://github.com/Tobidevs/serenity"
+              data-aos="fade-down-right"
+              data-aos-delay="250"
+              className="flex flex-col items-center"
+            >
               <FaGithub size={15} className="text-3xl text-grey-primary" />
               <label className="text-xs text-grey-secondary">Github</label>
             </Link>
-            <Link href="/help-serenity" data-aos="fade-down-right" data-aos-delay="200" className="flex flex-col items-center">
-              <FaHandsHelping size={15} className="text-3xl text-grey-primary" />
+            <Link
+              href="/help-serenity"
+              data-aos="fade-down-right"
+              data-aos-delay="200"
+              className="flex flex-col items-center"
+            >
+              <FaHandsHelping
+                size={15}
+                className="text-3xl text-grey-primary"
+              />
               <label className="text-xs text-grey-secondary">Help</label>
             </Link>
           </div>
 
           {/* Title */}
-          <div data-aos="fade-down" className="text-2xl md:text-4xl flex w-1/3 items-center justify-center font-bold text-grey-primary">
+          <div
+            data-aos="fade-down"
+            className="text-2xl md:text-4xl flex w-1/3 items-center justify-center font-bold text-grey-primary"
+          >
             Serenity
           </div>
 
           {/* Auth */}
           <div className="flex gap-4 w-1/3 justify-end">
-            <div onClick={() => session ? router.push("/dashboard") : router.push("/auth")} className="flex flex-col items-center cursor-pointer" data-aos="fade-down-left" data-aos-delay="200">
-              <MdOutlineAccountCircle className="text-3xl text-grey-primary" size={15} />
+            <div
+              onClick={() =>
+                session ? router.push("/dashboard") : router.push("/auth")
+              }
+              className="flex flex-col items-center cursor-pointer"
+              data-aos="fade-down-left"
+              data-aos-delay="200"
+            >
+              <MdOutlineAccountCircle
+                className="text-3xl text-grey-primary"
+                size={15}
+              />
               <label className="text-xs text-grey-secondary">Sign Up</label>
             </div>
-            <div onClick={() => session ? router.push("/dashboard") : router.push("/auth")} className="flex flex-col items-center cursor-pointer" data-aos="fade-down-left" data-aos-delay="250">
+            <div
+              onClick={() =>
+                session ? router.push("/dashboard") : router.push("/auth")
+              }
+              className="flex flex-col items-center cursor-pointer"
+              data-aos="fade-down-left"
+              data-aos-delay="250"
+            >
               <PiSignIn className="text-3xl text-grey-primary" size={15} />
               <label className="text-xs text-grey-secondary">Sign In</label>
             </div>
@@ -85,9 +118,14 @@ export default function Home() {
               backDelay={2000}
               loop={true}
             />
-            <div data-aos="fade-up" data-aos-delay="400" className="hidden md:flex items-center justify-start gap-4 mt-5 w-5/7">
+            <div
+              data-aos="fade-up"
+              data-aos-delay="400"
+              className="hidden md:flex items-center justify-start gap-4 mt-5 w-5/7"
+            >
               <p className="text-[20px] text-grey-secondary font-semibold">
-                Serenity is a platform to help you grow closer to God through scripture, prayer, and faith-building tools.
+                Serenity is a platform to help you grow closer to God through
+                scripture, prayer, and faith-building tools.
               </p>
               <button className="btn animated-button rounded-lg flex justify-center text-grey-primary border border-gray-300 shadow-none items-center p-3 bg-grey-main w-fit">
                 Get Started
@@ -96,11 +134,18 @@ export default function Home() {
           </div>
 
           <div className="flex w-full md:w-3/12 justify-center items-center flex-col mt-8 md:mt-10">
-            <div data-aos="zoom-in-up" className="scale-75 md:scale-90 origin-top">
+            <div
+              data-aos="zoom-in-up"
+              className="scale-75 md:scale-90 origin-top"
+            >
               <div className="mockup-phone border-grey-primary">
                 <div className="mockup-phone-camera"></div>
                 <div className="mockup-phone-display">
-                  <img alt="wallpaper" src="/iphoneMockup.png" className="block" />
+                  <img
+                    alt="wallpaper"
+                    src="/iphoneMockup.png"
+                    className="block"
+                  />
                 </div>
               </div>
             </div>
@@ -111,9 +156,12 @@ export default function Home() {
       {/* Mobile intro */}
       <div className="flex items-center mt-8 w-full md:hidden">
         <div data-aos="fade-down" className="flex w-full flex-col mt-8">
-          <h1 className="text-2xl text-grey-primary font-bold text-center">Hi, I'm Tobi</h1>
+          <h1 className="text-2xl text-grey-primary font-bold text-center">
+            Hi, I'm Tobi
+          </h1>
           <p className="text-grey-secondary text-center mt-4">
-            I'm a software engineer with a passion to glorify God through technology. Take a look at what I’ve been building!
+            I'm a software engineer with a passion to glorify God through
+            technology. Take a look at what I’ve been building!
           </p>
         </div>
       </div>
