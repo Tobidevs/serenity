@@ -6,10 +6,13 @@ import AOS from "aos";
 import { ReactTyped } from "react-typed";
 import { PiSignIn } from "react-icons/pi";
 import { MdOutlineAccountCircle } from "react-icons/md";
-import { FaHandsHelping } from "react-icons/fa";
+import { FaHandsHelping, FaLinkedinIn } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
 import Link from "next/link";
 import { Fade } from "react-awesome-reveal";
+import FeatureRequest from "../components/feature-request";
 
 export default function Home() {
   const { session, fetchSession } = useSessionStore();
@@ -201,7 +204,7 @@ export default function Home() {
             </p>
           </div>
         </Fade>
-        <div className="md:flex md:w-full justify-between">
+        <div className="md:flex md:w-full md:px-15 justify-center gap-10">
           <Fade
             direction="up"
             triggerOnce={true}
@@ -215,7 +218,7 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="flex justify-between items-center w-full mt-5 mb-7 md:mb-5">
+              <div className="flex justify-between items-center w-full mt-5 mb-7 md:mb-3">
                 <h1 className="text-3xl md:text-5xl text-grey-primary font-bold ">
                   Bible Quiz
                 </h1>
@@ -234,7 +237,7 @@ export default function Home() {
                   strings={[
                     "A fun and interactive way to test your knowledge on Scripture. User-friendly interface with multiple choice questions, and a variety of topics to choose from, including books of the Bible, themes, and more. Explore the quiz menu to get started!",
                   ]}
-                  className="text-grey-secondary md:text-xl"
+                  className="text-grey-secondary md:text-lg"
                 ></ReactTyped>
               </div>
             </div>
@@ -248,11 +251,11 @@ export default function Home() {
             <div>
               <div>
                 <p className="text-md text-grey-secondary font-semibold">
-                  Shipped and ready to use
+                  Shipped and ready to use...
                 </p>
               </div>
 
-              <div className="flex justify-between items-center w-full mt-5 mb-7 md:mb-5">
+              <div className="flex justify-between items-center w-full mt-5 mb-7 md:mb-3">
                 <h1 className="text-3xl md:text-5xl text-grey-primary font-bold ">
                   Online Bible
                 </h1>
@@ -270,11 +273,11 @@ export default function Home() {
                   strings={[
                     "An online Bible application that allows you to read and study the Bible in various translations like KJV, ESV, NLT, and more. Features include chapter navigation, book selection, and a user-friendly interface for easy reading.",
                   ]}
-                  className="text-grey-secondary md:text-xl"
+                  className="text-grey-secondary md:text-lg"
                 ></ReactTyped>
               </div>
 
-              <div className="flex justify-between items-center w-full mt-5 mb-7 md:mb-5">
+              <div className="flex justify-between items-center w-full mt-5 mb-7 md:mb-3">
                 <h1 className="text-3xl md:text-5xl text-grey-primary font-bold ">
                   Onboarding
                 </h1>
@@ -292,7 +295,7 @@ export default function Home() {
                   strings={[
                     "A guided onboarding experience to help new users get started with the app. Collects basic information like name, and preferred Bible translation to personalize the experience. Ensures a smooth introduction to the app's features and functionalities.",
                   ]}
-                  className="text-grey-secondary md:text-xl"
+                  className="text-grey-secondary md:text-lg"
                 ></ReactTyped>
               </div>
             </div>
@@ -306,11 +309,11 @@ export default function Home() {
             <div>
               <div>
                 <p className="text-md text-grey-secondary font-semibold">
-                  Planned for future release
+                  Planned for future release...
                 </p>
               </div>
 
-              <div className="flex justify-between items-center w-full mt-5 mb-7 md:mb-5">
+              <div className="flex justify-between items-center w-full mt-5 mb-7 md:mb-3">
                 <h1 className="text-3xl md:text-5xl text-grey-primary font-bold ">
                   Dashboard
                 </h1>
@@ -328,11 +331,11 @@ export default function Home() {
                   strings={[
                     "A personalized dashboard to track your Bible reading progress, quiz scores, and spiritual growth. Features include easy navigation, progress tracking, and a clean interface to help you stay focused on your spiritual journey.",
                   ]}
-                  className="text-grey-secondary md:text-xl"
+                  className="text-grey-secondary md:text-lg"
                 ></ReactTyped>
               </div>
 
-              <div className="flex justify-between items-center w-full mt-5 mb-7 md:mb-5">
+              <div className="flex justify-between items-center w-full mt-5 mb-7 md:mb-3">
                 <h1 className="text-3xl md:text-5xl text-grey-primary font-bold ">
                   My Stuff
                 </h1>
@@ -350,13 +353,44 @@ export default function Home() {
                   strings={[
                     "A personal space to save your favorite Bible verses, notes, and reflections. Allows you to organize your spiritual insights and revisit them whenever you need encouragement or inspiration.",
                   ]}
-                  className="text-grey-secondary md:text-xl"
+                  className="text-grey-secondary md:text-lg"
                 ></ReactTyped>
               </div>
             </div>
           </Fade>
         </div>
       </div>
+      <Fade
+        direction="up"
+        triggerOnce={true}
+        duration={1000}
+        className="flex w-full h-40 justify-center"
+      >
+        <section className="flex flex-col w-3/10 items-center justify-center">
+          <h1>Contact Me</h1>
+          <p className="text-grey-secondary text-center mt-2">
+            Have questions or feedback? Reach out to me on these platforms
+          </p>
+          <div className="flex gap-4 mt-4">
+            <Link
+              href="https://www.linkedin.com/in/tobiakere/"
+              className="flex flex-col items-center"
+            >
+              <FaLinkedin className="text-lg md:text-2xl text-grey-primary" />
+              <label className="text-xs text-grey-secondary">LinkedIn</label>
+            </Link>
+
+            <Link
+              href="https://www.linkedin.com/in/tobiakere/"
+              className="flex flex-col items-center"
+            >
+              <MdEmail className="text-lg md:text-2xl text-grey-primary" />
+              <label className="text-xs text-grey-secondary">Email</label>
+            </Link>
+          </div>
+        </section>
+      </Fade>
+
       <div className="min-h-screen"></div>
     </div>
   );
