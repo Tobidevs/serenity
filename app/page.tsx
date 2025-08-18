@@ -160,15 +160,15 @@ export default function Home() {
       </section>
 
       {/* Intro */}
-      <div className="flex items-center justify-center w-full py-20  z-10">
+      <div className="flex items-center justify-center w-full py-30 z-10">
         <div className="flex w-full max-w-3xl flex-col px-4">
           <Fade direction="up" duration={1000}>
-            <h1 className="text-2xl md:text-3xl text-grey-primary font-bold text-center">
+            <h1 className="text-2xl md:text-4xl text-grey-primary font-bold text-center">
               Hi, I'm Tobi
             </h1>
           </Fade>
           <Fade direction="up" duration={1000}>
-            <p className="text-grey-secondary text-center mt-4 text-lg">
+            <p className="text-grey-secondary text-center mt-4 text-lg md:text-2xl">
               I'm a software engineer with a passion to glorify God through
               technology. Take a look at what I’ve been building!
             </p>
@@ -190,158 +190,172 @@ export default function Home() {
           direction="up"
           triggerOnce={true}
           duration={1000}
-          className="flex flex-col border rounded-2xl p-4"
+          className="w-full h-10 flex justify-center items-center mb-3 md:mb-6"
         >
-          <div>
-            <div>
-              <p className="text-sm text-grey-secondary font-semibold">
-                Last updated: Aug 17, 2025
-              </p>
-              <p className="text-md text-grey-secondary font-semibold">
-                Currently Working On...
-              </p>
-            </div>
-
-            <div className="flex justify-between items-center w-full mt-5 mb-7">
-              <h1 className="text-3xl text-grey-primary font-bold ">
-                Bible Quiz
-              </h1>
-
-              <div className="flex items-center bg-[#B5CEFF] h-7 rounded-2xl pr-3 pl-3 ">
-                <div className="rounded-full h-3 w-3 bg-[#5F99DF] mr-2"></div>
-                <div className="text-grey-primary text-sm font-semibold">
-                  In Progress
-                </div>
-              </div>
-            </div>
-
-            <div className="h-38">
-              <ReactTyped
-                typeSpeed={50}
-                strings={[
-                  "A fun and interactive way to test your knowledge on Scripture. User-friendly interface with multiple choice questions, and a variety of topics to choose from, including books of the Bible, themes, and more. Explore the quiz menu to get started!",
-                ]}
-                className="text-grey-secondary "
-              ></ReactTyped>
-            </div>
+          <div className="flex flex-col items-center gap-2">
+            <h1 className="text-2xl md:text-4xl text-grey-primary font-bold ">
+              Project Overview
+            </h1>
+            <p className="text-sm text-grey-secondary font-semibold">
+              Last updated: Aug 17, 2025
+            </p>
           </div>
         </Fade>
-        <Fade
-          direction="up"
-          triggerOnce={true}
-          duration={1000}
-          className="flex flex-col border rounded-2xl p-4 mt-6"
-        >
-          <div>
+        <div className="md:flex md:w-full justify-between">
+          <Fade
+            direction="up"
+            triggerOnce={true}
+            duration={1000}
+            className="flex flex-col border rounded-2xl p-4 mt-6 md:w-3/10"
+          >
             <div>
-              <p className="text-md text-grey-secondary font-semibold">
-                Shipped and ready to use
-              </p>
-            </div>
+              <div>
+                <p className="text-md text-grey-secondary font-semibold">
+                  Currently Working On...
+                </p>
+              </div>
 
-            <div className="flex justify-between items-center w-full mt-5 mb-7">
-              <h1 className="text-3xl text-grey-primary font-bold ">
-                Online Bible
-              </h1>
-              <div className="flex items-center bg-[#9EE9BE] h-7 rounded-2xl pr-3 pl-3 ">
-                <div className="rounded-full h-3 w-3 bg-[#3CD08B] mr-2"></div>
-                <div className="text-grey-primary text-sm font-semibold">
-                  Available
+              <div className="flex justify-between items-center w-full mt-5 mb-7 md:mb-5">
+                <h1 className="text-3xl md:text-5xl text-grey-primary font-bold ">
+                  Bible Quiz
+                </h1>
+
+                <div className="flex items-center bg-[#B5CEFF] h-7 rounded-2xl pr-3 pl-3 ">
+                  <div className="rounded-full h-3 w-3 bg-[#5F99DF] mr-2"></div>
+                  <div className="text-grey-primary text-sm font-semibold">
+                    In Progress
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="h-38 ">
-              <ReactTyped
-                typeSpeed={50}
-                strings={[
-                  "An online Bible application that allows you to read and study the Bible in various translations like KJV, ESV, NLT, and more. Features include chapter navigation, book selection, and a user-friendly interface for easy reading.",
-                ]}
-                className="text-grey-secondary "
-              ></ReactTyped>
-            </div>
-
-            <div className="flex justify-between items-center w-full mt-5 mb-7">
-              <h1 className="text-3xl text-grey-primary font-bold ">
-                Onboarding
-              </h1>
-              <div className="flex items-center bg-[#9EE9BE] h-7 rounded-2xl pr-3 pl-3 ">
-                <div className="rounded-full h-3 w-3 bg-[#3CD08B] mr-2"></div>
-                <div className="text-grey-primary text-sm font-semibold">
-                  Available
-                </div>
+              <div className="h-38">
+                <ReactTyped
+                  typeSpeed={50}
+                  strings={[
+                    "A fun and interactive way to test your knowledge on Scripture. User-friendly interface with multiple choice questions, and a variety of topics to choose from, including books of the Bible, themes, and more. Explore the quiz menu to get started!",
+                  ]}
+                  className="text-grey-secondary md:text-xl"
+                ></ReactTyped>
               </div>
             </div>
-
-            <div className="h-38">
-              <ReactTyped
-                typeSpeed={50}
-                strings={[
-                  "A guided onboarding experience to help new users get started with the app. Collects basic information like name, and preferred Bible translation to personalize the experience. Ensures a smooth introduction to the app's features and functionalities.",
-                ]}
-                className="text-grey-secondary "
-              ></ReactTyped>
-            </div>
-          </div>
-        </Fade>
-        <Fade
-          direction="up"
-          triggerOnce={true}
-          duration={1000}
-          className="flex flex-col border rounded-2xl p-4 mt-6 "
-        >
-          <div>
+          </Fade>
+          <Fade
+            direction="up"
+            triggerOnce={true}
+            duration={1000}
+            className="flex flex-col border rounded-2xl p-4 mt-6 md:w-3/10"
+          >
             <div>
-              <p className="text-md text-grey-secondary font-semibold">
-                Planned for future release
-              </p>
-            </div>
+              <div>
+                <p className="text-md text-grey-secondary font-semibold">
+                  Shipped and ready to use
+                </p>
+              </div>
 
-            <div className="flex justify-between items-center w-full mt-5 mb-7">
-              <h1 className="text-3xl text-grey-primary font-bold ">
-                Dashboard
-              </h1>
-              <div className="flex items-center bg-[#f1e691] h-7 rounded-2xl pr-3 pl-3 ">
-                <div className="rounded-full h-3 w-3 bg-[#d0b553] mr-2"></div>
-                <div className="text-grey-primary text-sm font-semibold">
-                  Coming Soon
+              <div className="flex justify-between items-center w-full mt-5 mb-7 md:mb-5">
+                <h1 className="text-3xl md:text-5xl text-grey-primary font-bold ">
+                  Online Bible
+                </h1>
+                <div className="flex items-center bg-[#9EE9BE] h-7 rounded-2xl pr-3 pl-3 ">
+                  <div className="rounded-full h-3 w-3 bg-[#3CD08B] mr-2"></div>
+                  <div className="text-grey-primary text-sm font-semibold">
+                    Available
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="h-38">
-              <ReactTyped
-                typeSpeed={50}
-                strings={[
-                  "A personalized dashboard to track your Bible reading progress, quiz scores, and spiritual growth. Features include easy navigation, progress tracking, and a clean interface to help you stay focused on your spiritual journey.",
-                ]}
-                className="text-grey-secondary "
-              ></ReactTyped>
-            </div>
+              <div className="h-38 ">
+                <ReactTyped
+                  typeSpeed={50}
+                  strings={[
+                    "An online Bible application that allows you to read and study the Bible in various translations like KJV, ESV, NLT, and more. Features include chapter navigation, book selection, and a user-friendly interface for easy reading.",
+                  ]}
+                  className="text-grey-secondary md:text-xl"
+                ></ReactTyped>
+              </div>
 
-            <div className="flex justify-between items-center w-full mt-5 mb-7">
-              <h1 className="text-3xl text-grey-primary font-bold ">
-                My Stuff
-              </h1>
-              <div className="flex items-center bg-[#f1e691] h-7 rounded-2xl pr-3 pl-3 ">
-                <div className="rounded-full h-3 w-3 bg-[#d0b553] mr-2"></div>
-                <div className="text-grey-primary text-sm font-semibold">
-                  Coming Soon
+              <div className="flex justify-between items-center w-full mt-5 mb-7 md:mb-5">
+                <h1 className="text-3xl md:text-5xl text-grey-primary font-bold ">
+                  Onboarding
+                </h1>
+                <div className="flex items-center bg-[#9EE9BE] h-7 rounded-2xl pr-3 pl-3 ">
+                  <div className="rounded-full h-3 w-3 bg-[#3CD08B] mr-2"></div>
+                  <div className="text-grey-primary text-sm font-semibold">
+                    Available
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="h-38">
-              <ReactTyped
-                typeSpeed={50}
-                strings={[
-                  "A personal space to save your favorite Bible verses, notes, and reflections. Allows you to organize your spiritual insights and revisit them whenever you need encouragement or inspiration.",
-                ]}
-                className="text-grey-secondary "
-              ></ReactTyped>
+              <div className="h-38">
+                <ReactTyped
+                  typeSpeed={50}
+                  strings={[
+                    "A guided onboarding experience to help new users get started with the app. Collects basic information like name, and preferred Bible translation to personalize the experience. Ensures a smooth introduction to the app's features and functionalities.",
+                  ]}
+                  className="text-grey-secondary md:text-xl"
+                ></ReactTyped>
+              </div>
             </div>
-          </div>
-        </Fade>
+          </Fade>
+          <Fade
+            direction="up"
+            triggerOnce={true}
+            duration={1000}
+            className="flex flex-col border rounded-2xl p-4 mt-6 md:w-3/10"
+          >
+            <div>
+              <div>
+                <p className="text-md text-grey-secondary font-semibold">
+                  Planned for future release
+                </p>
+              </div>
+
+              <div className="flex justify-between items-center w-full mt-5 mb-7 md:mb-5">
+                <h1 className="text-3xl md:text-5xl text-grey-primary font-bold ">
+                  Dashboard
+                </h1>
+                <div className="flex items-center bg-[#f1e691] h-7 rounded-2xl pr-3 pl-3 ">
+                  <div className="rounded-full h-3 w-3 bg-[#d0b553] mr-2"></div>
+                  <div className="text-grey-primary text-sm font-semibold">
+                    Coming Soon
+                  </div>
+                </div>
+              </div>
+
+              <div className="h-38">
+                <ReactTyped
+                  typeSpeed={50}
+                  strings={[
+                    "A personalized dashboard to track your Bible reading progress, quiz scores, and spiritual growth. Features include easy navigation, progress tracking, and a clean interface to help you stay focused on your spiritual journey.",
+                  ]}
+                  className="text-grey-secondary md:text-xl"
+                ></ReactTyped>
+              </div>
+
+              <div className="flex justify-between items-center w-full mt-5 mb-7 md:mb-5">
+                <h1 className="text-3xl md:text-5xl text-grey-primary font-bold ">
+                  My Stuff
+                </h1>
+                <div className="flex items-center bg-[#f1e691] h-7 rounded-2xl pr-3 pl-3 ">
+                  <div className="rounded-full h-3 w-3 bg-[#d0b553] mr-2"></div>
+                  <div className="text-grey-primary text-sm font-semibold">
+                    Coming Soon
+                  </div>
+                </div>
+              </div>
+
+              <div className="h-38">
+                <ReactTyped
+                  typeSpeed={50}
+                  strings={[
+                    "A personal space to save your favorite Bible verses, notes, and reflections. Allows you to organize your spiritual insights and revisit them whenever you need encouragement or inspiration.",
+                  ]}
+                  className="text-grey-secondary md:text-xl"
+                ></ReactTyped>
+              </div>
+            </div>
+          </Fade>
+        </div>
       </div>
       <div className="min-h-screen"></div>
     </div>
