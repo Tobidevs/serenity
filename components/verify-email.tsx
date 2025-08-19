@@ -25,7 +25,6 @@ export const VerifyEmail = ({ email }: { email: string }) => {
       type: "email",
     });
     if (verifyEmailError) {
-      console.log("Verify Email Error:", verifyEmailError);
       setError(verifyEmailError.message);
     } else {
       // Route user to Onboarding

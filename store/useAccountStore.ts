@@ -62,7 +62,6 @@ export const useAccountStore = create<Account>()(
 
         if (user) {
           set({ user });
-          console.log(user);
         } else {
           console.error("Failed to fetch user", error?.message);
         }
@@ -138,7 +137,6 @@ export const useAccountStore = create<Account>()(
           .eq("user_id", user?.id);
         if (error) {
           console.error("Error setting preferred translation:", error.message);
-          console.log(error.message);
         }
       },
 

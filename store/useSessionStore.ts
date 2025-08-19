@@ -18,7 +18,6 @@ export const useSessionStore = create<SessionState>()(
 
       fetchSession: async () => {
         const currentSession = await supabase.auth.getSession();
-        console.log(currentSession);
         set({ session: currentSession.data.session });
       },
     }),

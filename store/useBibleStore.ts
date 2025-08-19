@@ -70,7 +70,6 @@ export const useBibleStore = create<BibleStore>()(
 
       // Method to fetch books based on selectedTranslation
       getTranslationBooks: async () => {
-        console.log(get().selectedTranslation);
         const abbrev = get().getTranslationAbbrev();
         try {
           // Simulate fetching books from an API or database

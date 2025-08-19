@@ -21,7 +21,6 @@ export default function AuthPage() {
       // Sign In
       const error = await signInToSupabase(email, password);
       if (error) {
-        console.log("Login Failed:", error);
         setError(`${error}`);
       } else {
         router.push("/dashboard");
@@ -30,7 +29,6 @@ export default function AuthPage() {
       // Sign Up and send verification code
       const signUpError = await signUpToSupabase(email, password);
       if (signUpError) {
-        console.log("Signup failed:", signUpError);
         setError(`${signUpError}`);
       } else {
         // Prompt user for code

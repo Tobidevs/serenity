@@ -89,7 +89,6 @@ export const useBibleQuizStore = create<BibleQuizStore>((set, get) => ({
       const response = await fetch(
         `https://bolls.life/v2/find/${translationAbbrev}?search=${topic}&book=${bookFilterValue || "nt"}`
       );
-      console.log(topic, translationAbbrev, get().bookFilter);
       if (!response.ok) {
         throw new Error("Failed to fetch verse");
       }
@@ -125,8 +124,6 @@ export const useBibleQuizStore = create<BibleQuizStore>((set, get) => ({
     get().answerChoices = [correctAnswer, ...incorrectAnswers].sort(
       () => Math.random() - 0.5
     );
-    console.log(get().answerChoices);
-    console.log("Correct Answer:", correctAnswer);
 
     // Set the state with the generated question
     set({
