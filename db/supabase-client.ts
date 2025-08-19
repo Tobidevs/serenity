@@ -22,7 +22,7 @@ export const signInToSupabase = async (email: string, password: string) => {
 };
 
 export const signUpToSupabase = async (email: string, password: string) => {
-  const { fetchSession } = useSessionStore();
+  const { fetchSession } = useSessionStore.getState();
   const { error: signUpError } = await supabase.auth.signUp({
     email,
     password,

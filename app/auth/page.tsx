@@ -47,7 +47,7 @@ export default function AuthPage() {
 
       return () => clearTimeout(timer); // cleanup if component unmounts
     }
-  });
+  }, [error]);
 
   return (
     <div className="w-full h-full flex justify-center">

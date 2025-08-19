@@ -7,6 +7,7 @@ import { useAccountStore } from "../../store/useAccountStore";
 import { useEffect } from "react";
 import { useSessionStore } from "../../store/useSessionStore";
 import { RouteToAuth } from "../../components/route-to-auth";
+import Placeholder from "../../components/placeholder";
 
 export default function DashboardPage() {
   const { loadAccount } = useAccountStore();
@@ -24,7 +25,9 @@ export default function DashboardPage() {
     <div className="w-full flex min-h-screen">
       <Navbar />
       <SearchBar />
-      <div className="mt-20"></div>
+      <div className="w-full mt-20">
+        <Placeholder />
+      </div>
     </div>
   );
 }

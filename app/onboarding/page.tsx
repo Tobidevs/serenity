@@ -328,7 +328,7 @@ export default function OnboardingPage() {
                       {studyPlanName && (
                         <div className="flex flex-wrap gap-2 w-full items-center justify-center ">
                           {selectedBooks.map((book) => (
-                            <div className="badge text-xs pr-2 pl-2 bg-grey-light">
+                            <div className="badge text-xs pr-2 pl-2 text-grey-primary bg-grey-light">
                               {book}
                             </div>
                           ))}
