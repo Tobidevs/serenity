@@ -361,22 +361,28 @@ export default function Home() {
           </Fade>
         </div>
 
-        <div className="flex flex-col w-full items-center justify-center mt-35 mb-5">
-          <Link href={"/help-serenity"}>
-            <FaHandsHelping
-              size={100}
-              className="text-lg md:text-2xl text-grey-primary"
-            />
-          </Link>
-
-          <h1 className="text-2xl text-grey-primary text-center font-bold mb-2">
-            Want to contribute? <br /> Click the Icon Above!
-          </h1>
-          <p className="text-grey-secondary text-center mb-4">
-            I would love your help! If you have ideas, suggestions, or want to
-            contribute, please fill out the form.
-          </p>
-        </div>
+        <Fade
+          direction="up"
+          triggerOnce={true}
+          duration={1000}
+          className="flex flex-col w-full items-center justify-center mt-35 mb-5 z-10"
+        >
+          <div className="flex flex-col items-center justify-center w-full md:w-1/2 p-4">
+            <Link href={"/help-serenity"}>
+              <FaHandsHelping
+                size={100}
+                className="text-lg md:text-2xl text-grey-primary"
+              />
+            </Link>
+            <h1 className="text-2xl text-grey-primary text-center font-bold mb-2">
+              Want to contribute? <br /> Click the Icon Above!
+            </h1>
+            <p className="text-grey-secondary text-center mb-4 md:text-lg md:w-1/3">
+              I would love your help! If you have ideas, suggestions, or want to
+              contribute, please fill out the form.
+            </p>
+          </div>
+        </Fade>
       </div>
       <Fade
         direction="up"
