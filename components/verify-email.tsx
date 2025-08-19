@@ -12,23 +12,53 @@ import { useRouter } from "next/navigation";
 export const VerifyEmail = ({ email }: { email: string }) => {
   const [error, setError] = useState<string | null>(null);
   const [code, setCode] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async () => {
-    // Verify Email
-    const {
-      data: { session },
-      error: verifyEmailError,
-    } = await supabase.auth.verifyOtp({
-      email: `${email}`,
-      token: `${code}`,
-      type: "email",
-    });
-    if (verifyEmailError) {
-      setError(verifyEmailError.message);
-    } else {
-      // Route user to Onboarding
-      router.push("/onboarding");
+    // Validate code length
+    if (code.length !== 6) {
+      setError("Please enter the complete 6-digit verification code");
+      return;
+    }
+
+    // Validate code contains only numbers
+    if (!/^\d{6}$/.test(code)) {
+      setError("Verification code must contain only numbers");
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      // Verify Email
+      const {
+        data: { session },
+        error: verifyEmailError,
+      } = await supabase.auth.verifyOtp({
+        email: email,
+        token: code,
+        type: "email",
+      });
+
+      if (verifyEmailError) {
+        // Handle specific error messages
+        if (verifyEmailError.message.includes("expired")) {
+          setError("Verification code has expired. Please request a new one.");
+        } else if (verifyEmailError.message.includes("invalid")) {
+          setError("Invalid verification code. Please check and try again.");
+        } else {
+          setError("Verification failed. Please try again.");
+        }
+      } else {
+        // Route user to Onboarding
+        router.push("/onboarding");
+      }
+    } catch (err) {
+      setError("Network error. Please check your connection and try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -62,10 +92,15 @@ export const VerifyEmail = ({ email }: { email: string }) => {
           </InputOTP>
         </div>
         <button
-          onClick={() => handleSubmit()}
-          className="w-full bg-grey-primary text-white py-2 px-4 font-bold rounded-xl mt-7"
+          onClick={handleSubmit}
+          disabled={isLoading || code.length !== 6}
+          className="w-full bg-grey-primary text-white py-2 px-4 font-bold rounded-xl mt-7 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Enter
+          {isLoading ? (
+            <span className="loading loading-spinner loading-sm"></span>
+          ) : (
+            "Verify Email"
+          )}
         </button>
         {error && (
           <div className="text-red-600 text-sm m-3 bg-red-100 rounded p-2">

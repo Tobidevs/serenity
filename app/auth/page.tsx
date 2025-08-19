@@ -7,6 +7,7 @@ import {
 } from "../../db/supabase-client";
 import { useRouter } from "next/navigation";
 import { VerifyEmail } from "../../components/verify-email";
+import { Input } from "../../components/ui/input";
 
 export default function AuthPage() {
   const [email, setEmail] = useState("");
@@ -14,26 +15,159 @@ export default function AuthPage() {
   const [isSignIn, setIsSignIn] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [verifyEmailModal, setVerifyEmailModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState<{email?: string, password?: string}>({});
   const router = useRouter();
 
+  // Real-time field validation
+  const validateField = (field: 'email' | 'password', value: string) => {
+    const errors = { ...fieldErrors };
+
+    if (field === 'email') {
+      if (!value.trim()) {
+        errors.email = 'Email is required';
+      } else {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value)) {
+          errors.email = 'Please enter a valid email address';
+        } else {
+          delete errors.email;
+        }
+      }
+    }
+
+    if (field === 'password') {
+      if (!value) {
+        errors.password = 'Password is required';
+      } else if (value.length < 8) {
+        errors.password = 'Password must be at least 8 characters long';
+      } else if (!isSignIn) {
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+        if (!passwordRegex.test(value)) {
+          errors.password = 'Password must contain uppercase, lowercase, and number';
+        } else {
+          delete errors.password;
+        }
+      } else {
+        delete errors.password;
+      }
+    }
+
+    setFieldErrors(errors);
+  };
+
+  // Handle input changes with real-time validation
+  const handleEmailChange = (value: string) => {
+    setEmail(value);
+    validateField('email', value);
+  };
+
+  const handlePasswordChange = (value: string) => {
+    setPassword(value);
+    validateField('password', value);
+  };
+
+  // Reset form when switching between sign-in and sign-up
+  const toggleAuthMode = () => {
+    setIsSignIn(!isSignIn);
+    setError(null);
+    setFieldErrors({});
+    setEmail("");
+    setPassword("");
+  };
+
+  // Comprehensive input validation
+  const validateForm = () => {
+    // Clear previous errors
+    setError(null);
+
+    // Email validation
+    if (!email.trim()) {
+      setError('Email is required');
+      return false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError('Please enter a valid email address');
+      return false;
+    }
+
+    // Password validation
+    if (!password) {
+      setError('Password is required');
+      return false;
+    }
+
+    if (password.length < 8) {
+      setError('Password must be at least 8 characters long');
+      return false;
+    }
+
+    // For sign up, enforce stronger password requirements
+    if (!isSignIn) {
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+      if (!passwordRegex.test(password)) {
+        setError('Password must contain at least one uppercase letter, one lowercase letter, and one number');
+        return false;
+      }
+    }
+
+    return true;
+  };
+
+  // Enhanced error handling for auth responses
+  const handleAuthError = (error: string) => {
+    switch (error) {
+      case 'Invalid login credentials':
+        return 'Email or password is incorrect';
+      case 'User already registered':
+        return 'Account already exists. Please sign in instead.';
+      case 'Password should be at least 6 characters':
+        return 'Password must be at least 6 characters long';
+      case 'Signup requires a valid password':
+        return 'Please enter a valid password';
+      case 'Invalid email':
+        return 'Please enter a valid email address';
+      case 'Email not confirmed':
+        return 'Please verify your email address before signing in';
+      default:
+        return 'Something went wrong. Please try again.';
+    }
+  };
+
   const handleSubmit = async () => {
-    if (isSignIn) {
-      // Sign In
-      const error = await signInToSupabase(email, password);
-      if (error) {
-        setError(`${error}`);
+    // Validate form before submitting
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      if (isSignIn) {
+        // Sign In
+        const error = await signInToSupabase(email, password);
+        if (error) {
+          setError(handleAuthError(error));
+        } else {
+          router.push("/dashboard");
+        }
       } else {
-        router.push("/dashboard");
+        // Sign Up and send verification code
+        const signUpError = await signUpToSupabase(email, password);
+        if (signUpError) {
+          setError(handleAuthError(signUpError));
+        } else {
+          // Prompt user for code
+          setVerifyEmailModal(true);
+        }
       }
-    } else {
-      // Sign Up and send verification code
-      const signUpError = await signUpToSupabase(email, password);
-      if (signUpError) {
-        setError(`${signUpError}`);
-      } else {
-        // Prompt user for code
-        setVerifyEmailModal(true);
-      }
+    } catch (err) {
+      setError('Network error. Please check your connection and try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -61,89 +195,55 @@ export default function AuthPage() {
             </p>
           </div>
           <div className="w-full md:w-2/5 flex flex-col items-center gap-5 ">
-            <div className="w-8/10 flex flex-col md:items-center">
+            <div className="w-full flex flex-col items-center">
               {/* Email Input */}
-              <label className="input validator bg-grey-main border-none">
-                <svg
-                  className="h-[1em] opacity-50"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                >
-                  <g
-                    strokeLinejoin="round"
-                    strokeLinecap="round"
-                    strokeWidth="2.5"
-                    fill="none"
-                    stroke="currentColor"
-                  >
-                    <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-                  </g>
-                </svg>
-                <input
-                  type="email"
-                  placeholder="mail@site.com"
-                  required
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </label>
-              <div className="validator-hint hidden bg-grey-main border-none">
-                Enter valid email address
+              <Input
+                type="email"
+                placeholder="mail@site.com"
+                required
+                value={email}
+                onChange={(e) => handleEmailChange(e.target.value)}
+                disabled={isLoading}
+                className={`input bg-grey-light border border-grey-alt-dark md:w-3/5 ${fieldErrors.email ? 'border-red-500' : ''}`}
+              />
+              <div className={`validator-hint ${fieldErrors.email ? 'block text-red-600 text-sm mt-1' : 'hidden'} w-full md:w-3/5 text-center`}>
+                {fieldErrors.email || 'Enter valid email address'}
               </div>
             </div>
-            <div className="w-8/10 flex flex-col md:items-center">
+            <div className="w-full flex flex-col items-center">
               {/* Password Input */}
-              <label className="input validator bg-grey-main">
-                <svg
-                  className="h-[1em] opacity-50"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                >
-                  <g
-                    strokeLinejoin="round"
-                    strokeLinecap="round"
-                    strokeWidth="2.5"
-                    fill="none"
-                    stroke="currentColor"
-                  >
-                    <path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"></path>
-                    <circle
-                      cx="16.5"
-                      cy="7.5"
-                      r=".5"
-                      fill="currentColor"
-                    ></circle>
-                  </g>
-                </svg>
-                <input
-                  type="password"
-                  required
-                  placeholder="Password"
-                  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                  title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
-                  className="bg-grey-main"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </label>
-              <p className="validator-hint hidden">
-                Must be more than 8 characters, including
-                <br />
-                At least one number <br />
-                At least one lowercase letter <br />
-                At least one uppercase letter
+              <Input
+                type="password"
+                required
+                placeholder="Password"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
+                className={`input bg-grey-light border border-grey-alt-dark md:w-3/5 ${fieldErrors.password ? 'border-red-500' : ''}`}
+                value={password}
+                onChange={(e) => handlePasswordChange(e.target.value)}
+                disabled={isLoading}
+              />
+              <p className={`validator-hint ${fieldErrors.password ? 'block text-red-600 text-sm mt-1' : 'hidden'} w-full md:w-3/5 text-center`}>
+                {fieldErrors.password || 'Must be more than 8 characters'}
               </p>
             </div>
             {/* Actions */}
             <div className="w-full flex flex-col gap-2 items-center">
               <button
-                className="btn bg-grey-primary border-none text-white rounded-xl w-6/8 hover:border"
+                className="btn bg-grey-primary border-none text-white rounded-xl w-6/8 hover:border disabled:opacity-50 disabled:cursor-not-allowed"
                 onClick={handleSubmit}
+                disabled={isLoading}
               >
-                Continue
+                {isLoading ? (
+                  <span className="loading loading-spinner loading-sm"></span>
+                ) : (
+                  "Continue"
+                )}
               </button>
               <button
-                className="btn bg-grey-main border-none text-sm text-grey-primary shadow-none"
-                onClick={() => setIsSignIn(!isSignIn)}
+                className="btn bg-grey-main border-none text-sm text-grey-primary shadow-none disabled:opacity-50"
+                onClick={toggleAuthMode}
+                disabled={isLoading}
               >
                 Create an Account
               </button>
@@ -200,89 +300,55 @@ export default function AuthPage() {
             </p>
           </div>
           <div className="w-full md:w-2/5 flex flex-col items-center gap-5">
-            <div className="w-8/10 flex flex-col md:items-center">
+            <div className="w-full flex flex-col items-center">
               {/* Email Input */}
-              <label className="input validator bg-grey-main border-none">
-                <svg
-                  className="h-[1em] opacity-50"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                >
-                  <g
-                    strokeLinejoin="round"
-                    strokeLinecap="round"
-                    strokeWidth="2.5"
-                    fill="none"
-                    stroke="currentColor"
-                  >
-                    <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-                  </g>
-                </svg>
-                <input
-                  type="email"
-                  placeholder="mail@site.com"
-                  required
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </label>
-              <div className="validator-hint hidden bg-grey-main border-none">
-                Enter valid email address
+              <Input
+                type="email"
+                placeholder="mail@site.com"
+                required
+                value={email}
+                onChange={(e) => handleEmailChange(e.target.value)}
+                disabled={isLoading}
+                className={`input bg-grey-light border border-grey-alt-dark md:w-3/5 ${fieldErrors.email ? 'border-red-500' : ''}`}
+              />
+              <div className={`validator-hint ${fieldErrors.email ? 'block text-red-600 text-sm mt-1' : 'hidden'} w-full md:w-3/5 text-center`}>
+                {fieldErrors.email || 'Enter valid email address'}
               </div>
             </div>
-            <div className="w-8/10 flex flex-col md:items-center">
+            <div className="w-full flex flex-col items-center">
               {/* Password Input */}
-              <label className="input validator bg-grey-main">
-                <svg
-                  className="h-[1em] opacity-50"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                >
-                  <g
-                    strokeLinejoin="round"
-                    strokeLinecap="round"
-                    strokeWidth="2.5"
-                    fill="none"
-                    stroke="currentColor"
-                  >
-                    <path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"></path>
-                    <circle
-                      cx="16.5"
-                      cy="7.5"
-                      r=".5"
-                      fill="currentColor"
-                    ></circle>
-                  </g>
-                </svg>
-                <input
-                  type="password"
-                  required
-                  placeholder="Password"
-                  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                  title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
-                  className="bg-grey-main"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </label>
-              <p className="validator-hint hidden">
-                Must be more than 8 characters, including
-                <br />
-                At least one number <br />
-                At least one lowercase letter <br />
-                At least one uppercase letter
+              <Input
+                type="password"
+                required
+                placeholder="Password"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
+                className={`input bg-grey-light border border-grey-alt-dark md:w-3/5 ${fieldErrors.password ? 'border-red-500' : ''}`}
+                value={password}
+                onChange={(e) => handlePasswordChange(e.target.value)}
+                disabled={isLoading}
+              />
+              <p className={`validator-hint ${fieldErrors.password ? 'block text-red-600 text-sm mt-1' : 'hidden'} w-full md:w-3/5 text-center`}>
+                {fieldErrors.password || 'Must be more than 8 characters, including at least one number, lowercase letter, and uppercase letter'}
               </p>
             </div>
             <div className="w-full flex flex-col gap-2 items-center">
               {/* Actions */}
               <button
-                className="btn bg-grey-primary text-white rounded-xl border-none w-6/8 hover:border"
+                className="btn bg-grey-primary text-white rounded-xl border-none w-6/8 hover:border disabled:opacity-50 disabled:cursor-not-allowed"
                 onClick={handleSubmit}
+                disabled={isLoading}
               >
-                Continue
+                {isLoading ? (
+                  <span className="loading loading-spinner loading-sm"></span>
+                ) : (
+                  "Continue"
+                )}
               </button>
               <button
-                className="btn bg-grey-main border-none text-sm text-grey-primary shadow-none"
-                onClick={() => setIsSignIn(!isSignIn)}
+                className="btn bg-grey-main border-none text-sm text-grey-primary shadow-none disabled:opacity-50"
+                onClick={toggleAuthMode}
+                disabled={isLoading}
               >
                 Sign In
               </button>
