@@ -76,7 +76,7 @@ export const BibleDrawer = () => {
             {/* Bible Tab */}
             <DrawerTrigger asChild>
               <div
-                className="border-r-1 h-full flex justify-center items-center pl-2 pr-2"
+                className="border-r-1 font-semibold h-full flex justify-center items-center pl-2 pr-2"
                 onClick={() => getTranslationBooks()}
               >
                 {selectedBook} {selectedChapter}
