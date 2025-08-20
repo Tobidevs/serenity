@@ -171,7 +171,7 @@ export default function Home() {
           <Fade direction="up" triggerOnce={true} duration={1000}>
             <p className="text-grey-secondary text-center mt-4 text-lg md:text-2xl">
               I&apos;m a software engineer with a passion to glorify God through
-              technology. Take a look at what I’ve been building!
+              technology. Take a look at what I&apos;ve been building!
             </p>
           </Fade>
         </div>
