@@ -34,7 +34,7 @@ export default function Home() {
   // Session is automatically managed by AuthGuard - no manual fetching needed
 
   return (
-    <div className="flex flex-col px-4 pt-6 w-full overflow-x-hidden">
+    <div className="flex flex-col px-4 pt-6 w-full overflow-x-hidden overscroll-y-contain">
       {/* Header */}
       <div className="flex items-center justify-center w-full gap-8">
         <div className="flex w-full md:w-1/4 items-center justify-between">
