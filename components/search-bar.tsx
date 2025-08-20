@@ -3,7 +3,6 @@ import { Input } from "./ui/input";
 import { SidebarTrigger } from "./ui/sidebar";
 import { translationsData } from "../data/translation-data";
 import { useAccountStore } from "../store/useAccountStore";
-import { supabase } from "../db/supabase-client";
 
 export const SearchBar = () => {
   const { preferred_translation, updatePreferredTranslation } =

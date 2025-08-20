@@ -13,7 +13,6 @@ import { LiaSchoolSolid } from "react-icons/lia";
 import { useAccountStore } from "../store/useAccountStore";
 import { translationsData } from "../data/translation-data";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export function Navbar() {

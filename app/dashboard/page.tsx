@@ -1,8 +1,6 @@
 "use client";
-import { useRouter } from "next/navigation";
 import { Navbar } from "../../components/navbar";
 import { SearchBar } from "../../components/search-bar";
-import { toast } from "sonner";
 import { useAccountStore } from "../../store/useAccountStore";
 import { useEffect } from "react";
 import Placeholder from "../../components/placeholder";

@@ -8,7 +8,7 @@ import { useBibleQuizStore } from "../../store/useBibleQuizStore";
 
 export default function BibleQuizPage() {
   const router = useRouter();
-  const { currentQuestion, totalQuestions, resetQuiz } = useBibleQuizStore();
+  const { currentQuestion, resetQuiz } = useBibleQuizStore();
 
   const goBackToMenu = () => {
     // Reset the quiz state when going back to menu

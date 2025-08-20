@@ -69,10 +69,12 @@ export const VerifyEmail = ({ email }: { email: string }) => {
           }
         } catch (accountError) {
           // If there's an error checking account (likely user doesn't exist yet), go to onboarding
+          console.error("Error checking account:", accountError);
           router.push("/onboarding");
         }
       }
     } catch (err) {
+      console.error("Error verifying email:", err);
       setError("Network error. Please check your connection and try again.");
     } finally {
       setIsLoading(false);

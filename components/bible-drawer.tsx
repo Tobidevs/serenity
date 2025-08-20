@@ -12,12 +12,10 @@ export const BibleDrawer = () => {
     translationBooks,
     getTranslationBooks,
     selectedTranslation,
-    setSelectedTranslation,
     selectedBook,
     setSelectedBook,
     selectedChapter,
     setSelectedChapter,
-    bibleText,
     getBibleText,
   } = useBibleStore();
 

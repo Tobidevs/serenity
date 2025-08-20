@@ -16,9 +16,9 @@ const merriweather = Merriweather({
 export default function BibleStudyPage() {
   const { selectedTranslation, bibleText } = useBibleStore();
 
-  const translationStyle = translationsData.find(
-    (t) => t.name === selectedTranslation
-  );
+  // const translationStyle = translationsData.find(
+  //   (t) => t.name === selectedTranslation
+  // );
 
   return (
     <div className="w-full flex min-h-screen">

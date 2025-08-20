@@ -19,11 +19,11 @@ import {
 } from "../../components/ui/drawer";
 import { useRouter } from "next/navigation";
 import { useAccountStore } from "../../store/useAccountStore";
-import { supabase } from "../../db/supabase-client";
 import { toast } from "sonner";
 
 export default function OnboardingPage() {
-  const { completeOnboarding, fetchUser, onboarding_complete, loadAccount } = useAccountStore();
+  const { completeOnboarding, onboarding_complete, loadAccount } =
+    useAccountStore();
   const router = useRouter();
   // Auth and onboarding protection
   const [isCheckingOnboarding, setIsCheckingOnboarding] = useState(true);
@@ -60,7 +60,9 @@ export default function OnboardingPage() {
   // Redirect if onboarding is already complete
   useEffect(() => {
     if (!isCheckingOnboarding && onboarding_complete) {
-      console.log("User has already completed onboarding, redirecting to dashboard");
+      console.log(
+        "User has already completed onboarding, redirecting to dashboard"
+      );
       toast.info("You have already completed onboarding!");
       router.push("/dashboard");
     }
@@ -377,8 +379,11 @@ export default function OnboardingPage() {
 
                       {studyPlanName && (
                         <div className="flex flex-wrap gap-2 w-full items-center justify-center ">
-                          {selectedBooks.map((book) => (
-                            <div className="badge text-xs pr-2 pl-2 text-grey-primary bg-grey-light">
+                          {selectedBooks.map((book, index) => (
+                            <div
+                              key={index}
+                              className="badge text-xs pr-2 pl-2 text-grey-primary bg-grey-light"
+                            >
                               {book}
                             </div>
                           ))}

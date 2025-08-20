@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import {
   signInToSupabase,
   signUpToSupabase,
-  supabase,
 } from "../../db/supabase-client";
 import { useRouter } from "next/navigation";
 import { VerifyEmail } from "../../components/verify-email";
@@ -165,6 +164,7 @@ export default function AuthPage() {
         }
       }
     } catch (err) {
+      console.error("Auth error:", err);
       setError('Network error. Please check your connection and try again.');
     } finally {
       setIsLoading(false);

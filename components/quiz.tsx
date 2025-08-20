@@ -1,7 +1,7 @@
 "use client";
 import { Merriweather } from "next/font/google";
 import { useBibleQuizStore } from "../store/useBibleQuizStore";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { translationsData, TranslationData } from "../data/translation-data";
 import { ChevronRightIcon } from "lucide-react";
 

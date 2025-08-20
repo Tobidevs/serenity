@@ -12,7 +12,6 @@ import { FaLinkedin } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import Link from "next/link";
 import { Fade } from "react-awesome-reveal";
-import FeatureRequest from "../components/feature-request";
 import Image from "next/image";
 
 export default function Home() {
