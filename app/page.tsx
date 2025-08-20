@@ -165,12 +165,12 @@ export default function Home() {
         <div className="flex w-full max-w-3xl flex-col px-4">
           <Fade direction="up" triggerOnce={true} duration={1000}>
             <h1 className="text-2xl md:text-4xl text-grey-primary font-bold text-center">
-              Hi, I'm Tobi
+              Hi, I&apos;m Tobi
             </h1>
           </Fade>
           <Fade direction="up" triggerOnce={true} duration={1000}>
             <p className="text-grey-secondary text-center mt-4 text-lg md:text-2xl">
-              I'm a software engineer with a passion to glorify God through
+              I&apos;m a software engineer with a passion to glorify God through
               technology. Take a look at what I’ve been building!
             </p>
           </Fade>
