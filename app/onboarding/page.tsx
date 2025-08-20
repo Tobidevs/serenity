@@ -23,8 +23,10 @@ import { supabase } from "../../db/supabase-client";
 import { toast } from "sonner";
 
 export default function OnboardingPage() {
-  const { completeOnboarding, fetchUser } = useAccountStore();
+  const { completeOnboarding, fetchUser, onboarding_complete, loadAccount } = useAccountStore();
   const router = useRouter();
+  // Auth and onboarding protection
+  const [isCheckingOnboarding, setIsCheckingOnboarding] = useState(true);
   // Used for changing question
   const [questionNumber, setQuestionNumber] = useState(1);
   // Loading UI
@@ -38,6 +40,54 @@ export default function OnboardingPage() {
   // UI Effects
   const [isFading, setIsFading] = useState(false);
   const [progress, setProgress] = useState(0);
+
+  // Check onboarding status on component mount
+  useEffect(() => {
+    const checkOnboardingStatus = async () => {
+      try {
+        // Load account data to get onboarding status
+        await loadAccount();
+        setIsCheckingOnboarding(false);
+      } catch (error) {
+        console.error("Error checking onboarding status:", error);
+        setIsCheckingOnboarding(false);
+      }
+    };
+
+    checkOnboardingStatus();
+  }, [loadAccount]);
+
+  // Redirect if onboarding is already complete
+  useEffect(() => {
+    if (!isCheckingOnboarding && onboarding_complete) {
+      console.log("User has already completed onboarding, redirecting to dashboard");
+      toast.info("You have already completed onboarding!");
+      router.push("/dashboard");
+    }
+  }, [isCheckingOnboarding, onboarding_complete, router]);
+
+  // Show loading while checking onboarding status
+  if (isCheckingOnboarding) {
+    return (
+      <div className="flex justify-center items-center h-full w-full min-h-screen">
+        <div className="flex flex-col items-center gap-4">
+          <span className="loading loading-infinity w-2/10 md:w-20 text-grey-primary"></span>
+          <h2 className="text-xl font-semibold text-center text-grey-primary">
+            Checking your progress...
+          </h2>
+          <p className="text-sm text-grey-secondary text-center">
+            Please wait while we verify your onboarding status
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // If onboarding is complete, don't render the onboarding content
+  // (the useEffect above will handle the redirect)
+  if (onboarding_complete) {
+    return null;
+  }
 
   // Fading effect
   const handleUiChange = (option: string) => {

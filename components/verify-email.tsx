@@ -52,8 +52,25 @@ export const VerifyEmail = ({ email }: { email: string }) => {
           setError("Verification failed. Please try again.");
         }
       } else {
-        // Route user to Onboarding
-        router.push("/onboarding");
+        // Email verified successfully, check if user needs onboarding
+        try {
+          const { data: accountData } = await supabase
+            .from("account")
+            .select("onboarding_complete")
+            .eq("user_id", session?.user?.id)
+            .single();
+
+          if (accountData?.onboarding_complete) {
+            // User has already completed onboarding, go to dashboard
+            router.push("/dashboard");
+          } else {
+            // User needs onboarding, go to onboarding page
+            router.push("/onboarding");
+          }
+        } catch (accountError) {
+          // If there's an error checking account (likely user doesn't exist yet), go to onboarding
+          router.push("/onboarding");
+        }
       }
     } catch (err) {
       setError("Network error. Please check your connection and try again.");

@@ -17,6 +17,9 @@ export function AuthGuard({ children }: AuthGuardProps) {
 
   // Define public routes that don't require authentication
   const publicRoutes = ["/", "/auth", "/help-serenity"];
+  
+  // Define semi-protected routes that require auth but have special handling
+  const semiProtectedRoutes = ["/onboarding"];
 
   useEffect(() => {
     let isMounted = true;
@@ -99,13 +102,14 @@ export function AuthGuard({ children }: AuthGuardProps) {
 
   // Check if current route is public
   const isPublicRoute = publicRoutes.includes(pathname);
+  const isSemiProtectedRoute = semiProtectedRoutes.includes(pathname);
 
   // If it's a public route, always render children
   if (isPublicRoute) {
     return <>{children}</>;
   }
 
-  // For protected routes, show loading while checking auth
+  // For protected and semi-protected routes, show loading while checking auth
   if (isLoading) {
     return (
       <div className="fixed inset-0 z-50 flex justify-center items-center bg-black/50">
@@ -124,9 +128,15 @@ export function AuthGuard({ children }: AuthGuardProps) {
     );
   }
 
-  // For protected routes, check if user is authenticated
+  // For protected and semi-protected routes, check if user is authenticated
   if (!session) {
     return <RouteToAuth />;
+  }
+
+  // For semi-protected routes (like onboarding), allow access regardless of onboarding status
+  // The individual page components will handle their own logic
+  if (isSemiProtectedRoute) {
+    return <>{children}</>;
   }
 
   // User is authenticated, render the protected content
