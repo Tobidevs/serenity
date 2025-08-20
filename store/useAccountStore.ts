@@ -14,10 +14,10 @@ type Account = {
 
   setUser: (user?: User) => void;
   setName: (name: string) => void;
-  setPreferredTranslation: (preferredTranslation: string) => void;
-  setTopicsOfInterest: (topics_of_interest: string[]) => void;
-  setStudyPlan: (study_plan: string) => void;
-  setBooks: (books: string[]) => void;
+  setPreferredTranslation: (preferredTranslation: string | null) => void;
+  setTopicsOfInterest: (topics_of_interest: string[] | null) => void;
+  setStudyPlan: (study_plan: string | null) => void;
+  setBooks: (books: string[] | null) => void;
   setOnboardingComplete: (onboarding_complete: boolean) => void;
 
   fetchUser: () => Promise<void>;
@@ -83,6 +83,7 @@ export const useAccountStore = create<Account>()(
           get().setTopicsOfInterest(account.topics_of_interest);
           get().setStudyPlan(account.study_plan);
           get().setBooks(account.books);
+          get().setOnboardingComplete(account.onboarding_complete);
         }
       },
 

@@ -2,6 +2,8 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSessionStore } from "../store/useSessionStore";
+import { useAccountStore } from "../store/useAccountStore";
+import { supabase } from "../db/supabase-client";
 import { RouteToAuth } from "./route-to-auth";
 
 interface AuthGuardProps {
@@ -10,20 +12,90 @@ interface AuthGuardProps {
 
 export function AuthGuard({ children }: AuthGuardProps) {
   const pathname = usePathname();
-  const { session, fetchSession } = useSessionStore();
+  const { session, setSession } = useSessionStore();
   const [isLoading, setIsLoading] = useState(true);
 
   // Define public routes that don't require authentication
   const publicRoutes = ["/", "/auth", "/help-serenity"];
 
   useEffect(() => {
+    let isMounted = true;
+
     const initializeAuth = async () => {
-      await fetchSession();
-      setIsLoading(false);
+      try {
+        // Get initial session
+        const { data: { session: initialSession } } = await supabase.auth.getSession();
+        if (isMounted) {
+          setSession(initialSession);
+          setIsLoading(false);
+        }
+      } catch (error) {
+        console.error("Error getting initial session:", error);
+        if (isMounted) {
+          setSession(null);
+          setIsLoading(false);
+        }
+      }
     };
 
+    // Set up auth state listener
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        if (!isMounted) return;
+
+        console.log("Auth state changed:", event, session?.user?.email);
+        
+        setSession(session);
+        
+        // Handle different auth events
+        switch (event) {
+          case 'SIGNED_IN':
+            // User signed in, load their account data
+            if (session) {
+              try {
+                await useAccountStore.getState().loadAccount();
+              } catch (error) {
+                console.error("Error loading account after sign in:", error);
+              }
+            }
+            break;
+            
+          case 'SIGNED_OUT':
+            // User signed out, clear all local data
+            console.log("User signed out, clearing stores");
+            // Reset account store to initial state
+            const accountStore = useAccountStore.getState();
+            accountStore.setUser(undefined);
+            accountStore.setName("");
+            accountStore.setPreferredTranslation(null);
+            accountStore.setTopicsOfInterest(null);
+            accountStore.setStudyPlan(null);
+            accountStore.setBooks(null);
+            accountStore.setOnboardingComplete(false);
+            break;
+            
+          case 'TOKEN_REFRESHED':
+            // Session was refreshed, no additional action needed
+            console.log("Token refreshed successfully");
+            break;
+            
+          case 'USER_UPDATED':
+            // User data was updated
+            console.log("User data updated");
+            break;
+        }
+      }
+    );
+
+    // Initialize auth
     initializeAuth();
-  }, [fetchSession]);
+
+    // Cleanup function
+    return () => {
+      isMounted = false;
+      subscription.unsubscribe();
+    };
+  }, [setSession]);
 
   // Check if current route is public
   const isPublicRoute = publicRoutes.includes(pathname);
