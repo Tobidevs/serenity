@@ -172,7 +172,7 @@ export default function OnboardingPage() {
                 Welcome To Serenity!
               </CardTitle>
               <CardDescription className="text-grey-secondary text-lg ">
-                We&apos;re excited you're here. Let&apos;s set a few preferences to
+                We&apos;re excited you&apos;re here. Let&apos;s set a few preferences to
                 personalize your Bible study experience.
               </CardDescription>
             </CardHeader>
