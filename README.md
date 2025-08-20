@@ -299,10 +299,6 @@ We welcome contributions to Serenity! Here's how you can help:
 - **Enhanced Testing**: Comprehensive test coverage
 - **CI/CD Pipeline**: Automated testing and deployment
 
-## 📄 License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
 ## 👨‍💻 Author
 
 **Tobi Akere**
