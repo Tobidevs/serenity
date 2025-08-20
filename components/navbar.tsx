@@ -17,8 +17,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export function Navbar() {
-  const { setSession } = useSessionStore();
-  const [email, setEmail] = useState("");
+  const { session, setSession } = useSessionStore();
   const { name, preferred_translation } = useAccountStore();
   const router = useRouter();
   const pathname = usePathname();
@@ -26,23 +25,8 @@ export function Navbar() {
     (t) => t.name === preferred_translation
   );
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const {
-        data: { user },
-        error,
-      } = await supabase.auth.getUser();
-
-      if (error) {
-        console.error("Error fetching user:", error);
-        return;
-      }
-
-      setEmail(user?.email || "");
-    };
-
-    fetchUser();
-  }, []);
+  // Get email from session instead of manually fetching
+  const email = session?.user?.email || "";
 
   const onLogout = async () => {
     await supabase.auth.signOut();

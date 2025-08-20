@@ -1,5 +1,4 @@
 import { createClient } from "@supabase/supabase-js";
-import { useSessionStore } from "../store/useSessionStore";
 
 export const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -7,7 +6,6 @@ export const supabase = createClient(
 );
 
 export const signInToSupabase = async (email: string, password: string) => {
-  const { fetchSession } = useSessionStore.getState();
   const { error: signInError } = await supabase.auth.signInWithPassword({
     email,
     password,
@@ -17,12 +15,11 @@ export const signInToSupabase = async (email: string, password: string) => {
     return signInError.message;
   }
 
-  await fetchSession();
+  // Session will be automatically updated by AuthGuard's auth state listener
   return null;
 };
 
 export const signUpToSupabase = async (email: string, password: string) => {
-  const { fetchSession } = useSessionStore.getState();
   const { error: signUpError } = await supabase.auth.signUp({
     email,
     password,
@@ -32,6 +29,6 @@ export const signUpToSupabase = async (email: string, password: string) => {
     return signUpError.message;
   }
 
-  await fetchSession();
+  // Session will be automatically updated by AuthGuard's auth state listener
   return null;
 };

@@ -16,7 +16,7 @@ import FeatureRequest from "../components/feature-request";
 import Image from "next/image";
 
 export default function Home() {
-  const { session, fetchSession } = useSessionStore();
+  const { session } = useSessionStore();
   const router = useRouter();
 
   useEffect(() => {
@@ -32,9 +32,7 @@ export default function Home() {
     }
   }, []);
 
-  useEffect(() => {
-    fetchSession();
-  }, []);
+  // Session is automatically managed by AuthGuard - no manual fetching needed
 
   return (
     <div className="flex flex-col px-4 pt-6 w-full overflow-x-hidden">
