@@ -161,7 +161,7 @@ export default function Home() {
       </section>
 
       {/* Intro */}
-      <div className="flex items-center justify-center w-full py-30 z-10">
+      <div className="flex items-center justify-center w-full min-h-screen mb-70 z-10">
         <div className="flex w-full max-w-3xl flex-col px-4">
           <Fade direction="up" triggerOnce={true} duration={1000}>
             <h1 className="text-2xl md:text-4xl text-grey-primary font-bold text-center">
