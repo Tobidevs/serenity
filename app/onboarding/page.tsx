@@ -68,6 +68,25 @@ export default function OnboardingPage() {
     }
   }, [isCheckingOnboarding, onboarding_complete, router]);
 
+  // Progress Bar UI
+  useEffect(() => {
+    const timer = setTimeout(
+      () => setProgress((questionNumber / 4) * 100),
+      500
+    );
+    return () => clearTimeout(timer);
+  }, [questionNumber]);
+
+  // Page Load UI
+  useEffect(() => {
+    setLoading(true);
+    const timer = setTimeout(() => {
+      setLoading(false);
+      toast("Successfully Created Account!");
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
   // Show loading while checking onboarding status
   if (isCheckingOnboarding) {
     return (
@@ -126,25 +145,6 @@ export default function OnboardingPage() {
     );
   };
 
-  // Progress Bar UI
-  useEffect(() => {
-    const timer = setTimeout(
-      () => setProgress((questionNumber / 4) * 100),
-      500
-    );
-    return () => clearTimeout(timer);
-  }, [questionNumber]);
-
-  // Page Load UI
-  useEffect(() => {
-    setLoading(true);
-    const timer = setTimeout(() => {
-      setLoading(false);
-      toast("Successfully Created Account!");
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, []);
-
   // Submit Onboarding
   const handleSubmit = async () => {
     // Complete Onboarding Process
@@ -187,7 +187,7 @@ export default function OnboardingPage() {
                   >
                     {/* Question */}
                     <h2 className="text-xl text-grey-primary md:text-center w-full font-extrabold">
-                      What's your Name?
+                      What&apos;s your Name?
                     </h2>
                     <Input
                       type="text"
@@ -431,7 +431,7 @@ export default function OnboardingPage() {
                       className="w-27 [&>div]:bg-[#414142]"
                     />
                     <h2 className="flex justify-center text-2xl font-bold text-grey-primary">
-                      Your All Set!
+                      You&apos;re All Set!
                     </h2>
                     <button
                       onClick={handleSubmit}

@@ -6,7 +6,7 @@ import AOS from "aos";
 import { ReactTyped } from "react-typed";
 import { PiSignIn } from "react-icons/pi";
 import { MdOutlineAccountCircle } from "react-icons/md";
-import { FaHandsHelping, FaLinkedinIn } from "react-icons/fa";
+import { FaHandsHelping } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";

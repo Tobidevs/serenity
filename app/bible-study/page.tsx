@@ -1,7 +1,6 @@
 "use client";
 import { Navbar } from "../../components/navbar";
 import { SearchBar } from "../../components/search-bar";
-import { translationsData } from "../../data/translation-data";
 import { useBibleStore } from "../../store/useBibleStore";
 import { Merriweather } from "next/font/google";
 import { BibleDrawer } from "../../components/bible-drawer";
@@ -14,11 +13,7 @@ const merriweather = Merriweather({
 });
 
 export default function BibleStudyPage() {
-  const { selectedTranslation, bibleText } = useBibleStore();
-
-  // const translationStyle = translationsData.find(
-  //   (t) => t.name === selectedTranslation
-  // );
+  const { bibleText } = useBibleStore();
 
   return (
     <div className="w-full flex min-h-screen">
