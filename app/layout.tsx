@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/sonner";
+import { AuthGuard } from "@/components/auth-guard";
 
 import "./globals.css";
 
@@ -19,7 +20,9 @@ export default function RootLayout({
       <html lang="en">
         <body className="flex w-screen bg-grey-main">
           <main className="flex w-full min-h-screen overflow-y-auto">
-            {children}
+            <AuthGuard>
+              {children}
+            </AuthGuard>
             <Toaster position="top-center" className="bg-grey-alt" />
           </main>
         </body>
