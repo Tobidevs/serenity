@@ -372,7 +372,7 @@ export default function Home() {
               />
             </Link>
             <h1 className="text-2xl text-grey-primary text-center font-bold mb-2">
-              Want to contribute? <br /> Click the Icon Above!
+              Want to share your ideas? <br /> Click the Icon Above!
             </h1>
             <p className="text-grey-secondary text-center mb-4 md:text-lg md:w-1/3">
               I would love your help! If you have ideas, suggestions, or want to
