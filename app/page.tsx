@@ -198,7 +198,7 @@ export default function Home() {
               Project Overview
             </h1>
             <p className="text-sm text-grey-secondary font-semibold">
-              Last updated: Aug 17, 2025
+              Last updated: Aug 24, 2025
             </p>
           </div>
         </Fade>
