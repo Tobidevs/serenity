@@ -10,6 +10,8 @@ export default function AuthCallbackPage() {
   const router = useRouter();
   const { setUser } = useAccountStore();
 
+  
+
   useEffect(() => {
     const handleAuthCallback = async () => {
       try {
@@ -71,15 +73,33 @@ export default function AuthCallbackPage() {
     );
   }
 
+  // Show loading UI while checking user status
+  if (isChecking) {
+    return (
+      <div className="flex justify-center items-center h-full w-full min-h-screen">
+        <div className="flex flex-col items-center gap-4">
+          <span className="loading loading-infinity w-2/10 md:w-20 text-grey-primary"></span>
+          <h2 className="text-xl font-semibold text-center text-grey-primary">
+            Completing sign in...
+          </h2>
+          <p className="text-sm text-grey-secondary text-center">
+            Please wait while we set up your account
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // This should never be reached, but just in case
   return (
     <div className="flex justify-center items-center h-full w-full min-h-screen">
       <div className="flex flex-col items-center gap-4">
         <span className="loading loading-infinity w-2/10 md:w-20 text-grey-primary"></span>
         <h2 className="text-xl font-semibold text-center text-grey-primary">
-          Completing sign in...
+          Redirecting...
         </h2>
         <p className="text-sm text-grey-secondary text-center">
-          Please wait while we set up your account
+          Please wait while we redirect you
         </p>
       </div>
     </div>
