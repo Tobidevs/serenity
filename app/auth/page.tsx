@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import {
   signInToSupabase,
   signUpToSupabase,
+  signInWithGoogle,
 } from "../../db/supabase-client";
 import { useRouter } from "next/navigation";
 import { VerifyEmail } from "../../components/verify-email";
@@ -15,35 +16,39 @@ export default function AuthPage() {
   const [error, setError] = useState<string | null>(null);
   const [verifyEmailModal, setVerifyEmailModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [fieldErrors, setFieldErrors] = useState<{email?: string, password?: string}>({});
+  const [fieldErrors, setFieldErrors] = useState<{
+    email?: string;
+    password?: string;
+  }>({});
   const router = useRouter();
 
   // Real-time field validation
-  const validateField = (field: 'email' | 'password', value: string) => {
+  const validateField = (field: "email" | "password", value: string) => {
     const errors = { ...fieldErrors };
 
-    if (field === 'email') {
+    if (field === "email") {
       if (!value.trim()) {
-        errors.email = 'Email is required';
+        errors.email = "Email is required";
       } else {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(value)) {
-          errors.email = 'Please enter a valid email address';
+          errors.email = "Please enter a valid email address";
         } else {
           delete errors.email;
         }
       }
     }
 
-    if (field === 'password') {
+    if (field === "password") {
       if (!value) {
-        errors.password = 'Password is required';
+        errors.password = "Password is required";
       } else if (value.length < 8) {
-        errors.password = 'Password must be at least 8 characters long';
+        errors.password = "Password must be at least 8 characters long";
       } else if (!isSignIn) {
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
         if (!passwordRegex.test(value)) {
-          errors.password = 'Password must contain uppercase, lowercase, and number';
+          errors.password =
+            "Password must contain uppercase, lowercase, and number";
         } else {
           delete errors.password;
         }
@@ -58,12 +63,12 @@ export default function AuthPage() {
   // Handle input changes with real-time validation
   const handleEmailChange = (value: string) => {
     setEmail(value);
-    validateField('email', value);
+    validateField("email", value);
   };
 
   const handlePasswordChange = (value: string) => {
     setPassword(value);
-    validateField('password', value);
+    validateField("password", value);
   };
 
   // Reset form when switching between sign-in and sign-up
@@ -82,24 +87,24 @@ export default function AuthPage() {
 
     // Email validation
     if (!email.trim()) {
-      setError('Email is required');
+      setError("Email is required");
       return false;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      setError('Please enter a valid email address');
+      setError("Please enter a valid email address");
       return false;
     }
 
     // Password validation
     if (!password) {
-      setError('Password is required');
+      setError("Password is required");
       return false;
     }
 
     if (password.length < 8) {
-      setError('Password must be at least 8 characters long');
+      setError("Password must be at least 8 characters long");
       return false;
     }
 
@@ -107,7 +112,9 @@ export default function AuthPage() {
     if (!isSignIn) {
       const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
       if (!passwordRegex.test(password)) {
-        setError('Password must contain at least one uppercase letter, one lowercase letter, and one number');
+        setError(
+          "Password must contain at least one uppercase letter, one lowercase letter, and one number"
+        );
         return false;
       }
     }
@@ -118,20 +125,20 @@ export default function AuthPage() {
   // Enhanced error handling for auth responses
   const handleAuthError = (error: string) => {
     switch (error) {
-      case 'Invalid login credentials':
-        return 'Email or password is incorrect';
-      case 'User already registered':
-        return 'Account already exists. Please sign in instead.';
-      case 'Password should be at least 6 characters':
-        return 'Password must be at least 6 characters long';
-      case 'Signup requires a valid password':
-        return 'Please enter a valid password';
-      case 'Invalid email':
-        return 'Please enter a valid email address';
-      case 'Email not confirmed':
-        return 'Please verify your email address before signing in';
+      case "Invalid login credentials":
+        return "Email or password is incorrect";
+      case "User already registered":
+        return "Account already exists. Please sign in instead.";
+      case "Password should be at least 6 characters":
+        return "Password must be at least 6 characters long";
+      case "Signup requires a valid password":
+        return "Please enter a valid password";
+      case "Invalid email":
+        return "Please enter a valid email address";
+      case "Email not confirmed":
+        return "Please verify your email address before signing in";
       default:
-        return 'Something went wrong. Please try again.';
+        return "Something went wrong. Please try again.";
     }
   };
 
@@ -165,9 +172,24 @@ export default function AuthPage() {
       }
     } catch (err) {
       console.error("Auth error:", err);
-      setError('Network error. Please check your connection and try again.');
+      setError("Network error. Please check your connection and try again.");
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    setError(null);
+
+    try {
+      const error = await signInWithGoogle();
+      if (error) {
+        setError(handleAuthError(error));
+      }
+      // If successful, the user will be redirected to the callback page
+    } catch (err) {
+      console.error("Google sign-in error:", err);
+      setError("Google sign-in failed. Please try again.");
     }
   };
 
@@ -194,6 +216,43 @@ export default function AuthPage() {
               Sign in to continue your study and stay connected with the Word.
             </p>
           </div>
+
+          <button
+            className="btn bg-white text-grey-primary w-full md:w-3/5 rounded-xl border-gray-200 shadow-none"
+            onClick={handleGoogleSignIn}
+          >
+            <svg
+              aria-label="Google logo"
+              width="16"
+              height="16"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512 512"
+            >
+              <g>
+                <path d="m0 0H512V512H0" fill="#fff"></path>
+                <path
+                  fill="#34a853"
+                  d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"
+                ></path>
+                <path
+                  fill="#4285f4"
+                  d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"
+                ></path>
+                <path
+                  fill="#fbbc02"
+                  d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"
+                ></path>
+                <path
+                  fill="#ea4335"
+                  d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"
+                ></path>
+              </g>
+            </svg>
+            Login with Google
+          </button>
+
+          <div className="divider text-grey-primary  divider-neutral">OR</div>
+
           <div className="w-full md:w-2/5 flex flex-col items-center gap-5 ">
             <div className="w-full flex flex-col items-center">
               {/* Email Input */}
@@ -204,10 +263,18 @@ export default function AuthPage() {
                 value={email}
                 onChange={(e) => handleEmailChange(e.target.value)}
                 disabled={isLoading}
-                className={`input bg-grey-light border border-grey-alt-dark md:w-3/5 ${fieldErrors.email ? 'border-red-500' : ''}`}
+                className={`input bg-grey-light border border-grey-alt-dark md:w-3/5 ${
+                  fieldErrors.email ? "border-red-500" : ""
+                }`}
               />
-              <div className={`validator-hint ${fieldErrors.email ? 'block text-red-600 text-sm mt-1' : 'hidden'} w-full md:w-3/5 text-center`}>
-                {fieldErrors.email || 'Enter valid email address'}
+              <div
+                className={`validator-hint ${
+                  fieldErrors.email
+                    ? "block text-red-600 text-sm mt-1"
+                    : "hidden"
+                } w-full md:w-3/5 text-center`}
+              >
+                {fieldErrors.email || "Enter valid email address"}
               </div>
             </div>
             <div className="w-full flex flex-col items-center">
@@ -218,13 +285,21 @@ export default function AuthPage() {
                 placeholder="Password"
                 pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                 title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
-                className={`input bg-grey-light border border-grey-alt-dark md:w-3/5 ${fieldErrors.password ? 'border-red-500' : ''}`}
+                className={`input bg-grey-light border border-grey-alt-dark md:w-3/5 ${
+                  fieldErrors.password ? "border-red-500" : ""
+                }`}
                 value={password}
                 onChange={(e) => handlePasswordChange(e.target.value)}
                 disabled={isLoading}
               />
-              <p className={`validator-hint ${fieldErrors.password ? 'block text-red-600 text-sm mt-1' : 'hidden'} w-full md:w-3/5 text-center`}>
-                {fieldErrors.password || 'Must be more than 8 characters'}
+              <p
+                className={`validator-hint ${
+                  fieldErrors.password
+                    ? "block text-red-600 text-sm mt-1"
+                    : "hidden"
+                } w-full md:w-3/5 text-center`}
+              >
+                {fieldErrors.password || "Must be more than 8 characters"}
               </p>
             </div>
             {/* Actions */}
@@ -253,39 +328,6 @@ export default function AuthPage() {
                 {error}
               </div>
             )}
-            {/* 
-            <div className="divider">OR</div>
-            
-            <button className="btn bg-grey-main text-grey-primary w-full md:w-3/5">
-              <svg
-                aria-label="Google logo"
-                width="16"
-                height="16"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 512 512"
-              >
-                <g>
-                  <path d="m0 0H512V512H0" fill="#fff"></path>
-                  <path
-                    fill="#34a853"
-                    d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"
-                  ></path>
-                  <path
-                    fill="#4285f4"
-                    d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"
-                  ></path>
-                  <path
-                    fill="#fbbc02"
-                    d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"
-                  ></path>
-                  <path
-                    fill="#ea4335"
-                    d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"
-                  ></path>
-                </g>
-              </svg>
-              Login with Google
-            </button> */}
           </div>
         </div>
       ) : (
@@ -299,6 +341,42 @@ export default function AuthPage() {
               the Word.
             </p>
           </div>
+          <button
+            className="btn bg-white text-grey-primary w-full md:w-3/5 rounded-xl border-gray-200 shadow-none"
+            onClick={handleGoogleSignIn}
+          >
+            <svg
+              aria-label="Google logo"
+              width="16"
+              height="16"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512 512"
+            >
+              <g>
+                <path d="m0 0H512V512H0" fill="#fff"></path>
+                <path
+                  fill="#34a853"
+                  d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"
+                ></path>
+                <path
+                  fill="#4285f4"
+                  d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"
+                ></path>
+                <path
+                  fill="#fbbc02"
+                  d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"
+                ></path>
+                <path
+                  fill="#ea4335"
+                  d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"
+                ></path>
+              </g>
+            </svg>
+            Sign Up with Google
+          </button>
+
+          <div className="divider text-grey-primary  divider-neutral">OR</div>
+
           <div className="w-full md:w-2/5 flex flex-col items-center gap-5">
             <div className="w-full flex flex-col items-center">
               {/* Email Input */}
@@ -309,10 +387,18 @@ export default function AuthPage() {
                 value={email}
                 onChange={(e) => handleEmailChange(e.target.value)}
                 disabled={isLoading}
-                className={`input bg-grey-light border border-grey-alt-dark md:w-3/5 ${fieldErrors.email ? 'border-red-500' : ''}`}
+                className={`input bg-grey-light border border-grey-alt-dark md:w-3/5 ${
+                  fieldErrors.email ? "border-red-500" : ""
+                }`}
               />
-              <div className={`validator-hint ${fieldErrors.email ? 'block text-red-600 text-sm mt-1' : 'hidden'} w-full md:w-3/5 text-center`}>
-                {fieldErrors.email || 'Enter valid email address'}
+              <div
+                className={`validator-hint ${
+                  fieldErrors.email
+                    ? "block text-red-600 text-sm mt-1"
+                    : "hidden"
+                } w-full md:w-3/5 text-center`}
+              >
+                {fieldErrors.email || "Enter valid email address"}
               </div>
             </div>
             <div className="w-full flex flex-col items-center">
@@ -323,13 +409,22 @@ export default function AuthPage() {
                 placeholder="Password"
                 pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                 title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
-                className={`input bg-grey-light border border-grey-alt-dark md:w-3/5 ${fieldErrors.password ? 'border-red-500' : ''}`}
+                className={`input bg-grey-light border border-grey-alt-dark md:w-3/5 ${
+                  fieldErrors.password ? "border-red-500" : ""
+                }`}
                 value={password}
                 onChange={(e) => handlePasswordChange(e.target.value)}
                 disabled={isLoading}
               />
-              <p className={`validator-hint ${fieldErrors.password ? 'block text-red-600 text-sm mt-1' : 'hidden'} w-full md:w-3/5 text-center`}>
-                {fieldErrors.password || 'Must be more than 8 characters, including at least one number, lowercase letter, and uppercase letter'}
+              <p
+                className={`validator-hint ${
+                  fieldErrors.password
+                    ? "block text-red-600 text-sm mt-1"
+                    : "hidden"
+                } w-full md:w-3/5 text-center`}
+              >
+                {fieldErrors.password ||
+                  "Must be more than 8 characters, including at least one number, lowercase letter, and uppercase letter"}
               </p>
             </div>
             <div className="w-full flex flex-col gap-2 items-center">
@@ -353,6 +448,7 @@ export default function AuthPage() {
                 Sign In
               </button>
             </div>
+
             {error && (
               <div className="text-red-600 text-sm bg-red-100 rounded p-2">
                 {error}
