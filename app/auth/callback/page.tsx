@@ -15,19 +15,25 @@ export default function AuthCallbackPage() {
   useEffect(() => {
     const handleAuthCallback = async () => {
       try {
+        console.log('Auth callback started, waiting for Supabase to process...');
+        
         // Wait a bit for Supabase to process the OAuth callback
         await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        console.log('Checking user onboarding status...');
         
         // Check user's onboarding status
         const { needsOnboarding, user, error: statusError } = await checkUserOnboardingStatus();
         
         if (statusError) {
+          console.error('Status check error:', statusError);
           setError(statusError);
           setIsChecking(false);
           return;
         }
 
         if (user) {
+          console.log('User authenticated:', user.email);
           // Set user in store
           setUser(user);
           
@@ -41,6 +47,7 @@ export default function AuthCallbackPage() {
             router.push("/dashboard");
           }
         } else {
+          console.error('No user found after OAuth');
           setError("Failed to get user information");
           setIsChecking(false);
         }

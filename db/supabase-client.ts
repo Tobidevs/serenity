@@ -34,10 +34,20 @@ export const signUpToSupabase = async (email: string, password: string) => {
 };
 
 export const signInWithGoogle = async () => {
+  // Get the current origin (works for both dev and production)
+  const redirectUrl = `${window.location.origin}/auth/callback`;
+  
+  console.log('Google OAuth redirect URL:', redirectUrl); // Debug log
+  
   const { error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: `${window.location.origin}/auth/callback`
+      redirectTo: redirectUrl,
+      queryParams: {
+        // Ensure we get the right scopes
+        access_type: 'offline',
+        prompt: 'consent',
+      }
     }
   });
   
