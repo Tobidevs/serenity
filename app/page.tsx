@@ -197,9 +197,7 @@ export default function Home() {
             <h1 className="text-2xl md:text-4xl text-grey-primary font-bold ">
               Project Overview
             </h1>
-            <p className="text-sm text-grey-secondary font-semibold">
-              Last updated: Aug 24, 2025
-            </p>
+            
           </div>
         </Fade>
         <div className="md:flex md:w-full md:px-15 justify-center gap-10">
